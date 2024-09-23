@@ -9,7 +9,7 @@ export const About = () => {
       <h2 className={styles.title}>ABOUT</h2>
       <div className={styles.content}>
         <img
-          src={getImageUrl("about/aboutImage.png")}
+          src={getImageUrl("about/programming.jpeg")}
           alt="About me"
           className={styles.aboutImage}
         />
