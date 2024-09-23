@@ -9,7 +9,9 @@ export const Hero = () => {
       <div className={styles.content}>
         <h1 className={styles.title}>Diego López Reduello</h1>
         <p className={styles.description}>
-          Insert description here. Insert description here. Insert description.
+          I am a Software Engineer skilled in AI, Python, and full-stack web
+          development, with a background in building web applications and AI
+          solutions. Passionate about problem-solving and innovation.
         </p>
         <a href="mailto:myemail@email.com" className={styles.contactBtn}>
           Contact Me

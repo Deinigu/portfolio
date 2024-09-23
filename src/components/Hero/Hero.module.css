@@ -38,6 +38,7 @@
   font-size: 30px;
   font-family: var(--font-roboto);
   margin-bottom: 52px;
+  margin-right: 5%;
 }
 
 .contactBtn {
@@ -52,7 +53,7 @@
 }
 
 .heroImg {
-  width: 50%;
+  width: 100%;
   max-width: 266px;
   z-index: 1;
 
