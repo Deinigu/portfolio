@@ -1,0 +1,18 @@
+[
+    {
+        "role" : "Intern",
+        "organization" : "Avanade Inc.",
+        "startDate" : "March, 2024",
+        "endDate" : "May, 2024",
+        "experience": ["Worked on Data Analysis and Visualization using Power BI", "Learn Microsoft Technologies such as Power Platform, .NET, etc."] ,
+        "imageSrc": "history/avanade.png"
+    },
+    {
+        "role" : "Gestor de calidad (vaya, no hice na)",
+        "organization" : "Google Inc.",
+        "startDate" : "March, 2002",
+        "endDate" : "May, 2077",
+        "experience": ["Worked on Data Analysis and Visualization using Power BI", "Learn Microsoft Technologies such as Power Platform, .NET, etc."] ,
+        "imageSrc": "history/google.png"
+    }
+]
