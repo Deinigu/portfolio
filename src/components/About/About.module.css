@@ -28,7 +28,9 @@
 .aboutImage {
   width: 75%;
   max-width: 350px;
-  margin-right: 15px;
+  margin-right: 10%;
+  margin-left: 10%;
+  flex-direction: column;
 }
 
 .aboutItems {
