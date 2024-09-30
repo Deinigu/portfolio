@@ -1,69 +1,78 @@
 @import "../../vars.css";
 
 .container {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    background: linear-gradient(180deg, #576cbc 0%, #132a53 100%);
-    box-shadow: 0 16px 14px 0 #04152d;
-    max-width: 350px;
-    max-height: 100%;
+  display: flex;
+  max-width: 350px;
+  max-height: 100%;
+  flex-direction: column;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #576cbc 0%, #132a53 100%);
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.3s ease; /* Quick transition for smoothness */
+  transform-style: preserve-3d;
+  cursor: pointer;
+  perspective: 500px;
+  position: relative;
+  overflow: hidden;
 }
 
+.container:hover {
+    transform: scale(5); /* Slightly scale the card */
+    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3), 0px 0px 30px 10px var(--color-dark); /* Shadow on hover */  }
+
 .content {
-    padding: 5% 10%;
+  padding: 5% 10%;
+  transition: transform 0.2s ease; /* Transition for card content */
 }
 
 .img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px 10px 0 0;
 }
 
 .title {
-    font-size: 28px;
-    font-weight: 700;
-    
+  font-size: 28px;
+  font-weight: 700;
 }
 
 .description {
-    margin-top: 6px;
-    font-size: 20px;
-    font-weight: 400;
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .skills {
-    width: 100%;
-    margin-top: 14px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 6px;
-    list-style: none;
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
 }
 
 .skill {
-    font-size: 25px;
-    font-weight: 400;
-    border-radius: 100px;
-    background: var(--color-dark);
-    padding: 2px 22px;
+  font-size: 25px;
+  font-weight: 400;
+  border-radius: 100px;
+  background: var(--color-dark);
+  padding: 2px 22px;
 }
 
 .links {
-    width: 100%;
-    margin-top: 26px;
-    display: flex;
-    justify-content: space-around;
+  width: 100%;
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .link {
-    text-decoration: none;
-    color: var(--color-text);
-    font-size: 30px;
-    font-weight: 600;
-    border-radius: 100px;
-    background: var(--color-primary);
-    padding: 1px 22px;
-
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 30px;
+  font-weight: 600;
+  border-radius: 100px;
+  background: var(--color-primary);
+  padding: 1px 22px;
 }

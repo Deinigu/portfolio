@@ -17,6 +17,8 @@
   font-size: 80px;
   font-weight: 700;
   letter-spacing: 4px;
+  justify-content: center;
+  text-align: center;
 }
 
 .text p {
