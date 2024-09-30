@@ -1,7 +1,5 @@
 import React from "react";
-
 import { getImageUrl } from "../../utils";
-
 import styles from "./Footer.module.css";
 
 export const Footer = () => {
@@ -14,7 +12,9 @@ export const Footer = () => {
       <ul className={styles.links}>
         <li className={styles.link}>
           <img src={getImageUrl("contact/emailIcon.png")} alt="Email icon" />
-          <a href="mailto:myemail@email.com">diegolopezreduello@gmail.com</a>
+          <a href="mailto:diegolopezreduello@gmail.com">
+            diegolopezreduello@gmail.com
+          </a>
         </li>
         <li className={styles.link}>
           <img

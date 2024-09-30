@@ -23,6 +23,8 @@
   font-size: 40px;
   font-weight: 400;
   letter-spacing: 2px;
+  justify-content: center;
+  text-align: center;
 }
 
 .links {
@@ -37,6 +39,7 @@
   display: flex;
   align-items: center;
   gap: 25px;
+  text-align: center;
 }
 
 .link a {
@@ -45,6 +48,12 @@
     font-weight: 400;
     text-decoration: none;
     letter-spacing: 1.5px;
+    display: flex;
+}
+
+.link img {
+  width: 40px;
+  display: flex;
 }
 
 @media screen and (max-width: 830px) {
@@ -61,5 +70,13 @@
 
   .links {
     align-items: center;
+  }
+
+  .link a {
+    font-size: 20px;
+  }
+
+  .link img {
+    width: 30px;
   }
 }
