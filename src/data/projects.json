@@ -1,20 +1,48 @@
 [
-    {
-      "title": "Project A",
-      "imageSrc": "projects/project.png",
-      "description": "This is a project made to learn the latest languages by building an app.",
-      "skills": ["React", "Express", "Node"]
-    },
-    {
-      "title": "Project B",
-      "imageSrc": "projects/project.png",
-      "description": "This is a project made to learn the latest languages by building an app.",
-      "skills": ["React", "Express", "Node", "Sass"]
-    },
-    {
-      "title": "Project C",
-      "imageSrc": "projects/project.png",
-      "description": "This is a project made to learn the latest languages by building an app.",
-      "skills": ["React", "Express", "Node"]
-    }
-  ]
+  {
+    "id": 1,
+    "title": "Project A",
+    "thumbnail": "projects/project.png",
+    "description": "This is a project made to learn the latest languages by building an app.",
+    "skills": [
+      "React",
+      "Express",
+      "Node"
+    ],
+    "sections": [
+      {
+        "title": "Introduction",
+        "content": "This is the introduction section of the article."
+      },
+      {
+        "title": "Key Features",
+        "content": "These are some of the key features of the project."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Project B",
+    "thumbnail": "projects/project.png",
+    "description": "This is a project made to learn the latest languages by building an app.",
+    "skills": [
+      "React",
+      "Express",
+      "Node",
+      "Sass"
+    ],
+    "article": "Blablabla about the project B"
+  },
+  {
+    "id": 3,
+    "title": "Project C",
+    "thumbnail": "projects/project.png",
+    "description": "This is a project made to learn the latest languages by building an app.",
+    "skills": [
+      "React",
+      "Express",
+      "Node"
+    ],
+    "article": "Blablabla about the project C"
+  }
+]

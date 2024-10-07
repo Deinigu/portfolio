@@ -1,47 +1,42 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { getImageUrl } from "../../utils";
 import styles from "./ProjectCard.module.css";
 
 export const ProjectCard = ({
-  project: { title, imageSrc, description, skills },
+  project: { id, title, thumbnail, description, skills }, // Add id to project data
 }) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
-  const [scale, setScale] = useState(1); // New state for scale
+  const [scale, setScale] = useState(1);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // Update rotation based on mouse position
   const handleMouseMove = (event) => {
     const card = event.currentTarget;
     const { width, height, left, top } = card.getBoundingClientRect();
 
-    // Calculate center of the card
     const centerX = width / 2;
     const centerY = height / 2;
+    const mouseX = event.clientX - left;
+    const mouseY = event.clientY - top;
 
-    // Get mouse position relative to the card
-    const mouseX = event.clientX - left; // x position of the mouse relative to the card
-    const mouseY = event.clientY - top;  // y position of the mouse relative to the card
-
-    // Calculate the rotation angles based on the mouse position within the card
     const deltaX = mouseX - centerX;
     const deltaY = mouseY - centerY;
 
-    const newRotationX = -(deltaY / centerY) * 5; // Adjusted multiplier for sensitivity
+    const newRotationX = -(deltaY / centerY) * 5;
     const newRotationY = (deltaX / centerX) * 5;
 
     setRotation({ x: newRotationX, y: newRotationY });
   };
 
   const handleMouseLeave = () => {
-    setRotation({ x: 0, y: 0 }); // Reset rotation when mouse leaves
-    setScale(1); // Reset scale
+    setRotation({ x: 0, y: 0 });
+    setScale(1);
   };
 
-  const handleMouseDown = () => {
-    setScale(0.9); // Scale down on mouse down
-  };
-
-  const handleMouseUp = () => {
-    setScale(1.1); // Scale up on mouse up
+  // Handle card click to navigate to the project article page
+  const handleCardClick = () => {
+    navigate(`/projects/${id}`); // Navigate to the project page using the project id
   };
 
   return (
@@ -49,14 +44,14 @@ export const ProjectCard = ({
       className={styles.container}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
+      onClick={handleCardClick} // Trigger navigation on click
       style={{
-        transform: `perspective(500px) scale(${scale}) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`
+        transform: `perspective(500px) scale(${scale}) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+        cursor: 'pointer' // Indicate that the card is clickable
       }}
     >
       <img
-        src={getImageUrl(imageSrc)}
+        src={getImageUrl(thumbnail)}
         alt={`Image of ${title}`}
         className={styles.image}
       />
