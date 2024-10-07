@@ -28,10 +28,18 @@
     "skills": [
       "React",
       "Express",
-      "Node",
-      "Sass"
+      "Node"
     ],
-    "article": "Blablabla about the project B"
+    "sections": [
+      {
+        "title": "Introduction",
+        "content": "This is the introduction section of the article."
+      },
+      {
+        "title": "Key Features",
+        "content": "These are some of the key features of the project."
+      }
+    ]
   },
   {
     "id": 3,
@@ -43,6 +51,16 @@
       "Express",
       "Node"
     ],
-    "article": "Blablabla about the project C"
+    "sections": [
+      {
+        "title": "Introduction",
+        "content": "This is the introduction section of the article."
+      },
+      {
+        "title": "Key Features",
+        "content": "These are some of the key features of the project."
+      }
+    ]
   }
+  
 ]

@@ -4,7 +4,7 @@ import { getImageUrl } from "../../utils";
 import styles from "./ProjectCard.module.css";
 
 export const ProjectCard = ({
-  project: { id, title, thumbnail, description, skills }, // Add id to project data
+  project: { id, title, thumbnail, description, skills }, 
 }) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
@@ -36,6 +36,7 @@ export const ProjectCard = ({
 
   // Handle card click to navigate to the project article page
   const handleCardClick = () => {
+    console.log('Card clicked, navigating to:', `/projects/${id}`);
     navigate(`/projects/${id}`); // Navigate to the project page using the project id
   };
 
@@ -59,9 +60,9 @@ export const ProjectCard = ({
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
         <ul className={styles.skills}>
-          {skills.map((skill, id) => {
+          {skills.map((skill, idSkill) => {
             return (
-              <li key={id} className={styles.skill}>
+              <li key={idSkill} className={styles.skill}>
                 {skill}
               </li>
             );

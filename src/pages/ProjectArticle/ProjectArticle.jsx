@@ -8,11 +8,15 @@ import { getImageUrl } from "../../utils";
 export const ProjectArticle = () => {
   const { id } = useParams();
 
-  // Find the project by ID
-  const project = projects.find((proj) => proj.projectId === id);
+// Find the project by ID
+const project = projects.find((proj) => proj.id === Number(id));
 
   if (!project) {
-    return <h2>Project not found</h2>;
+    return (
+      <div className={styles.articleContainer}>
+        <h2>Project not found</h2>
+      </div>
+    )
   }
 
   return (
