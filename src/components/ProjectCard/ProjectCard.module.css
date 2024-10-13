@@ -3,7 +3,7 @@
 .container {
   display: flex;
   max-width: 350px;
-  max-height: 100%;
+  height: 500px; /* Set a fixed height for consistency */
   flex-direction: column;
   border-radius: 10px;
   background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-dark) 100%);
@@ -17,18 +17,22 @@
 }
 
 .container:hover {
-    transform: scale(5); /* Slightly scale the card */
-    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3), 0px 0px 30px 10px var(--color-dark); /* Shadow on hover */  }
+  transform: scale(1.05); /* Adjusted scale to avoid excessive zoom */
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3), 0px 0px 30px 10px var(--color-dark); /* Shadow on hover */
+}
 
 .content {
   padding: 5% 10%;
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  flex: 1; /* Ensure content takes up available space */
   transition: transform 0.2s ease; /* Transition for card content */
 }
 
 .img {
   width: 100%;
-  height: 100%;
+  height: 200px; /* Set a fixed height for the image */
   border-radius: 10px 10px 0 0;
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
 }
 
 .title {
@@ -40,6 +44,10 @@
   margin-top: 6px;
   font-size: 20px;
   font-weight: 400;
+  line-height: 1.4; /* Improve readability */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 60px; /* Set max-height to keep uniformity */
 }
 
 .skills {
@@ -53,16 +61,16 @@
 }
 
 .skill {
-  font-size: 25px;
+  font-size: 16px; /* Adjust font size for consistency */
   font-weight: 400;
   border-radius: 100px;
   background: var(--color-dark);
-  padding: 2px 22px;
+  padding: 2px 14px; /* Adjust padding */
 }
 
 .links {
   width: 100%;
-  margin-top: 26px;
+  margin-top: auto; /* Push links to the bottom */
   display: flex;
   justify-content: space-around;
 }
@@ -70,9 +78,9 @@
 .link {
   text-decoration: none;
   color: var(--color-text);
-  font-size: 30px;
+  font-size: 18px; /* Adjust font size */
   font-weight: 600;
   border-radius: 100px;
   background: var(--color-primary);
-  padding: 1px 22px;
+  padding: 8px 16px;
 }

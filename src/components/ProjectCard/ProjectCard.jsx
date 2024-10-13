@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { getImageUrl } from "../../utils";
 import styles from "./ProjectCard.module.css";
 
 export const ProjectCard = ({
-  project: { id, title, thumbnail, description, skills }, 
+  project: { id, title, thumbnail, description, skills },
 }) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
@@ -36,7 +36,7 @@ export const ProjectCard = ({
 
   // Handle card click to navigate to the project article page
   const handleCardClick = () => {
-    console.log('Card clicked, navigating to:', `/projects/${id}`);
+    console.log("Card clicked, navigating to:", `/projects/${id}`);
     navigate(`/projects/${id}`); // Navigate to the project page using the project id
   };
 
@@ -48,7 +48,7 @@ export const ProjectCard = ({
       onClick={handleCardClick} // Trigger navigation on click
       style={{
         transform: `perspective(500px) scale(${scale}) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-        cursor: 'pointer' // Indicate that the card is clickable
+        cursor: "pointer", // Indicate that the card is clickable
       }}
     >
       <img
@@ -58,7 +58,7 @@ export const ProjectCard = ({
       />
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.description}>{description}</p>
+        {/* <p className={styles.description}>{description}</p> */}{""}
         <ul className={styles.skills}>
           {skills.map((skill, idSkill) => {
             return (

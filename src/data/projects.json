@@ -1,35 +1,83 @@
 [
   {
     "id": 1,
-    "title": "Project A",
-    "thumbnail": "projects/project.png",
-    "description": "This is a project made to learn the latest languages by building an app.",
+    "title": "Detection and Classification of Chess Pieces on a Real Board",
+    "thumbnail": "projects/chess_project.png",
+    "description": "The project focuses on detecting and classifying chess pieces using AI and computer vision techniques to convert physical chess positions into a digital format.",
     "skills": [
-      "React",
-      "Express",
-      "Node"
+      "Deep Learning",
+      "Computer Vision",
+      "Artificial Intelligence",
+      "YOLOv8",
+      "Python"
     ],
     "sections": [
       {
         "title": "Introduction",
         "content": [
-          "This is the introduction section of the article.",
-          "- Feature 1",
-          "- Feature 2",
-          "- Feature 3"
+          "The project aims to create a system that can detect and classify chess pieces arranged on a board using a neural network.",
+          "The approach leverages advanced digital image processing techniques to identify the precise locations of each piece on the board.",
+          "The final output is represented in Forsyth-Edwards Notation (FEN), a widely accepted format for describing chess positions."
         ]
       },
       {
-        "title": "Key Features",
+        "title": "Background and Motivation",
         "content": [
-          "These are some of the key features of the project:",
-          "1. First feature",
-          "2. Second feature",
-          "3. Third feature"
+          "Chess is a domain where artificial intelligence (AI) has a longstanding history, dating back to the early attempts of building chess-playing programs.",
+          "This project contributes to that field by addressing the challenge of converting physical chess positions into digital formats accurately.",
+          "Through the application of deep learning and computer vision, this solution not only serves chess enthusiasts but also advances AI's ability to interpret real-world scenarios."
+        ]
+      },
+      {
+        "title": "Methodology",
+        "content": [
+          "### Data Collection",
+          "A proprietary dataset was developed, consisting of over 100 images of chessboards with different configurations of pieces.",
+          "The images were manually labeled, providing the necessary ground truth for training and evaluating the model.",
+          "The dataset accounted for various lighting conditions to enhance the system's robustness in real-world scenarios.",
+          "### Preprocessing",
+          "1. Grayscale Conversion: The original color images were converted to grayscale to simplify the processing.",
+          "2. Gaussian Blurring: Applied to reduce noise and improve edge detection.",
+          "3. Edge Detection: Canny edge detection was used to identify prominent boundaries in the image.",
+          "4. Hough Transformation: This technique detected the grid lines on the chessboard, allowing for segmentation of the board into individual cells.",
+          "### Model Training",
+          "The project utilized the YOLOv8 architecture, a state-of-the-art object detection framework.",
+          "The training process involved multiple iterations using a k-fold cross-validation strategy to ensure the model's generalization across different data splits.",
+          "Hyperparameters like learning rate and batch size were tuned to optimize the model's performance."
+        ]
+      },
+      {
+        "title": "Results and Evaluation",
+        "content": [
+          "The system's effectiveness was measured using metrics such as precision, recall, and F1 score.",
+          "Tests on different lighting conditions demonstrated the model's robustness, achieving high accuracy in detecting and classifying chess pieces under various scenarios.",
+          "Validation results showed consistent F1 scores across all folds of the cross-validation process, confirming the reliability of the approach.",
+          "### Confusion Matrices",
+          "Confusion matrices for different folds indicated that certain types of pieces (e.g., pawns) were more challenging to classify accurately compared to others like rooks or queens.",
+          "This insight led to further adjustments in the training data to balance the representation of piece types."
+        ]
+      },
+      {
+        "title": "Conclusion",
+        "content": [
+          "This project successfully developed a system capable of digitizing chess positions from physical boards.",
+          "The integration of deep learning with traditional image processing techniques provided a comprehensive solution for real-time chess position detection.",
+          "Future work will explore enhancing the model's accuracy further and expanding the dataset to include more varied board configurations and piece designs."
+        ]
+      },
+      {
+        "title": "Keywords",
+        "content": [
+          "Chess",
+          "Deep Learning",
+          "Artificial Intelligence",
+          "Computer Vision",
+          "FEN"
         ]
       }
     ]
-  },
+  }
+  ,
   {
     "id": 2,
     "title": "Project B",
