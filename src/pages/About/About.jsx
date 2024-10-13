@@ -29,7 +29,11 @@ export const About = () => {
             </div>
           </li>
           <li className={styles.aboutItem}>
-            <img src={getImageUrl("about/uiIcon.png")} alt="UI icon" />
+            <img
+              className={styles.aboutItemIcon}
+              src={getImageUrl("about/uiIcon.png")}
+              alt="UI icon"
+            />
             <div className={styles.aboutItemText}>
               <h3>Prueba 3</h3>
               <p>Soy buenísimo con las interfaces illo contratame.</p>
