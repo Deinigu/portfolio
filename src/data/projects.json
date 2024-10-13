@@ -12,11 +12,21 @@
     "sections": [
       {
         "title": "Introduction",
-        "content": "This is the introduction section of the article."
+        "content": [
+          "This is the introduction section of the article.",
+          "- Feature 1",
+          "- Feature 2",
+          "- Feature 3"
+        ]
       },
       {
         "title": "Key Features",
-        "content": "These are some of the key features of the project."
+        "content": [
+          "These are some of the key features of the project:",
+          "1. First feature",
+          "2. Second feature",
+          "3. Third feature"
+        ]
       }
     ]
   },
@@ -33,11 +43,21 @@
     "sections": [
       {
         "title": "Introduction",
-        "content": "This is the introduction section of the article."
+        "content": [
+          "This is the introduction section of the article.",
+          "- Feature 1",
+          "- Feature 2",
+          "- Feature 3"
+        ]
       },
       {
         "title": "Key Features",
-        "content": "These are some of the key features of the project."
+        "content": [
+          "These are some of the key features of the project:",
+          "1. First feature",
+          "2. Second feature",
+          "3. Third feature"
+        ]
       }
     ]
   },
@@ -54,13 +74,53 @@
     "sections": [
       {
         "title": "Introduction",
-        "content": "This is the introduction section of the article."
+        "content": [
+          "This is the introduction section of the article.",
+          "- Feature 1",
+          "- Feature 2",
+          "- Feature 3"
+        ]
       },
       {
         "title": "Key Features",
-        "content": "These are some of the key features of the project."
+        "content": [
+          "These are some of the key features of the project:",
+          "1. First feature",
+          "2. Second feature",
+          "3. Third feature"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Project D",
+    "thumbnail": "projects/project.png",
+    "description": "This is a project made to learn the latest languages by building an app.",
+    "skills": [
+      "React",
+      "Express",
+      "Node"
+    ],
+    "sections": [
+      {
+        "title": "Introduction",
+        "content": [
+          "This is the introduction section of the article.",
+          "- Feature 1",
+          "- Feature 2",
+          "- Feature 3"
+        ]
+      },
+      {
+        "title": "Key Features",
+        "content": [
+          "These are some of the key features of the project:",
+          "1. First feature",
+          "2. Second feature",
+          "3. Third feature"
+        ]
       }
     ]
   }
-  
 ]
