@@ -4,7 +4,7 @@ import { getImageUrl } from "../../utils";
 import styles from "./ProjectCard.module.css";
 
 export const ProjectCard = ({
-  project: { id, title, thumbnail, description, skills },
+  project: { id, title, thumbnail, skills },
 }) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
@@ -31,7 +31,6 @@ export const ProjectCard = ({
 
   const handleMouseLeave = () => {
     setRotation({ x: 0, y: 0 });
-    setScale(1);
   };
 
   // Handle card click to navigate to the project article page

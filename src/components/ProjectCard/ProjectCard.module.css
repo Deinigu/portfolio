@@ -3,12 +3,13 @@
 .container {
   display: flex;
   max-width: 350px;
-  height: 500px; /* Set a fixed height for consistency */
+  height: 550px; /* Set a fixed height for consistency */
+  width: 100%;
   flex-direction: column;
   border-radius: 10px;
   background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-dark) 100%);
   box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.1s ease, box-shadow 0.3s ease; /* Quick transition for smoothness */
+  transition: scale 0.5s ease, box-shadow 0.3s ease, translate 0.5s ease; /* Quick transition for smoothness */
   transform-style: preserve-3d;
   cursor: pointer;
   perspective: 500px;
@@ -17,15 +18,17 @@
 }
 
 .container:hover {
-  transform: scale(1.05); /* Adjusted scale to avoid excessive zoom */
   box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3), 0px 0px 30px 10px var(--color-dark); /* Shadow on hover */
+  translate: 0 -5px;
+  scale: 1.03;
 }
 
 .content {
   padding: 5% 10%;
+  translate: 0 10px;
   overflow-y: auto; /* Allow vertical scrolling if content overflows */
   flex: 1; /* Ensure content takes up available space */
-  transition: transform 0.2s ease; /* Transition for card content */
+  transition: transform 0.5s ease; /* Transition for card content */
 }
 
 .img {
