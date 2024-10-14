@@ -42,5 +42,8 @@ export const About = () => {
         </ul>
       </div>
     </section>
+    
   );
 };
+
+export default About;

@@ -52,3 +52,5 @@ export const Experience = () => {
     </section>
   );
 };
+
+export default Experience;

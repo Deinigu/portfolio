@@ -1,7 +1,7 @@
 import styles from "./App.module.css";
 import { Navbar } from "./components/NavBar/Navbar";
-import { About } from "./pages/About/About";
-import { Experience } from "./pages/Experience/Experience";
+import { About } from "./components/About/About";
+import { Experience } from "./components/Experience/Experience";
 import { Projects } from "./pages/Projects/Projects";
 import { Footer } from "./components/Footer/Footer";
 import { Home } from "./pages/Home/Home";
@@ -17,6 +17,7 @@ import {
   PageTransition,
   ProjectPageTransition,
 } from "./components/PageTransition/PageTransition";
+import { AboutMePage } from "./pages/AboutMePage/AboutMePage";
 
 function AppContent() {
   const location = useLocation();
@@ -38,15 +39,7 @@ function AppContent() {
             path="/about"
             element={
               <PageTransition>
-                <About />
-              </PageTransition>
-            }
-          />
-          <Route
-            path="/experience"
-            element={
-              <PageTransition>
-                <Experience />
+                <AboutMePage />
               </PageTransition>
             }
           />
