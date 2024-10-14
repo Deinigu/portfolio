@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "Detection and Classification of Chess Pieces on a Real Board",
+    "title": "Chess Piece Detection & Classification",
     "thumbnail": "projects/chess_project.png",
     "description": "The project focuses on detecting and classifying chess pieces using AI and computer vision techniques to convert physical chess positions into a digital format.",
     "skills": [

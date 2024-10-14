@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./Hero.module.css";
 import { getImageUrl } from "../../utils";
+import { motion } from "framer-motion";
 
 export const Hero = () => {
   return (
@@ -13,8 +14,13 @@ export const Hero = () => {
           development, with a background in building web applications and AI
           solutions. Passionate about problem-solving and innovation.
         </p>
-        <a href="#footer" className={styles.contactBtn}>
-          Contact Me
+        <a href="#footer">
+          <motion.button
+            whileTap={{ scale: 0.85 }}
+            className={styles.contactBtn}
+          >
+            Contact Me
+          </motion.button>
         </a>
       </div>
       <img
