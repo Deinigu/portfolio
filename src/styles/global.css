@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import "flowbite/src/themes/default.css";
+@import "../../node_modules/flowbite-typography/dist/typography.css";
+
+@source "../../node_modules/flowbite";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* You can define your color here https://www.tints.dev */
+@theme {
+  --color-primary-50: #f4f7ff;
+  --color-primary-100: #e0eaff;
+  --color-primary-200: #b6cbf7;
+  --color-primary-300: #8aadf4;
+  --color-primary-400: #6e9eea;
+  --color-primary-500: #5b8bd6;
+  --color-primary-600: #4c7ac7;
+  --color-primary-700: #3a5e99;
+  --color-primary-800: #2b4266;
+  --color-primary-900: #1a2633;
+  --color-primary-950: #101522;
+
+  --font-sans:
+    "Inter", "ui-sans-serif", "system-ui", "-apple-system", "system-ui", "Segoe UI", "Roboto", "Helvetica Neue",
+    "Arial", "Noto Sans", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-body:
+    "Inter", "ui-sans-serif", "system-ui", "-apple-system", "system-ui", "Segoe UI", "Roboto", "Helvetica Neue",
+    "Arial", "Noto Sans", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono:
+    "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace";
+}
