@@ -1,0 +1,88 @@
+---
+// filepath: src/components/BlogCardList.astro
+import {
+  getCollection,
+  type InferEntrySchema,
+  type RenderedContent,
+} from "astro:content";
+
+const collection = Astro.props.collection;
+const posts: {
+  [x: string]: any;
+  id: string;
+  body?: string;
+  collection: typeof collection;
+  data: InferEntrySchema<"blog">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}[] = await getCollection(collection);
+---
+
+<div class="card-list">
+  {
+    posts.map((post) => (
+      <article class="card">
+        {post.data.heroImage && (
+          <img
+            src={post.data.heroImage.src}
+            alt={post.data.title}
+            class="card-img"
+          />
+        )}
+        <div class="card-content">
+          <h2 class="card-title">
+            <a href={post.id ? `/${collection}/${post.id}/` : "#"}>
+              {post.data.title}
+            </a>
+          </h2>
+          <p class="card-desc">{post.data.description}</p>
+          <p class="card-date">
+            {new Date(post.data.pubDate).toLocaleDateString()}
+          </p>
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2em;
+    margin: 2em 0;
+  }
+  .card {
+    background: var(--ctp-surface1, #fff);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s;
+  }
+  .card:hover {
+    cursor: pointer;
+    transform: translateY(-4px) scale(1.02);
+  }
+  .card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .card-content {
+    padding: 1em;
+  }
+  .card-title {
+    margin: 0 0 0.5em 0;
+    font-size: 1.3em;
+  }
+  .card-desc {
+    color: var(--ctp-text, #333);
+    margin-bottom: 0.5em;
+  }
+  .card-date {
+    font-size: 0.9em;
+    color: var(--ctp-subtext0, #888);
+  }
+</style>

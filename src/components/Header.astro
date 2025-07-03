@@ -19,8 +19,10 @@ import SocialLinks from "./SocialLinks.astro";
       <HeaderLink href="/music">Music</HeaderLink>
       <HeaderLink href="/contact">Contact me!</HeaderLink>
     </div>
-    <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
-
+    <button id="theme-toggle" aria-label="Toggle theme" class="theme-toggle">
+      <span class="icon-moon" aria-hidden="true">🌙</span>
+      <span class="icon-sun" aria-hidden="true" style="display:none;">☀️</span>
+    </button>
     <style>
       header {
         margin: 0;
@@ -61,6 +63,36 @@ import SocialLinks from "./SocialLinks.astro";
         width: 64px;
         height: 100%;
         border-radius: 50%;
+      }
+      .theme-toggle {
+        background: var(--ctp-surface2);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(var(--ctp-surface0), 0.08);
+        font-size: 1.5em;
+        margin-left: 1em;
+      }
+      .theme-toggle:hover {
+        background: var(--accent);
+        color: var(--ctp-base);
+        outline: none;
+        box-shadow: 0 4px 16px rgba(var(--ctp-surface0), 0.16);
+        animation: spin 0.7s linear infinite;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </nav>
