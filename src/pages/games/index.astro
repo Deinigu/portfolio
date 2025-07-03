@@ -1,0 +1,9 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCardList from "../../components/BlogCardList.astro";
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <BlogCardList collection="games" />
+</BaseLayout>
