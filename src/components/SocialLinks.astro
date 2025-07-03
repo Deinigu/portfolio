@@ -1,0 +1,36 @@
+---
+// src/components/SocialLinks.astro
+import { socialLinks } from "../consts";
+---
+
+<div class="social-links">
+  {
+    socialLinks.map(({ href, label, icon }) => (
+      <a href={href} target="_blank" aria-label={label}>
+        <span class="sr-only">{label}</span>
+        <div set:html={icon} />
+      </a>
+    ))
+  }
+</div>
+<style>
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
+  .social-links a {
+    text-decoration: none;
+    color: var(--white);
+  }
+  .social-links a:hover {
+    color: rgb(var(--gray));
+  }
+  .social-links a svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--white);
+    transition: color 0.2s ease;
+  }
+</style>
