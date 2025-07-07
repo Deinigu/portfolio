@@ -4,15 +4,7 @@ import SocialLinks from "./SocialLinks.astro";
 const today = new Date();
 ---
 
-<footer>
+<footer class="px-4 pt-8 pb-24 text-center text-ctp-text bg-ctp-base">
   <p>&copy; {today.getFullYear()} Diego López Reduello. All rights reserved.</p>
   <SocialLinks />
 </footer>
-<style>
-  footer {
-    padding: 2em 1em 6em 1em;
-    background: var(--ctp-surface1);
-    color: rgb(var(--white));
-    text-align: center;
-  }
-</style>

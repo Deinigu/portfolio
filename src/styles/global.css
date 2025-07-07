@@ -1,66 +1,60 @@
 @import "tailwindcss";
-:root {
-  /* Catppuccin Latte (light theme) */
-  --ctp-base: #eff1f5;
-  --ctp-text: #4c4f69;
-  --ctp-subtext0: #6c6f85;
-  --ctp-subtext1: #5c5f77;
-  --ctp-surface0: #ccd0da;
-  --ctp-surface1: #bcc0cc;
-  --ctp-surface2: #acb0be;
-  --ctp-accent: #1e66f5;
-  --ctp-accent-dark: #0033a0;
-  --ctp-black: #24273a;
-  --ctp-grey: #6c6f85;
-  --ctp-grey-light: #d0d4e0;
-  --ctp-grey-dark: #5c5f77;
-
-  /* Use rgb vars inside rgba() */
-  --ctp-grey-gradient: rgba(var(--ctp-grey-light), 0.5), #fff;
-  --ctp-box-shadow: 0 2px 6px rgba(var(--ctp-grey), 0.25),
-    0 8px 24px rgba(var(--ctp-grey), 0.33),
-    0 16px 32px rgba(var(--ctp-grey), 0.33);
-
-  --accent: var(--ctp-accent);
-  --accent-dark: var(--ctp-accent-dark);
-  --black: var(--ctp-black);
-  --grey: var(--ctp-grey);
-  --grey-light: var(--ctp-grey-light);
-  --grey-dark: var(--ctp-grey-dark);
-  --grey-gradient: var(--ctp-grey-gradient);
-  --box-shadow: var(--ctp-box-shadow);
-}
-
 @custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-ctp-rosewater: hsl(11, 59%, 67%);
+  --color-ctp-flamingo: hsl(0, 60%, 67%);
+  --color-ctp-pink: hsl(316, 73%, 69%);
+  --color-ctp-mauve: hsl(266, 85%, 58%);
+  --color-ctp-red: hsl(347, 87%, 44%);
+  --color-ctp-maroon: hsl(355, 76%, 59%);
+  --color-ctp-peach: hsl(22, 99%, 52%);
+  --color-ctp-yellow: hsl(35, 77%, 49%);
+  --color-ctp-green: hsl(109, 58%, 40%);
+  --color-ctp-teal: hsl(183, 74%, 35%);
+  --color-ctp-sky: hsl(197, 97%, 46%);
+  --color-ctp-sapphire: hsl(189, 70%, 42%);
+  --color-ctp-blue: hsl(220, 91%, 54%);
+  --color-ctp-lavender: hsl(231, 97%, 72%);
+  --color-ctp-text: hsl(234, 16%, 35%);
+  --color-ctp-subtext1: hsl(233, 13%, 41%);
+  --color-ctp-subtext0: hsl(233, 10%, 47%);
+  --color-ctp-overlay2: hsl(232, 10%, 53%);
+  --color-ctp-overlay1: hsl(231, 10%, 59%);
+  --color-ctp-overlay0: hsl(228, 11%, 65%);
+  --color-ctp-surface2: hsl(227, 12%, 71%);
+  --color-ctp-surface1: hsl(225, 14%, 77%);
+  --color-ctp-surface0: hsl(223, 16%, 83%);
+  --color-ctp-base: hsl(220, 23%, 95%);
+  --color-ctp-mantle: hsl(220, 22%, 92%);
+  --color-ctp-crust: hsl(220, 21%, 89%);
+}
 .dark {
-  /* Catppuccin Macchiato (dark theme) */
-  --ctp-base: #24273a;
-  --ctp-text: #cad3f5;
-  --ctp-subtext0: #a5adcb;
-  --ctp-subtext1: #b8c0e0;
-  --ctp-surface0: #363a4f;
-  --ctp-surface1: #494d64;
-  --ctp-surface2: #5b6078;
-  --ctp-accent: #8aadf4;
-  --ctp-accent-dark: #365ea8;
-  --ctp-black: #eff1f5;
-  --ctp-grey: #a5adcb;
-  --ctp-grey-light: #6c6f85;
-  --ctp-grey-dark: #b8c0e0;
-
-  --ctp-grey-gradient: rgba(var(--ctp-grey-light), 0.5), #000;
-  --ctp-box-shadow: 0 2px 6px rgba(var(--ctp-grey), 0.15),
-    0 8px 24px rgba(var(--ctp-grey), 0.25),
-    0 16px 32px rgba(var(--ctp-grey), 0.25);
-
-  --accent: var(--ctp-accent);
-  --accent-dark: var(--ctp-accent-dark);
-  --black: var(--ctp-black);
-  --grey: var(--ctp-grey);
-  --grey-light: var(--ctp-grey-light);
-  --grey-dark: var(--ctp-grey-dark);
-  --grey-gradient: var(--ctp-grey-gradient);
-  --box-shadow: var(--ctp-box-shadow);
+  --color-ctp-rosewater: hsl(10, 58%, 90%);
+  --color-ctp-flamingo: hsl(0, 58%, 86%);
+  --color-ctp-pink: hsl(316, 74%, 85%);
+  --color-ctp-mauve: hsl(267, 83%, 80%);
+  --color-ctp-red: hsl(351, 74%, 73%);
+  --color-ctp-maroon: hsl(355, 71%, 77%);
+  --color-ctp-peach: hsl(21, 86%, 73%);
+  --color-ctp-yellow: hsl(40, 70%, 78%);
+  --color-ctp-green: hsl(105, 48%, 72%);
+  --color-ctp-teal: hsl(171, 47%, 69%);
+  --color-ctp-sky: hsl(189, 59%, 73%);
+  --color-ctp-sapphire: hsl(199, 66%, 69%);
+  --color-ctp-blue: hsl(220, 83%, 75%);
+  --color-ctp-lavender: hsl(234, 82%, 85%);
+  --color-ctp-text: hsl(227, 68%, 88%);
+  --color-ctp-subtext1: hsl(228, 39%, 80%);
+  --color-ctp-subtext0: hsl(227, 27%, 72%);
+  --color-ctp-overlay2: hsl(228, 20%, 65%);
+  --color-ctp-overlay1: hsl(228, 15%, 57%);
+  --color-ctp-overlay0: hsl(230, 12%, 49%);
+  --color-ctp-surface2: hsl(230, 14%, 41%);
+  --color-ctp-surface1: hsl(231, 16%, 34%);
+  --color-ctp-surface0: hsl(230, 19%, 26%);
+  --color-ctp-base: hsl(232, 23%, 18%);
+  --color-ctp-mantle: hsl(233, 23%, 15%);
+  --color-ctp-crust: hsl(236, 23%, 12%);
 }
 
 body {
@@ -70,13 +64,9 @@ body {
   text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  background-color: var(--ctp-base);
-  color: var(--ctp-text);
   font-size: 20px;
   line-height: 1.7;
 }
-
-/* The rest of your CSS remains unchanged */
 
 main {
   width: 720px;
@@ -112,73 +102,4 @@ h5 {
 strong,
 b {
   font-weight: 700;
-}
-a {
-  color: var(--ctp-accent);
-}
-a:hover {
-  color: var(--ctp-accent-dark);
-}
-p {
-  margin-bottom: 1em;
-}
-.prose p {
-  margin-bottom: 2em;
-}
-textarea {
-  width: 100%;
-  font-size: 16px;
-}
-input {
-  font-size: 16px;
-}
-table {
-  width: 100%;
-}
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-code {
-  padding: 2px 5px;
-  background-color: var(--ctp-grey-light);
-  border-radius: 2px;
-}
-pre {
-  padding: 1.5em;
-  border-radius: 8px;
-}
-pre > code {
-  all: unset;
-}
-blockquote {
-  border-left: 4px solid var(--ctp-accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
-}
-hr {
-  border: none;
-  border-top: 1px solid var(--ctp-grey-light);
-}
-@media (max-width: 720px) {
-  body {
-    font-size: 18px;
-  }
-  main {
-    padding: 1em;
-  }
-}
-.sr-only {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
