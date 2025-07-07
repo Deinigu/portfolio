@@ -1,0 +1,45 @@
+---
+import type { HTMLAttributes } from "astro/types";
+type Props = {
+  collection: string;
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: string;
+      heroImage: string;
+    };
+  };
+} & HTMLAttributes<"a">;
+const { collection, post, ...props } = Astro.props;
+
+// Base URL sin barra final (ej: "/portfolio")
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Ruta final corregida
+const finalHref = `${base}/${collection}`;
+---
+
+<div class="card-wrapper">
+  <div class="card">
+    <a
+      href={`${finalHref}/${post.id}`}
+      class="no-underline w-full h-full block"
+    >
+      <div class="card-content">
+        <img
+          src={post.data.heroImage}
+          alt={`Image of ${post.data.title}`}
+          class="w-full h-[200px] rounded-t-lg object-cover"
+        />
+        <h3 class="text-2xl font-bold mt-4">{post.data.title}</h3>
+        <p
+          class="mt-2 text-xl font-normal leading-relaxed max-h-[60px] overflow-hidden text-ellipsis"
+        >
+          {post.data.description}
+        </p>
+      </div>
+    </a>
+  </div>
+</div>

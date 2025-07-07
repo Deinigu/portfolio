@@ -4,107 +4,160 @@ import { SITE_NAME } from "../consts";
 import SocialLinks from "./SocialLinks.astro";
 ---
 
-<header>
-  <nav>
-    <div class="logo">
-      <a href="/">
-        <img src="src/assets/icon.png" alt="Logo" />
+<header class="bg-[--ctp-surface1] shadow-md sticky top-0 z-50">
+  <nav
+    class="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 max-w-7xl mx-auto"
+  >
+    <!-- Logo -->
+    <div class="flex items-center space-x-2 flex-shrink-0">
+      <a href="/" class="flex items-center group">
+        <img
+          src="/src/assets/icon.png"
+          alt="Logo"
+          class="w-8 h-8 sm:w-10 sm:h-10 rounded-full transition-transform duration-200 group-hover:scale-110"
+        />
+        <span
+          class="hidden sm:block ml-2 text-[--ctp-text] font-semibold text-lg"
+        >
+          {SITE_NAME}
+        </span>
       </a>
     </div>
-    <div class="internal-links">
+
+    <!-- Desktop navigation -->
+    <div class="hidden lg:flex items-center space-x-1 xl:space-x-2">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
       <HeaderLink href="/projects">Projects</HeaderLink>
       <HeaderLink href="/games">Games</HeaderLink>
       <HeaderLink href="/music">Music</HeaderLink>
-      <HeaderLink href="/contact">Contact me!</HeaderLink>
+      <HeaderLink href="/contact">Contact</HeaderLink>
     </div>
-    <button id="theme-toggle" aria-label="Toggle theme" class="theme-toggle">
-      <span class="icon-moon" aria-hidden="true">🌙</span>
-      <span class="icon-sun" aria-hidden="true" style="display:none;">☀️</span>
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-toggle"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      class="lg:hidden text-[--ctp-text] hover:text-[--ctp-blue] p-2 focus:outline-none focus:ring-2 focus:ring-[--ctp-blue] focus:ring-offset-2 focus:ring-offset-[--ctp-surface1] rounded-md transition-colors duration-200 flex items-center justify-items-center justify-center"
+    >
+      <span
+        class="hamburguer-icon flex flex-col items-center justify-center align-middle place-items-center justify-items-center"
+      >
+        <span
+          class="block w-6 h-0.5 bg-current mb-1 transition-transform duration-200"
+        ></span>
+        <span
+          class="block w-6 h-0.5 bg-current mb-1 transition-transform duration-200"
+        ></span>
+        <span
+          class="block w-6 h-0.5 bg-current transition-transform duration-200"
+        ></span>
+      </span>
     </button>
-    <style>
-      header {
-        margin: 0;
-        padding: 0 1em;
-        background: var(--ctp-surface1);
-        box-shadow: 0 2px 8px rgba(var(--ctp-surface2), 5%);
-      }
-      h2 {
-        margin: 0;
-        font-size: 1em;
-      }
-
-      h2 a,
-      h2 a.active {
-        text-decoration: none;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      nav a {
-        padding: 1em 0.5em;
-        color: var(--ctp-text);
-        border-bottom: 4px solid transparent;
-        text-decoration: none;
-      }
-      nav a.active {
-        text-decoration: none;
-        border-bottom-color: var(--accent-dark);
-      }
-
-      .logo a {
-        display: flex;
-        align-items: left;
-      }
-      .logo img {
-        width: 64px;
-        height: 100%;
-        border-radius: 50%;
-      }
-      .theme-toggle {
-        background: var(--ctp-surface2);
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition:
-          background 0.2s,
-          box-shadow 0.2s;
-        box-shadow: 0 2px 8px rgba(var(--ctp-surface0), 0.08);
-        font-size: 1.5em;
-        margin-left: 1em;
-      }
-      .theme-toggle:hover {
-        background: var(--accent);
-        color: var(--ctp-base);
-        outline: none;
-        box-shadow: 0 4px 16px rgba(var(--ctp-surface0), 0.16);
-        animation: spin 0.7s linear infinite;
-      }
-
-      @keyframes spin {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
+    <!-- Right side: Theme toggle-->
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        aria-label="Toggle theme"
+        class="bg-[--ctp-surface2] hover:bg-[--ctp-blue] text-[--ctp-text] hover:text-[--ctp-base] rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-all duration-200 shadow hover:shadow-lg text-lg sm:text-xl focus:outline-none focus:ring-2 focus:ring-[--ctp-blue] focus:ring-offset-2 focus:ring-offset-[--ctp-surface1]"
+      >
+        <span class="icon-moon" aria-hidden="true">🌙</span>
+        <span class="icon-sun hidden" aria-hidden="true">☀️</span>
+      </button>
+    </div>
   </nav>
-</header>
-<script is:inline>
-  const toggle = document.getElementById("theme-toggle");
-  const isDark = document.documentElement.classList.contains("dark");
-  toggle.textContent = isDark ? "☀️" : "🌙";
 
-  toggle.addEventListener("click", () => {
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col items-center justify-center">
+      <HeaderLink href="/" class="block py-2 text-center">Home</HeaderLink>
+      <HeaderLink href="/about" class="block py-2 text-center">About</HeaderLink
+      >
+      <HeaderLink href="/projects" class="block py-2 text-center"
+        >Projects</HeaderLink
+      >
+      <HeaderLink href="/games" class="block py-2 text-center">Games</HeaderLink
+      >
+      <HeaderLink href="/music" class="block py-2 text-center">Music</HeaderLink
+      >
+      <HeaderLink href="/contact" class="block py-2 text-center"
+        >Contact</HeaderLink
+      >
+    </div>
+  </div>
+</header>
+
+<style>
+  .mobile-menu-open {
+    max-height: 20rem;
+  }
+</style>
+
+<script is:inline>
+  // Theme toggle functionality
+  const toggleTheme = document.getElementById("theme-toggle");
+  const moon = toggleTheme.querySelector(".icon-moon");
+  const sun = toggleTheme.querySelector(".icon-sun");
+
+  const updateThemeIcon = (isDark) => {
+    moon.style.display = isDark ? "none" : "inline";
+    sun.style.display = isDark ? "inline" : "none";
+  };
+
+  const isDark = document.documentElement.classList.contains("dark");
+  updateThemeIcon(isDark);
+
+  toggleTheme.addEventListener("click", () => {
     const dark = document.documentElement.classList.toggle("dark");
     localStorage.setItem("theme", dark ? "dark" : "light");
-    toggle.textContent = dark ? "☀️" : "🌙";
+    updateThemeIcon(dark);
+  });
+
+  // Mobile menu functionality
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamburgerIcon = menuToggle.querySelector(".hamburger-icon");
+
+  let isMenuOpen = false;
+
+  const toggleMobileMenu = () => {
+    isMenuOpen = !isMenuOpen;
+
+    // Update ARIA attributes
+    menuToggle.setAttribute("aria-expanded", isMenuOpen.toString());
+    mobileMenu.setAttribute("aria-hidden", (!isMenuOpen).toString());
+
+    // Toggle menu visibility
+    if (isMenuOpen) {
+      mobileMenu.classList.add("mobile-menu-open");
+      hamburgerIcon.classList.add("hamburger-open");
+    } else {
+      mobileMenu.classList.remove("mobile-menu-open");
+      hamburgerIcon.classList.remove("hamburger-open");
+    }
+  };
+
+  menuToggle.addEventListener("click", toggleMobileMenu);
+
+  // Close mobile menu when clicking on a link (for single-page apps)
+  const mobileLinks = mobileMenu.querySelectorAll("a");
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (isMenuOpen) {
+        toggleMobileMenu();
+      }
+    });
+  });
+
+  // Close mobile menu when window is resized to desktop size
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1024 && isMenuOpen) {
+      toggleMobileMenu();
+    }
   });
 </script>
