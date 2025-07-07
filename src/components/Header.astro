@@ -2,6 +2,8 @@
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_NAME } from "../consts";
 import SocialLinks from "./SocialLinks.astro";
+import { Image } from "astro:assets";
+import logoPath from "../assets/icon.png";
 ---
 
 <header class="bg-[--ctp-surface1] shadow-md sticky top-0 z-50">
@@ -10,13 +12,13 @@ import SocialLinks from "./SocialLinks.astro";
   >
     <!-- Logo -->
     <div class="flex items-center space-x-2 flex-shrink-0">
-      <a href="/" class="flex items-center group">
-        <img
-          src="src/assets/icon.png"
+      <HeaderLink href="/">
+        <Image
+          src={logoPath}
           alt="Logo"
           class="w-8 h-8 sm:w-10 sm:h-10 rounded-full transition-transform duration-200 group-hover:scale-110"
         />
-      </a>
+      </HeaderLink>
     </div>
 
     <!-- Desktop navigation -->
