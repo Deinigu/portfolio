@@ -24,7 +24,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </script>
     <style>
       main {
-        width: calc(100% - 2em);
+        width: 100%;
         max-width: 100%;
         margin: 0;
       }
@@ -63,10 +63,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </style>
   </head>
 
-  <body class="bg-ctp-surface0 text-ctp-text">
+  <body class="text-ctp-text">
     <Header />
-    <main class="min-h-screen bg-gradient-to-br from-ctp- to-ctp-surface0">
-      <article>
+    <main
+      class="min-h-screen bg-gradient-to-br from-ctp-overlay2 to-ctp-surface1"
+    >
+      <article
+        class="min-h-screen bg-gradient-to-br from-ctp-overlay2 to-ctp-surface1"
+      >
         <div class="hero-image">
           {
             heroImage && (

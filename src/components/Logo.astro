@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+const { href } = Astro.props;
+
+import { Image } from "astro:assets";
+import logoPath from "../assets/icon.png";
+
+import { SITE_NAME } from "../consts";
+---
+
+<div class="flex items-center">
+  <a
+    href={href}
+    class="bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-200 hover:scale-110 hover:cursor-pointer active:scale-95"
+  >
+    <Image
+      src={logoPath}
+      alt="Logo"
+      class="h-8 w-8 rounded-full transition-transform duration-200 hover:scale-110 sm:h-10 sm:w-10"
+    />
+  </a>
+</div>

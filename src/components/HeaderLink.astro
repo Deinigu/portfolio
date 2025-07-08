@@ -18,7 +18,12 @@ const isActive =
   (href !== "/" && currentPath.startsWith(finalHref + "/"));
 ---
 
-<a href={finalHref} class:list={[className, { active: isActive }]} {...props}>
+<a
+  href={finalHref}
+  class:list={[className, { active: isActive }]}
+  {...props}
+  class="bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-200 hover:scale-110 active:scale-95"
+>
   <slot />
 </a>
 
@@ -26,11 +31,10 @@ const isActive =
   a {
     display: inline-block;
     text-decoration: none;
-    padding: 0.25rem 0.5rem;
   }
 
   a.active {
-    font-weight: bold;
-    text-decoration: underline;
+    background: var(--color-ctp-sky);
+    color: var(--color-ctp-base);
   }
 </style>
