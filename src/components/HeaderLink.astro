@@ -7,7 +7,9 @@ const { href = "/", class: className, ...props } = Astro.props;
 
 // Comparación para resaltar link activo
 const currentPath = Astro.url.pathname;
-const isActive = currentPath + "/" == href;
+const isRootPath = href === "/portfolio";
+const isActive =
+  (currentPath === href + "/" && isRootPath) || currentPath === href;
 ---
 
 <a
