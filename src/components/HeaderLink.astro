@@ -5,28 +5,19 @@ type Props = HTMLAttributes<"a">;
 
 const { href = "/", class: className, ...props } = Astro.props;
 
-// Base URL sin barra final (ej: "/portfolio")
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-
-// Ruta final corregida
-const finalHref = `${base}${href}`;
-
 // Comparación para resaltar link activo
 const currentPath = Astro.url.pathname;
-const isActive =
-  currentPath === finalHref ||
-  (href !== "/" && currentPath.startsWith(finalHref + "/"));
+const isActive = currentPath === href;
 ---
 
 <a
-  href={finalHref}
+  href={href}
   class:list={[className, { active: isActive }]}
   {...props}
   class="bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-200 hover:scale-110 active:scale-95"
 >
   <slot />
 </a>
-
 <style>
   a {
     display: inline-block;

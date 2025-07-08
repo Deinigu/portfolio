@@ -20,9 +20,9 @@ import Header from "../components/Header.astro";
       document.documentElement.classList.toggle("dark", theme === "dark");
     </script>
   </head>
-  <body class="bg-ctp-surface0 text-ctp-text">
+  <body class="bg-ctp-surface0 text-ctp-text min-h-screen flex flex-col">
     <Header />
-    <main class="min-h-screen bg-gradient-to-br from-ctp- to-ctp-surface0">
+    <main class="min-h-screen justify-top px-4 py-8">
       <slot />
     </main>
     <Footer />
