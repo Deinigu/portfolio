@@ -25,6 +25,7 @@ const isActive =
   class="bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-200 hover:scale-110 active:scale-95"
 >
   <slot />
+  {currentPath} ?= {finalHref}
 </a>
 
 <style>
@@ -34,7 +35,7 @@ const isActive =
   }
 
   a.active {
-    background: var(--color-ctp-sky);
+    background: var(--color-ctp-blue);
     color: var(--color-ctp-base);
   }
 </style>
