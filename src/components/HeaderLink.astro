@@ -3,24 +3,33 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"a">;
 
-const { href = "/", class: className, ...props } = Astro.props;
+const { href = "/", class: className = "", ...props } = Astro.props;
 
-// Comparación para resaltar link activo
 const currentPath = Astro.url.pathname;
-const isRootPath = href === "/portfolio";
-const isActive =
-  (currentPath === href + "/" && isRootPath) || currentPath === href;
+
+// Normaliza eliminando slash final (si tiene) para comparar bien
+const normalizePath = (path: string) => path.replace(/\/$/, "");
+
+const normalizedCurrent = normalizePath(currentPath);
+const hrefString = href?.toString() || "/";
+const normalizedHref = normalizePath(hrefString);
+
+const isRootPath = normalizedHref === "/portfolio";
+const isActive = isRootPath
+  ? normalizedCurrent === normalizedHref
+  : normalizedCurrent === normalizedHref;
 ---
 
 <a
   href={href}
-  class:list={[className, { active: isActive }]}
+  class={`${className} bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-200 hover:scale-110 active:scale-95 ${
+    isActive ? "active" : ""
+  }`}
   {...props}
-  class="bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-200 hover:scale-110 active:scale-95"
 >
   <slot />
-  {currentPath} === {href}
 </a>
+
 <style>
   a {
     display: inline-block;
