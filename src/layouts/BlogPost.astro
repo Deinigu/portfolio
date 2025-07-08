@@ -14,19 +14,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="en" class="dark">
   <head>
     <BaseHead title={title} description={description} />
-    <script is:inline>
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      const savedTheme = localStorage.getItem("theme");
-      const theme = savedTheme ?? (prefersDark ? "dark" : "light");
-      document.documentElement.classList.toggle("dark", theme === "dark");
-    </script>
     <style>
       main {
         width: 100%;
         max-width: 100%;
-        margin: 0;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
       }
       .hero-image {
         width: 100%;
@@ -38,39 +32,85 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         box-shadow: var(--box-shadow);
       }
       .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
         margin: auto;
-        padding: 1em;
+        padding: 1.5em;
         color: rgb(var(--ctp-text));
+        line-height: 1.7;
+      }
+      .prose h1,
+      .prose h2,
+      .prose h3,
+      .prose h4,
+      .prose h5,
+      .prose h6 {
+        color: rgb(var(--ctp-blue));
+        margin-top: 1.5em;
+        margin-bottom: 0.75em;
+        font-weight: 600;
+      }
+      .prose p {
+        margin-bottom: 1.25em;
+      }
+      .prose a {
+        color: rgb(var(--ctp-blue));
+        text-decoration: underline;
+        transition: color 0.2s ease;
+      }
+      .prose a:hover {
+        color: rgb(var(--ctp-sky));
+      }
+      .prose code {
+        background-color: rgb(var(--ctp-surface1));
+        color: rgb(var(--ctp-red));
+        padding: 0.25em 0.5em;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      .prose pre {
+        background-color: rgb(var(--ctp-surface1));
+        padding: 1em;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.5em 0;
+      }
+      .prose blockquote {
+        border-left: 4px solid rgb(var(--ctp-blue));
+        padding-left: 1em;
+        margin: 1.5em 0;
+        font-style: italic;
+        color: rgb(var(--ctp-subtext0));
       }
       .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
+        margin-bottom: 2em;
+        padding: 2em 0;
         text-align: center;
-        line-height: 1;
+        line-height: 1.2;
+        border-bottom: 1px solid rgb(var(--ctp-surface2));
       }
       .title h1 {
-        margin: 0 0 0.5em 0;
+        margin: 0 0 1em 0;
+        font-size: 2.5em;
+        font-weight: 700;
+        color: rgb(var(--ctp-text));
       }
       .date {
-        margin-bottom: 0.5em;
+        margin-bottom: 1em;
         color: rgb(var(--ctp-blue));
+        font-size: 0.9em;
+        font-weight: 500;
       }
       .last-updated-on {
         font-style: italic;
+        color: rgb(var(--ctp-subtext0));
+        margin-top: 0.5em;
       }
     </style>
   </head>
 
-  <body class="text-ctp-text">
+  <body class="bg-ctp-surface0 text-ctp-text min-h-screen max-w-screen">
     <Header />
-    <main
-      class="min-h-screen bg-gradient-to-br from-ctp-overlay2 to-ctp-surface1"
-    >
-      <article
-        class="min-h-screen bg-gradient-to-br from-ctp-overlay2 to-ctp-surface1"
-      >
+    <main class="min-h-screen justify-top max-w-screen" class="max-w-6xl">
+      <article class="min-h-screen bg-ctp-surface0 text-ctp-text">
         <div class="hero-image">
           {
             heroImage && (

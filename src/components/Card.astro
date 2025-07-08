@@ -21,25 +21,29 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const finalHref = `${base}/${collection}`;
 ---
 
-<div class="card-wrapper">
-  <div class="card">
-    <a
-      href={`${finalHref}/${post.id}`}
-      class="no-underline w-full h-full block"
-    >
-      <div class="card-content">
-        <img
-          src={post.data.heroImage}
-          alt={`Image of ${post.data.title}`}
-          class="w-full h-[200px] rounded-t-lg object-cover"
-        />
-        <h3 class="text-2xl font-bold mt-4">{post.data.title}</h3>
-        <p
-          class="mt-2 text-xl font-normal leading-relaxed max-h-[60px] overflow-hidden text-ellipsis"
-        >
-          {post.data.description}
-        </p>
+<div
+  class="w-full h-full flex flex-col rounded-2xl shadow-lg hover:shadow hover:scale-105 transition-all duration-300 bg-ctp-base"
+>
+  <a href={`${finalHref}/${post.id}`} class="block no-underline h-full">
+    <img
+      class="w-full aspect-video object-cover rounded-xl"
+      src={post.data.heroImage}
+      alt={`Image of ${post.data.title}`}
+    />
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">{post.data.title}</div>
+      <div class="cut-text text-base h-2xl max-h-24 overflow-hidden">
+        {post.data.description}
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </div>
+
+<style>
+  .cut-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
