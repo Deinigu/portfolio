@@ -22,17 +22,17 @@ const finalHref = `${base}/${collection}`;
 ---
 
 <div
-  class="w-full h-full flex flex-col rounded-2xl shadow-lg hover:shadow hover:scale-105 transition-all duration-300 bg-ctp-base"
+  class="w-full h-full flex flex-col rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 bg-ctp-base"
 >
   <a href={`${finalHref}/${post.id}`} class="block no-underline h-full">
     <img
-      class="w-full aspect-video object-cover rounded-xl"
+      class="w-full aspect-video object-cover rounded-xl mb-2"
       src={post.data.heroImage}
       alt={`Image of ${post.data.title}`}
     />
-    <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">{post.data.title}</div>
-      <div class="cut-text text-base h-2xl max-h-24 overflow-hidden">
+    <div class="px-8 py-6">
+      <div class="font-bold text-2xl mb-4">{post.data.title}</div>
+      <div class="cut-text text-lg h-32 max-h-16 overflow-hidden">
         {post.data.description}
       </div>
     </div>
@@ -42,7 +42,7 @@ const finalHref = `${base}/${collection}`;
 <style>
   .cut-text {
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    -webkit-line-clamp: 3; /* Increased lines for bigger card */
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
