@@ -11,130 +11,48 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en" class="dark">
+<html lang="en" class="dark transition-colors duration-300">
   <head>
     <BaseHead title={title} description={description} />
-    <style>
-      main {
-        width: 100%;
-        max-width: 100%;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-      }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        margin: auto;
-        padding: 1.5em;
-        color: rgb(var(--ctp-text));
-        line-height: 1.7;
-      }
-      .prose h1,
-      .prose h2,
-      .prose h3,
-      .prose h4,
-      .prose h5,
-      .prose h6 {
-        color: rgb(var(--ctp-blue));
-        margin-top: 1.5em;
-        margin-bottom: 0.75em;
-        font-weight: 600;
-      }
-      .prose p {
-        margin-bottom: 1.25em;
-      }
-      .prose a {
-        color: rgb(var(--ctp-blue));
-        text-decoration: underline;
-        transition: color 0.2s ease;
-      }
-      .prose a:hover {
-        color: rgb(var(--ctp-sky));
-      }
-      .prose code {
-        background-color: rgb(var(--ctp-surface1));
-        color: rgb(var(--ctp-red));
-        padding: 0.25em 0.5em;
-        border-radius: 4px;
-        font-size: 0.9em;
-      }
-      .prose pre {
-        background-color: rgb(var(--ctp-surface1));
-        padding: 1em;
-        border-radius: 8px;
-        overflow-x: auto;
-        margin: 1.5em 0;
-      }
-      .prose blockquote {
-        border-left: 4px solid rgb(var(--ctp-blue));
-        padding-left: 1em;
-        margin: 1.5em 0;
-        font-style: italic;
-        color: rgb(var(--ctp-subtext0));
-      }
-      .title {
-        margin-bottom: 2em;
-        padding: 2em 0;
-        text-align: center;
-        line-height: 1.2;
-        border-bottom: 1px solid rgb(var(--ctp-surface2));
-      }
-      .title h1 {
-        margin: 0 0 1em 0;
-        font-size: 2.5em;
-        font-weight: 700;
-        color: rgb(var(--ctp-text));
-      }
-      .date {
-        margin-bottom: 1em;
-        color: rgb(var(--ctp-blue));
-        font-size: 0.9em;
-        font-weight: 500;
-      }
-      .last-updated-on {
-        font-style: italic;
-        color: rgb(var(--ctp-subtext0));
-        margin-top: 0.5em;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
-  <body class="bg-ctp-surface0 text-ctp-text min-h-screen max-w-screen">
+  <body class="bg-ctp-surface0 text-ctp-text min-h-screen flex flex-col">
     <Header />
-    <main class="min-h-screen justify-top max-w-screen" class="max-w-6xl">
-      <article class="min-h-screen bg-ctp-surface0 text-ctp-text">
-        <div class="hero-image">
-          {
-            heroImage && (
-              <Image width={1020} height={510} src={heroImage} alt="" />
-            )
-          }
-        </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
+    <main class="grow px-4 md:px-8 py-10">
+      <article class="max-w-3xl mx-auto w-full prose prose-invert">
+        {
+          heroImage && (
+            <div class="mb-6">
+              <Image
+                width={1020}
+                height={510}
+                src={heroImage}
+                alt=""
+                class="rounded-lg"
+              />
             </div>
-            <h1>{title}</h1>
-            <hr />
-          </div>
+          )
+        }
+
+        <header class="mb-6">
+          <p class="text-sm text-ctp-subtext0">
+            <FormattedDate date={pubDate} />
+            {
+              updatedDate && (
+                <span class="block">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </span>
+              )
+            }
+          </p>
+          <h1 class="text-4xl font-bold mt-2">{title}</h1>
+          <hr class="mt-4 border-ctp-surface2" />
+        </header>
+
+        <section>
           <slot />
-        </div>
+        </section>
       </article>
     </main>
     <Footer />

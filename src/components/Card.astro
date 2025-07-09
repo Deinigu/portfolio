@@ -12,6 +12,7 @@ type Props = {
     };
   };
 } & HTMLAttributes<"a">;
+
 const { collection, post, ...props } = Astro.props;
 
 // Base URL sin barra final (ej: "/portfolio")
@@ -21,28 +22,37 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const finalHref = `${base}/${collection}`;
 ---
 
-<div
-  class="w-full h-full flex flex-col rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 bg-ctp-base"
+<a
+  href={`${finalHref}/${post.id}`}
+  class="group flex flex-col w-full max-w-md rounded-xl overflow-hidden bg-ctp-mantle hover:shadow-lg transition-transform duration-300 hover:-translate-y-1 shadow border border-ctp-surface1"
+  {...props}
 >
-  <a href={`${finalHref}/${post.id}`} class="block no-underline h-full">
-    <img
-      class="w-full aspect-video object-cover rounded-xl mb-2"
-      src={post.data.heroImage}
-      alt={`Image of ${post.data.title}`}
-    />
-    <div class="px-8 py-6">
-      <div class="font-bold text-2xl mb-4">{post.data.title}</div>
-      <div class="cut-text text-lg h-32 max-h-16 overflow-hidden">
-        {post.data.description}
-      </div>
-    </div>
-  </a>
-</div>
+  <img
+    src={post.data.heroImage}
+    alt={`Cover image for "${post.data.title}"`}
+    class="w-full h-48 sm:h-52 md:h-56 lg:h-60 object-cover transition-opacity duration-300 group-hover:opacity-90"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="flex flex-col gap-2 p-4 md:p-6">
+    <h2
+      class="text-lg sm:text-xl md:text-2xl font-semibold text-ctp-text leading-snug group-hover:underline"
+    >
+      {post.data.title}
+    </h2>
+    <p class="text-sm sm:text-base text-ctp-subtext0 leading-relaxed cut-text">
+      {post.data.description}
+    </p>
+    <p class="text-xs sm:text-sm text-ctp-subtext1 mt-auto">
+      📅 {post.data.pubDate}
+    </p>
+  </div>
+</a>
 
 <style>
   .cut-text {
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Increased lines for bigger card */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

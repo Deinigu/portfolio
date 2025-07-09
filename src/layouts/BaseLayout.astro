@@ -1,16 +1,16 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_NAME } from "../consts";
-
-import "../styles/global.css";
 import Header from "../components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import "../styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark transition-colors duration-300">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script is:inline>
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
@@ -20,18 +20,13 @@ import Header from "../components/Header.astro";
       document.documentElement.classList.toggle("dark", theme === "dark");
     </script>
   </head>
-  <body class="bg-ctp-surface0 text-ctp-text min-h-screen max-w-screen">
+  <body class="bg-ctp-surface0 text-ctp-text min-h-screen flex flex-col">
     <Header />
-    <main class="min-h-screen justify-top max-w-screen">
-      <slot />
+    <main class="grow px-4 md:px-8 py-6">
+      <div class="max-w-7xl mx-auto w-full">
+        <slot />
+      </div>
     </main>
     <Footer />
-  </body><style>
-    main {
-      width: 60%;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-    }
-  </style>
+  </body>
 </html>
