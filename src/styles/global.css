@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
   --color-ctp-rosewater: hsl(11, 59%, 67%);
@@ -55,6 +57,15 @@
   --color-ctp-base: hsl(232, 23%, 18%);
   --color-ctp-mantle: hsl(233, 23%, 15%);
   --color-ctp-crust: hsl(236, 23%, 12%);
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }
 
 body {
@@ -66,4 +77,54 @@ body {
   overflow-wrap: break-word;
   font-size: 20px;
   line-height: 1.7;
+}
+.astro-code,
+.astro-code span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+  /* Optional, if you also want font styles */
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+@layer components {
+  .ctp-prose {
+    @apply prose dark:prose-invert max-w-3xl mx-auto;
+
+    /* === Textos base === */
+    @apply prose-p:leading-relaxed prose-p:my-4 prose-p:text-ctp-text;
+    @apply prose-strong:font-semibold prose-strong:text-ctp-text;
+    @apply prose-em:italic prose-em:text-ctp-text;
+
+    /* === Títulos === */
+    @apply prose-h1:text-4xl prose-h1:font-extrabold prose-h1:mt-0 prose-h1:mb-4;
+    @apply prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4;
+    @apply prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-2;
+    @apply prose-h4:text-xl prose-h4:font-medium prose-h4:mt-4 prose-h4:mb-2;
+
+    /* === Enlaces === */
+    @apply prose-a:text-ctp-lavender prose-a:no-underline hover:prose-a:underline hover:prose-a:text-ctp-blue;
+
+    /* === Listas === */
+    @apply prose-ul:pl-6 prose-ul:list-disc prose-li:my-1;
+    @apply prose-ol:pl-6 prose-ol:list-decimal prose-li:my-1;
+
+    /* === Citas === */
+    @apply prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:border-l-4 prose-blockquote:border-ctp-blue prose-blockquote:text-ctp-subtext0;
+
+    /* === Separadores === */
+    @apply prose-hr:my-8 prose-hr:border-t prose-hr:border-ctp-surface1;
+
+    /* === Teclas y comandos === */
+    @apply prose-kbd:rounded prose-kbd:border prose-kbd:border-ctp-blue prose-kbd:bg-ctp-base prose-kbd:px-1 prose-kbd:py-0.5 prose-kbd:text-xs prose-kbd:shadow-2xl prose-kbd:shadow-ctp-overlay2;
+
+    /* === Imágenes === */
+    @apply prose-img:rounded-lg prose-img:shadow-md;
+
+    /* === Tablas === */
+    @apply prose-table:table prose-table:w-full;
+    @apply prose-th:font-semibold prose-th:bg-ctp-surface1 prose-th:text-left;
+    @apply prose-td:bg-ctp-surface0;
+    @apply prose-tr:border-b prose-tr:border-ctp-surface2;
+  }
 }

@@ -13,4 +13,15 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  markdown: {
+    shikiConfig: {
+      defaultColor: false,
+      wrap: true,
+      theme: "catppuccin-latte",
+      themes: {
+        light: "catppuccin-latte",
+        dark: "catppuccin-macchiato",
+      },
+    },
+  },
 });
