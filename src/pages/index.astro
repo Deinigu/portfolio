@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import imgPath from "../assets/profile.jpeg";
+import imgPath from "../assets/profile.png";
+import BlogCardList from "../components/BlogCardList.astro";
+import RecentProjects from "../components/RecentProjects.astro";
 ---
 
 <BaseLayout>
@@ -26,6 +28,8 @@ import imgPath from "../assets/profile.jpeg";
       </div>
     </div>
   </div>
+  <RecentProjects limit={3} />
+
   <script type="module">
     const roles = [
       "developer.",

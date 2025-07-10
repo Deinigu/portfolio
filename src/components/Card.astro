@@ -11,9 +11,10 @@ type Props = {
       heroImage: string;
     };
   };
+  putCollectionTag?: boolean;
 } & HTMLAttributes<"a">;
 
-const { collection, post, ...props } = Astro.props;
+const { collection, post, putCollectionTag, ...props } = Astro.props;
 
 // Base URL sin barra final (ej: "/portfolio")
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -46,13 +47,34 @@ const finalHref = `${base}/${collection}`;
     <p class="text-xs sm:text-sm text-ctp-subtext1 mt-auto">
       📅 {post.data.pubDate}
     </p>
+    {
+      putCollectionTag && (
+        <div class="flex items-center mt-2">
+          {collection === "projects" && (
+            <span class="font-semibold bg-ctp-blue text-ctp-base text-xs me-2 px-2.5 py-0.5 rounded-full">
+              {collection.charAt(0).toUpperCase() + collection.slice(1)}
+            </span>
+          )}
+          {collection === "games" && (
+            <span class="font-semibold bg-ctp-flamingo text-ctp-base text-xs me-2 px-2.5 py-0.5 rounded-full">
+              {collection.charAt(0).toUpperCase() + collection.slice(1)}
+            </span>
+          )}
+          {collection === "music" && (
+            <span class="font-semibold bg-ctp-mauve text-ctp-base text-xs me-2 px-2.5 py-0.5 rounded-full">
+              {collection.charAt(0).toUpperCase() + collection.slice(1)}
+            </span>
+          )}
+        </div>
+      )
+    }
   </div>
 </a>
 
 <style>
   .cut-text {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

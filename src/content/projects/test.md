@@ -1,7 +1,7 @@
 ---
 title: "Test Markdown"
 description: "A comprehensive test document demonstrating all major Markdown features including headers, text formatting, lists, links, images, code blocks, tables, blockquotes, and HTML elements. Perfect for testing Markdown rendering capabilities."
-pubDate: "9-7-25"
+pubDate: "2022-07-10"
 heroImage: "../../assets/blog-placeholder-about.jpg"
 ---
 
