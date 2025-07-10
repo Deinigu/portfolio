@@ -8,7 +8,10 @@ import { socialLinks } from "../consts";
     socialLinks.map(({ href, label, icon }) => (
       <a href={href} target="_blank" aria-label={label}>
         <span class="sr-only">{label}</span>
-        <div set:html={icon} />
+        <div
+          class="hover:scale-110 hover:text-ctp-blue hover:-translate-y-1/6 shadow-2xl shadow-ctp-blue/20 transition-transform duration-100 ease-in-out flex w-10 h-10 items-center justify-center"
+          set:html={icon}
+        />
       </a>
     ))
   }
