@@ -18,6 +18,13 @@ const posts: {
   rendered?: RenderedContent;
   filePath?: string;
 }[] = await getCollection(collection);
+
+// Sort posts by publication date in descending order
+posts.sort((a, b) => {
+  return (
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  );
+});
 ---
 
 <section class="px-4 md:px-8 py-10">
