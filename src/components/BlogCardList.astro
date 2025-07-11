@@ -9,6 +9,10 @@ import Card from "./Card.astro";
 const collection = Astro.props.collection;
 const limit = Astro.props.limit || 0;
 
+// Get the title of the collection from the props
+const collectionTitle =
+  collection.charAt(0).toUpperCase() + collection.slice(1);
+
 const posts: {
   [x: string]: any;
   id: string;
@@ -28,6 +32,11 @@ posts.sort((a, b) => {
 ---
 
 <section class="px-4 md:px-8 py-10">
+  <header class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
+      {collectionTitle}
+    </h1>
+  </header>
   <div
     class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
   >
