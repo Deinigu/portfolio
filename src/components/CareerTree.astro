@@ -1,0 +1,144 @@
+---
+import { careerItems } from '../consts';
+
+---
+
+<section class="py-16 px-4 bg-gradient-to-b  ">
+<div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
+        Career Journey
+      </h2>
+      <p class="text-lg text-ctp-subtext1 max-w-2xl mx-auto">
+        A timeline of my professional and educational experiences, showcasing my growth and the skills I've acquired along the way.
+      </p>
+    </div>
+    <div
+      class="bg-ctp-surface0/50 backdrop-blur-sm rounded-2xl shadow-lg border border-ctp-surface1 p-8"
+    >
+    <div class="max-w-4xl mx-auto">
+
+        
+        <div class="relative">
+            <!-- Timeline line -->
+            <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-ctp-blue to-ctp-mauve transform md:-translate-x-px"></div>
+            
+            {careerItems.map((item, index) => (
+                <div 
+                    class={`relative flex items-center mb-12 ${
+                        index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}
+                    data-career-item={index}
+                >
+                    <!-- Timeline dot -->
+                    <div class={`absolute left-4 md:left-1/2 w-4 h-4 rounded-full transform md:-translate-x-2 z-10 ${
+                        item.type === 'work' ? 'bg-ctp-blue' : 
+                        item.type === 'education' ? 'bg-ctp-green' : 'bg-ctp-mauve'
+                    } shadow-lg`}>
+                        <div class="absolute inset-1 bg-base rounded-full"></div>
+                    </div>
+                    
+                    <!-- Content card -->
+                    <div class={`ml-12 md:ml-0 ${
+                        index % 2 === 0 ? 'md:mr-8 md:text-right' : 'md:ml-8'
+                    } md:w-5/12`}>
+                        <div class="bg-ctp-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-ctp-mantle career-card">
+                            <!-- Header -->
+                            <div class="flex items-start justify-between mb-3">
+                                <div class={index % 2 === 0 ? 'md:text-right md:ml-auto' : ''}>
+                                    <h3 class="text-xl font-semibold text-ctp-text mb-1">
+                                        {item.title}
+                                    </h3>
+                                    <p class="text-ctp-blue font-medium">
+                                        {item.company}
+                                    </p>
+                                </div>
+                                <span class={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                                    item.type === 'work' ? 'bg-ctp-blue/10 text-ctp-blue/100 ' :
+                                    item.type === 'education' ? 'bg-ctp-green/10 text-ctp-green/100 ' :
+                                    'bg-ctp-lavender/10 text-ctp-lavender/100 '
+                                }`}>
+                                    {item.type}
+                                </span>
+                            </div>
+                            
+                            <!-- Period -->
+                            <p class="text-sm text-ctp-subtext0  mb-3 font-medium">
+                                {item.period}
+                            </p>
+                            
+                            <!-- Description -->
+                            <p class="text-ctp-subtext1 mb-4 leading-relaxed">
+                                {item.description}
+                            </p>
+                            
+                            <!-- Skills -->
+                            <div class={`flex flex-wrap gap-2 ${
+                                index % 2 === 0 ? 'md:justify-end' : ''
+                            }`}>
+                                {item.skills.map((skill) => (
+                                    <span class="px-3 py-1 bg-ctp-surface2  text-ctp-subtext2  rounded-md text-sm font-medium hover:bg-ctp-lavender hover:text-ctp-base transition-colors">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+        </div>
+    </div>
+    
+</section>
+
+<script>
+    // Simple animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-fade-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all career cards
+    document.querySelectorAll('.career-card').forEach((card) => {
+        observer.observe(card);
+    });
+</script>
+
+<style>
+    .career-card {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .animate-fade-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Custom scrollbar for better UX */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    .dark ::-webkit-scrollbar-thumb {
+        background: #475569;
+    }
+</style></script></div>

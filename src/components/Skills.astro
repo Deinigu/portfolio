@@ -6,9 +6,22 @@ import { skills } from "../consts";
 import SkillsIsland from "./SkillIsland.tsx";
 ---
 
-<section id="skills" class="py-16">
-  <h2 class="text-3xl font-bold text-center align-middle mb-10 text-ctp-text">
-    Skills
-  </h2>
-  <SkillsIsland client:visible />
+<section id="skills" class="py-16 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
+        Tech Stack
+      </h2>
+      <p class="text-lg text-ctp-subtext1 max-w-2xl mx-auto">
+        A collection of technologies and tools I work with to bring ideas to
+        life
+      </p>
+    </div>
+
+    <div
+      class="bg-ctp-surface0/50 backdrop-blur-sm rounded-2xl shadow-lg border border-ctp-surface1 p-8"
+    >
+      <SkillsIsland client:visible />
+    </div>
+  </div>
 </section>

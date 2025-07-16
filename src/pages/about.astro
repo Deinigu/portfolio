@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import imgPath from "../assets/about.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Skills from "../components/Skills.astro";
+import CareerTree from "../components/CareerTree.astro";
 ---
 
 <BaseLayout>
@@ -29,28 +30,57 @@ import Skills from "../components/Skills.astro";
           class="bg-ctp-surface0 rounded-full h-2 md:h-3 overflow-hidden shadow-inner"
         >
           <div
-            class="bg-gradient-to-r from-ctp-blue to-ctp-mauve h-full rounded-full transition-all duration-2000 ease-out animate-pulse"
-            style="width: 100%; animation: loadBar 1s ease-in-out forwards;"
+            class="bg-gradient-to-r from-ctp-blue to-ctp-mauve h-full rounded-full animate-pulse"
           >
+            <style>
+              @keyframes loadBar {
+                0% {
+                  width: 0%;
+                }
+                100% {
+                  width: 100%;
+                }
+              }
+              .animate-loadBar {
+                animation: loadBar 2s ease-out forwards;
+              }
+            </style>
           </div>
         </div>
       </div>
-
-      <p
+      <div
         class="text-sm sm:text-base lg:text-lg mb-4 text-center md:text-left px-4 md:px-0"
       >
-        Hi! I'm Diego, a passionate data scientist with a focus on creating
-        innovative and efficient solutions. I've been crafting solutions since I
-        started programming Lego Robots when I was 13 years old. My journey has
-        taken me through various fields, including web development, data
-        science, game development, and more. I love exploring new technologies
-        and finding creative ways to apply them to real-world problems.
-      </p>
+        <p class="mb-2">
+          Hi! I’m Diego — a curious <span
+            class="font-semibold text-ctp-blue transition hover:text-ctp-mauve"
+          >
+            data scientist
+          </span>
+          with a passion for building elegant, efficient systems that solve real
+          problems.
+        </p>
+        <p>
+          My journey began at 13, programming LEGO robots and discovering how
+          code could shape the world around me. Since then, I’ve explored web
+          development, machine learning, game engines, and more. I'm driven by
+          learning and always looking for <span class="italic"
+            >creative ways</span
+          > to turn complex ideas into impactful, real-world experiences.
+        </p>
+      </div>
+
       <a
-        href="/contact"
-        class="mt-4 inline-block bg-ctp-blue hover:bg-ctp-mauve hover:scale-110 focus:scale-95 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
+        href="/portfolio/contact"
+        class="mt-4 inline-block bg-ctp-blue hover:bg-ctp-lavender hover:text-ctp-base hover:scale-110 focus:scale-95 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
       >
         Get in Touch
+      </a>
+      <a
+        href="/portfolio/cv"
+        class="mt-4 inline-block bg-ctp-mauve hover:bg-ctp-lavender hover:scale-110 focus:scale-95 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
+      >
+        Download My CV
       </a>
     </div>
 
@@ -70,15 +100,10 @@ import Skills from "../components/Skills.astro";
   </div>
 
   <Skills />
-
+  <CareerTree />
   <style>
-    @keyframes loadBar {
-      0% {
-        width: 0%;
-      }
-      100% {
-        width: 100%;
-      }
+    .bg-gradient-to-r {
+      animation: loadBar 2s ease-out forwards;
     }
   </style>
 </BaseLayout>

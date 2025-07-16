@@ -430,3 +430,78 @@ export const skills: SkillList[] = [
     ],
   },
 ];
+interface CareerItem {
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  skills: string[];
+  type: "work" | "education" | "project";
+}
+
+export const careerItems: CareerItem[] = [
+  {
+    title: "Data Scientist",
+    company: "Plain Concepts S.L.",
+    period: "2024 - Present",
+    description:
+      "Developing AI solutions for clients, focusing on LLMs and Machine Learning.",
+    skills: [
+      "Python",
+      "Data Science",
+      "Machine Learning",
+      "Deep Learning",
+      "Keras",
+      "LangChain",
+      "OpenAI API",
+      "TensorFlow",
+      "Docker",
+      "Azure",
+    ],
+    type: "work",
+  },
+  {
+    title: "Curricular Intern",
+    company: "Avanade Spain",
+    period: "2023",
+    description:
+      "This was my practice period at university, where I worked on various projects related to web development and data analysis.",
+    skills: [
+      "Web Development",
+      "Data Analysis",
+      "SQL",
+      "C#",
+      "Azure",
+      "Power BI",
+      "JavaScript",
+      "TypeScript",
+    ],
+    type: "work",
+  },
+  {
+    title: "Software Engineer Degree",
+    company: "University of Málaga",
+    period: "2020 - 2024",
+    description:
+      "Bachelor's degree with focus on software engineering, computer theory and algorithms.",
+    skills: [
+      "Java",
+      "C++",
+      "Computer Science",
+      "SQL",
+      "Data Structures",
+      "Algorithms",
+      "Web Development",
+    ],
+    type: "education",
+  },
+  {
+    title: "Technology Secondary School",
+    company: "IES Ben Al Jatib",
+    period: "2018 - 2020",
+    description:
+      "Completed secondary education with focus on technology, physics and math. Got ready for entrance exams to university.",
+    skills: ["Physics", "Math", "Technology", "Electronics"],
+    type: "education",
+  },
+];

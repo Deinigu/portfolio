@@ -88,8 +88,8 @@ export default function SkillsIsland() {
                     },
                   }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex flex-col items-center p-4 bg-ctp-overlay1 rounded-xl shadow-md 
-                   cursor-pointer transition-colors duration-300 hover:bg-ctp-overlay2"
+                  className="group flex flex-col items-center p-4 bg-ctp-surface1 rounded-xl shadow-md 
+                   cursor-pointer transition-colors duration-300 hover:bg-ctp-surface"
                   style={{
                     transformStyle: "preserve-3d",
                   }}
