@@ -38,3 +38,54 @@ export const socialLinks = [
     icon: `<svg viewBox="0 0 16 16" width="32" height="32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.084.794A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.766-3.429A3.286 3.286 0 0 0 2.92 6.13a3.27 3.27 0 0 1-1.487-.41v.041a3.288 3.288 0 0 0 2.633 3.218 3.203 3.203 0 0 1-.865.115c-.211 0-.416-.021-.615-.059a3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 1 13.542 9.29 9.29 0 0 0 5.026 15z"/></svg>`,
   },
 ];
+
+// The skills used in the portfolio, with their titles and image sources.
+export interface Skill {
+  title: string;
+  imageSrc: string;
+}
+
+export const skills: Skill[] = [
+  {
+    title: "Python",
+    imageSrc: "/portfolio/src/assets/images/skills/python.png",
+  },
+  {
+    title: "TensorFlow",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/115px-Tensorflow_logo.svg.png",
+  },
+  {
+    title: "JavaScript",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/JavaScript_shield_logo_%28no_text%29.svg/640px-JavaScript_shield_logo_%28no_text%29.svg.png",
+  },
+  {
+    title: "Python",
+    imageSrc: "/portfolio/src/assets/images/skills/python.png",
+  },
+  {
+    title: "TensorFlow",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/115px-Tensorflow_logo.svg.png",
+  },
+  {
+    title: "JavaScript",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/JavaScript_shield_logo_%28no_text%29.svg/640px-JavaScript_shield_logo_%28no_text%29.svg.png",
+  },
+  {
+    title: "Python",
+    imageSrc: "/portfolio/src/assets/images/skills/python.png",
+  },
+  {
+    title: "TensorFlow",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/115px-Tensorflow_logo.svg.png",
+  },
+  {
+    title: "JavaScript",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/JavaScript_shield_logo_%28no_text%29.svg/640px-JavaScript_shield_logo_%28no_text%29.svg.png",
+  },
+];
