@@ -45,47 +45,388 @@ export interface Skill {
   imageSrc: string;
 }
 
-export const skills: Skill[] = [
+export interface SkillList {
+  category: string;
+  skills: Skill[];
+}
+
+export const skills: SkillList[] = [
   {
-    title: "Python",
-    imageSrc: "/portfolio/src/assets/images/skills/python.png",
+    category: "AI & Data Science",
+    skills: [
+      {
+        title: "Keras",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg",
+      },
+      {
+        title: "PyTorch",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+      },
+      {
+        title: "Pandas",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+      },
+      {
+        title: "NumPy",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
+      },
+      {
+        title: "OpenCV",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
+      },
+      {
+        title: "TensorFlow",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+      },
+      {
+        title: "Scikit-learn",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg",
+      },
+      {
+        title: "Matplotlib",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg",
+      },
+      {
+        title: "Jupyter",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
+      },
+      {
+        title: "Streamlit",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/streamlit/streamlit-original.svg",
+      },
+    ],
   },
   {
-    title: "TensorFlow",
-    imageSrc:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/115px-Tensorflow_logo.svg.png",
+    category: "LLMs & MLOps",
+    skills: [
+      {
+        title: "LangChain",
+        imageSrc:
+          "https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/langchain-ipuhh4qo1jz5ssl4x0g2a.png/langchain-dp1uxj2zn3752pntqnpfu2.png",
+      },
+      {
+        title: "LangGraph",
+        imageSrc:
+          "https://images.seeklogo.com/logo-png/61/2/langchain-icon-logo-png_seeklogo-611655.png",
+      },
+      {
+        title: "Ollama",
+        imageSrc:
+          "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/light/ollama.png",
+      },
+      {
+        title: "Hugging Face",
+        imageSrc:
+          "https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg",
+      },
+      {
+        title: "OpenAI API",
+        imageSrc:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/OpenAI_logo_2025_%28symbol%29.svg/512px-OpenAI_logo_2025_%28symbol%29.svg.png",
+      },
+      {
+        title: "Microsoft Azure ML",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+      },
+      {
+        title: "Github Copilot",
+        imageSrc:
+          "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-copilot-icon.png",
+      },
+    ],
   },
   {
-    title: "JavaScript",
-    imageSrc:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/JavaScript_shield_logo_%28no_text%29.svg/640px-JavaScript_shield_logo_%28no_text%29.svg.png",
+    category: "Web & API Development",
+    skills: [
+      {
+        title: "React",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      },
+      {
+        title: "Angular",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+      },
+      {
+        title: "Astro",
+        imageSrc:
+          "https://icon.icepanel.io/Technology/png-shadow-512/Astro.png",
+      },
+      {
+        title: "Flask",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
+      },
+      {
+        title: "Django",
+        imageSrc: "https://www.svgrepo.com/show/373554/django.svg",
+      },
+      {
+        title: "FastAPI",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+      },
+      {
+        title: "Spring Boot",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+      },
+      {
+        title: "HTML",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      },
+      {
+        title: "CSS",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      },
+      {
+        title: "Tailwind CSS",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+      },
+      {
+        title: "Bootstrap",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+      },
+      {
+        title: "DiscordJS",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/discordjs/discordjs-original.svg",
+      },
+    ],
   },
   {
-    title: "Python",
-    imageSrc: "/portfolio/src/assets/images/skills/python.png",
+    category: "Databases",
+    skills: [
+      {
+        title: "MongoDB",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      },
+      {
+        title: "Mariadb",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-original.svg",
+      },
+      {
+        title: "Microsoft SQL",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-original.svg",
+      },
+      {
+        title: "ChromaDB",
+        imageSrc:
+          "https://weav.ai/hs-fs/hubfs/chroma-logo-FB287847E7-seeklogo.com.png?width=300&height=192&name=chroma-logo-FB287847E7-seeklogo.com.png",
+      },
+      {
+        title: "SQLite",
+        imageSrc:
+          "https://images.icon-icons.com/2699/PNG/512/sqlite_logo_icon_169724.png",
+      },
+      {
+        title: "Supabase",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+      },
+    ],
   },
   {
-    title: "TensorFlow",
-    imageSrc:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/115px-Tensorflow_logo.svg.png",
+    category: "Programming Languages",
+    skills: [
+      {
+        title: "Python",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      },
+      {
+        title: "JavaScript",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      },
+      {
+        title: "TypeScript",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      },
+      {
+        title: "C",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+      },
+      {
+        title: "C++",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+      },
+      {
+        title: "C#",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+      },
+      {
+        title: "Java",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      },
+      {
+        title: "Markdown",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg",
+      },
+    ],
   },
   {
-    title: "JavaScript",
-    imageSrc:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/JavaScript_shield_logo_%28no_text%29.svg/640px-JavaScript_shield_logo_%28no_text%29.svg.png",
+    category: "DevOps & Cloud",
+    skills: [
+      {
+        title: "Docker",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+      },
+      {
+        title: "Azure",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+      },
+      {
+        title: "AWS",
+        imageSrc:
+          "https://uploads.concordia.net/2023/02/16161824/1200px-Amazon_Web_Services_Logo.svg-1.png",
+      },
+      {
+        title: "Vercel",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+      },
+    ],
   },
   {
-    title: "Python",
-    imageSrc: "/portfolio/src/assets/images/skills/python.png",
+    category: "Game Development",
+    skills: [
+      {
+        title: "Godot",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg",
+      },
+      {
+        title: "Unity",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg",
+      },
+      {
+        title: "Pygame",
+        imageSrc: "https://www.pygame.org/ftp/pygame-head-party.png",
+      },
+      {
+        title: "Raylib",
+        imageSrc:
+          "https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png",
+      },
+      {
+        title: "Pico-8",
+        imageSrc:
+          "https://raw.githubusercontent.com/github/explore/4262c3bd938f34012322129aa29b0e9bd5a1048b/topics/pico-8/pico-8.png",
+      },
+    ],
   },
   {
-    title: "TensorFlow",
-    imageSrc:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Tensorflow_logo.svg/115px-Tensorflow_logo.svg.png",
+    category: "Developer Tools",
+    skills: [
+      {
+        title: "Visual Studio Code",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+      },
+      {
+        title: "Visual Studio",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg",
+      },
+      {
+        title: "IntelliJ IDEA",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg",
+      },
+      {
+        title: "Eclipse",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eclipse/eclipse-original.svg",
+      },
+      {
+        title: "Neovim",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg",
+      },
+      {
+        title: "Git",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      },
+      {
+        title: "GitHub",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      },
+      {
+        title: "GitLab",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+      },
+      {
+        title: "Postman",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+      },
+    ],
   },
   {
-    title: "JavaScript",
-    imageSrc:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/JavaScript_shield_logo_%28no_text%29.svg/640px-JavaScript_shield_logo_%28no_text%29.svg.png",
+    category: "OS & Platforms",
+    skills: [
+      {
+        title: "Arch Linux",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/archlinux/archlinux-original.svg",
+      },
+      {
+        title: "Debian",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original.svg",
+      },
+      {
+        title: "MacOS",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg",
+      },
+      {
+        title: "Raspberry Pi",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original.svg",
+      },
+      {
+        title: "Android Studio",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg",
+      },
+      {
+        title: "Arduino",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg",
+      },
+    ],
   },
 ];

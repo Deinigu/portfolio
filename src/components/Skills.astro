@@ -1,0 +1,14 @@
+---
+// src/components/Skill.astro
+import type { Skill } from "../consts";
+
+import { skills } from "../consts";
+import SkillsIsland from "./SkillIsland.tsx";
+---
+
+<section id="skills" class="py-16">
+  <h2 class="text-3xl font-bold text-center align-middle mb-10 text-ctp-text">
+    Skills
+  </h2>
+  <SkillsIsland client:visible />
+</section>
