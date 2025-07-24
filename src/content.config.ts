@@ -1,54 +1,37 @@
+// src/content/config.ts
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
+const baseSchema = ({ image }: any) =>
+  z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    heroImage: image().optional(),
+    tags: z.array(z.string()).optional(),
+    collection: z.string().optional(),
+    sourceCode: z.string().optional(),
+  });
+
 const blog = defineCollection({
-  loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      // Transform string to Date object
-      pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
-      heroImage: image().optional(),
-    }),
+  loader: glob({ base: "./src/content/", pattern: "**/**/*.{md,mdx}" }),
+  schema: baseSchema,
 });
 
 const projects = defineCollection({
   loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      pubDate: z.coerce.date(),
-      heroImage: image().optional(),
-    }),
+  schema: baseSchema,
 });
 
 const music = defineCollection({
   loader: glob({ base: "./src/content/music", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      pubDate: z.coerce.date(),
-      heroImage: image().optional(),
-    }),
+  schema: baseSchema,
 });
 
 const games = defineCollection({
   loader: glob({ base: "./src/content/games", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      pubDate: z.coerce.date(),
-      heroImage: image().optional(),
-    }),
+  schema: baseSchema,
 });
 
 export const collections = { blog, projects, music, games };

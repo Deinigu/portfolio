@@ -50,11 +50,17 @@ posts.sort((a, b) => {
               ...post,
               data: {
                 ...post.data,
-                pubDate: post.data.pubDate.toISOString().split("T")[0],
-                heroImage: post.data.heroImage?.src || "",
+                pubDate: post.data.pubDate?.toISOString().split("T")[0] || "",
+                heroImage:
+                  typeof post.data.heroImage === "string"
+                    ? post.data.heroImage
+                    : post.data.heroImage?.src || "",
+                tags: Array.isArray(post.data.tags) ? post.data.tags : [],
+                collection: post.collection || "",
               },
             }}
-            collection={collection}
+            collection={post.collection}
+            putCollectionTag={false}
           />
         )
       )

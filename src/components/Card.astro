@@ -9,6 +9,9 @@ type Props = {
       description: string;
       pubDate: string;
       heroImage: string;
+      tags: string[];
+      collection: string;
+      sourceCode?: string; // Optional source code link
     };
   };
   putCollectionTag?: boolean;
@@ -41,41 +44,51 @@ const finalHref = `${base}/${collection}`;
     >
       {post.data.title}
     </h2>
-    <p class="text-sm sm:text-base text-ctp-subtext0 leading-relaxed cut-text">
-      {post.data.description}
-    </p>
-    <p class="text-xs sm:text-sm text-ctp-subtext1 mt-auto">
-      📅 {post.data.pubDate}
-    </p>
-    {
-      putCollectionTag && (
-        <div class="flex items-center mt-2">
-          {collection === "projects" && (
-            <span class="font-semibold bg-ctp-blue text-ctp-base text-xs me-2 px-2.5 py-0.5 rounded-full">
-              {collection.charAt(0).toUpperCase() + collection.slice(1)}
+    <div
+      class="flex flex-wrap gap-2 mt-2 text-sm sm:text-base text-ctp-subtext1 items-center"
+    >
+      {
+        putCollectionTag &&
+          (collection === "projects" ? (
+            <span class="font-semibold bg-ctp-green text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
+              👨🏻‍💻 {collection.charAt(0).toUpperCase() + collection.slice(1)}
             </span>
-          )}
-          {collection === "games" && (
-            <span class="font-semibold bg-ctp-flamingo text-ctp-base text-xs me-2 px-2.5 py-0.5 rounded-full">
-              {collection.charAt(0).toUpperCase() + collection.slice(1)}
+          ) : collection === "games" ? (
+            <span class="font-semibold bg-ctp-flamingo text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
+              🎮 {collection.charAt(0).toUpperCase() + collection.slice(1)}
             </span>
-          )}
-          {collection === "music" && (
-            <span class="font-semibold bg-ctp-mauve text-ctp-base text-xs me-2 px-2.5 py-0.5 rounded-full">
-              {collection.charAt(0).toUpperCase() + collection.slice(1)}
+          ) : collection === "music" ? (
+            <span class="font-semibold bg-ctp-mauve text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
+              🎵 {collection.charAt(0).toUpperCase() + collection.slice(1)}
             </span>
-          )}
-        </div>
-      )
-    }
+          ) : null)
+      }
+      {
+        post.data.tags?.map((tag) => (
+          <span class="font-semibold bg-ctp-blue text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="flex flex-wrap gap-2 mt-2">
+      {
+        (
+          <p class="text-sm sm:text-base text-ctp-subtext0 leading-relaxed cut-text">
+            {post.data.description}
+          </p>
+        )
+      }
+    </div>
+
+    <style>
+      .cut-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    </style>
   </div>
 </a>
-
-<style>
-  .cut-text {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>
