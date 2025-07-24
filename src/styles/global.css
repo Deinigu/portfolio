@@ -122,9 +122,14 @@ body {
     @apply prose-img:rounded-lg prose-img:shadow-md;
 
     /* === Tablas === */
-    @apply prose-table:table prose-table:w-full;
-    @apply prose-th:font-semibold prose-th:bg-ctp-surface1 prose-th:text-left;
-    @apply prose-td:bg-ctp-surface0;
+    @apply prose-table:table prose-table:min-w-fit prose-table:max-w-max prose-table:my-8 prose-table:mx-auto prose-table:border-collapse prose-table:border prose-table:border-ctp-surface2 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-hidden;
+    /* === Table Headers === */
+    @apply prose-th:font-semibold prose-th:bg-ctp-surface1 prose-th:text-left prose-th:px-4 prose-th:py-2 prose-th:text-ctp-text;
+
+    /* === Table Cells === */
+    @apply prose-td:bg-ctp-surface0 prose-td:px-4 prose-td:py-2 prose-td:text-ctp-subtext1;
+
+    /* === Table Rows === */
     @apply prose-tr:border-b prose-tr:border-ctp-surface2;
   }
 }
