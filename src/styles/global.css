@@ -103,7 +103,7 @@ body {
     @apply prose-h4:text-xl prose-h4:font-medium prose-h4:mt-4 prose-h4:mb-2;
 
     /* === Enlaces === */
-    @apply prose-a:text-ctp-blue prose-a:no-underline hover:prose-a:underline hover:prose-a:text-ctp-lavender hover:prose-a:decoration-ctp-blue;
+    @apply prose-a:text-ctp-blue prose-a:no-underline prose-a:hover:underline prose-a:hover:text-ctp-lavender prose-a:hover:decoration-ctp-blue prose-a:font-semibold;
 
     /* === Listas === */
     @apply prose-ul:pl-6 prose-ul:list-disc prose-li:my-1;
