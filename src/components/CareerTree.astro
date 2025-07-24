@@ -56,7 +56,7 @@ import { careerItems } from '../consts';
                                     item.type === 'work' ? 'bg-ctp-blue/10 text-ctp-blue/100 ' :
                                     item.type === 'education' ? 'bg-ctp-green/10 text-ctp-green/100 ' :
                                     'bg-ctp-lavender/10 text-ctp-lavender/100 '
-                                }`}>
+                                } ${index % 2 === 0 ? 'md:order-first' : 'md:order-last'}`}>
                                     {item.type}
                                 </span>
                             </div>
