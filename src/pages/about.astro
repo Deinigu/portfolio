@@ -7,103 +7,107 @@ import CareerTree from "../components/CareerTree.astro";
 ---
 
 <BaseLayout>
-  <header class="text-center mb-8 md:mb-12">
-    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-ctp-text mb-4">
-      About Me
-    </h1>
-  </header>
+  <main class="min-h-screen bg-gradient-to-br py-12 px-4">
+    <div class="max-w-2xl mx-auto">
+      <header class="text-center mb-8 md:mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
+          About Me
+        </h1>
+      </header>
+    </div>
 
-  <div
-    class="flex flex-col lg:flex-row items-center gap-6 md:gap-8 mb-8 md:mb-12"
-  >
     <div
-      class="flex flex-col w-full lg:max-w-2xl items-center text-ctp-text order-2 lg:order-1"
+      class="flex flex-col lg:flex-row items-center gap-6 md:gap-8 mb-8 md:mb-12"
     >
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center">
-        Diego López Reduello
-      </h2>
-
       <div
-        class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-3xl mx-auto mb-4 md:mb-6"
+        class="flex flex-col w-full lg:max-w-2xl items-center text-ctp-text order-2 lg:order-1"
       >
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center">
+          Diego López Reduello
+        </h2>
+
         <div
-          class="bg-ctp-surface0 rounded-full h-2 md:h-3 overflow-hidden shadow-inner"
+          class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-3xl mx-auto mb-4 md:mb-6"
         >
           <div
-            class="bg-gradient-to-r from-ctp-blue to-ctp-mauve h-full rounded-full animate-pulse"
+            class="bg-ctp-surface0 rounded-full h-2 md:h-3 overflow-hidden shadow-inner"
           >
-            <style>
-              @keyframes loadBar {
-                0% {
-                  width: 0%;
+            <div
+              class="bg-gradient-to-r from-ctp-blue to-ctp-mauve h-full rounded-full animate-pulse"
+            >
+              <style>
+                @keyframes loadBar {
+                  0% {
+                    width: 0%;
+                  }
+                  100% {
+                    width: 100%;
+                  }
                 }
-                100% {
-                  width: 100%;
+                .animate-loadBar {
+                  animation: loadBar 2s ease-out forwards;
                 }
-              }
-              .animate-loadBar {
-                animation: loadBar 2s ease-out forwards;
-              }
-            </style>
+              </style>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        class="text-sm sm:text-base lg:text-lg mb-4 text-center md:text-left px-4 md:px-0"
-      >
-        <p class="mb-2">
-          Hi! I’m Diego — a curious <span
-            class="font-semibold text-ctp-blue transition hover:text-ctp-mauve"
-          >
-            data scientist
-          </span>
-          with a passion for building elegant, efficient systems that solve real
-          problems.
-        </p>
-        <p>
-          My journey began at 13, programming LEGO robots and discovering how
-          code could shape the world around me. Since then, I’ve explored web
-          development, machine learning, game engines, and more. I'm driven by
-          learning and always looking for <span class="italic"
-            >creative ways</span
-          > to turn complex ideas into impactful, real-world experiences.
-        </p>
+        <div
+          class="text-sm sm:text-base lg:text-lg mb-4 text-center md:text-left px-4 md:px-0"
+        >
+          <p class="mb-2">
+            Hi! I’m Diego — a curious <span
+              class="font-semibold text-ctp-blue transition hover:text-ctp-mauve"
+            >
+              data scientist
+            </span>
+            with a passion for building elegant, efficient systems that solve real
+            problems.
+          </p>
+          <p>
+            My journey began at 13, programming LEGO robots and discovering how
+            code could shape the world around me. Since then, I’ve explored web
+            development, machine learning, game engines, and more. I'm driven by
+            learning and always looking for <span class="italic"
+              >creative ways</span
+            > to turn complex ideas into impactful, real-world experiences.
+          </p>
+        </div>
+
+        <a
+          href="/portfolio/contact"
+          class="mt-4 inline-block bg-ctp-blue hover:bg-ctp-lavender hover:text-ctp-base hover:scale-110 focus:scale-100 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
+        >
+          Get in Touch
+        </a>
+        <a
+          href="/portfolio/cv"
+          class="mt-4 inline-block bg-ctp-mauve hover:bg-ctp-lavender hover:scale-110 text-ctp-crust focus:scale-100 font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
+        >
+          Download My CV
+        </a>
       </div>
 
-      <a
-        href="/portfolio/contact"
-        class="mt-4 inline-block bg-ctp-blue hover:bg-ctp-lavender hover:text-ctp-base hover:scale-110 focus:scale-100 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
-      >
-        Get in Touch
-      </a>
-      <a
-        href="/portfolio/cv"
-        class="mt-4 inline-block bg-ctp-mauve hover:bg-ctp-lavender hover:scale-110 text-ctp-crust focus:scale-100 font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
-      >
-        Download My CV
-      </a>
+      <div class="w-full sm:w-auto flex justify-center order-1 lg:order-2">
+        <div
+          class="relative group hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+        >
+          <Image
+            src={imgPath}
+            alt="Profile picture of Diego López Reduello"
+            loading="lazy"
+            decoding="async"
+            class="w-64 sm:w-80 md:w-96 lg:max-w-2xl rounded-lg shadow-xl border-2 md:border-4 border-ctp-overlay1 transition-transform duration-300 hover:scale-105 group-hover:shadow-2xl"
+          />
+        </div>
+      </div>
     </div>
 
-    <div class="w-full sm:w-auto flex justify-center order-1 lg:order-2">
-      <div
-        class="relative group hover:shadow-2xl transition-shadow duration-300 ease-in-out"
-      >
-        <Image
-          src={imgPath}
-          alt="Profile picture of Diego López Reduello"
-          loading="lazy"
-          decoding="async"
-          class="w-64 sm:w-80 md:w-96 lg:max-w-2xl rounded-lg shadow-xl border-2 md:border-4 border-ctp-overlay1 transition-transform duration-300 hover:scale-105 group-hover:shadow-2xl"
-        />
-      </div>
-    </div>
-  </div>
-
-  <Skills />
-  <CareerTree />
-  <style>
-    .bg-gradient-to-r {
-      animation: loadBar 2s ease-out forwards;
-    }
-  </style>
+    <Skills />
+    <CareerTree />
+    <style>
+      .bg-gradient-to-r {
+        animation: loadBar 2s ease-out forwards;
+      }
+    </style>
+  </main>
 </BaseLayout>

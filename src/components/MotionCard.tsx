@@ -1,5 +1,6 @@
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
+import Card from "./Card.astro";
 
 type Props = {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ export default function MotionCard({
   className = "",
   delay = 0,
 }: Props) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const controls = useAnimation();
 
@@ -45,8 +46,10 @@ export default function MotionCard({
           ease: [0.33, 1, 0.68, 1],
         },
       }}
-      style={{ transformStyle: "preserve-3d" }}
-      className={className}
+      style={{
+        transformStyle: "preserve-3d",
+      }}
+      className="flex ${className} perspective-1000"
     >
       {children}
     </motion.div>
