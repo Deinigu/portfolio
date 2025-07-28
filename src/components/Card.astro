@@ -28,19 +28,19 @@ const finalHref = `${base}/${collection}`;
 
 <a
   href={`${finalHref}/${post.id}`}
-  class="group flex flex-col w-full max-w-md rounded-xl overflow-hidden bg-ctp-mantle hover:shadow-lg transition-transform duration-300 hover:-translate-y-1 shadow border border-ctp-surface1"
+  class="group flex flex-col w-full max-w-md rounded-xl overflow-hidden bg-ctp-mantle shadow border border-ctp-surface1 hover:shadow-2xl transition-shadow duration-200 ease-in-out"
   {...props}
 >
   <img
     src={post.data.heroImage}
     alt={`Cover image for "${post.data.title}"`}
-    class="w-full h-48 sm:h-52 md:h-56 lg:h-60 object-cover transition-opacity duration-300 group-hover:opacity-90"
+    class="w-full h-48 sm:h-52 md:h-56 lg:h-60 object-cover transition-opacity duration-300"
     loading="lazy"
     decoding="async"
   />
   <div class="flex flex-col gap-2 p-4 md:p-6">
     <h2
-      class="text-lg sm:text-xl md:text-2xl font-semibold text-ctp-text leading-snug group-hover:underline"
+      class="text-lg sm:text-xl md:text-2xl font-semibold text-ctp-text leading-snug"
     >
       {post.data.title}
     </h2>
