@@ -4,6 +4,7 @@ import imgPath from "../assets/about.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Skills from "../components/Skills.astro";
 import CareerTree from "../components/CareerTree.astro";
+import CertificationList from "../components/CertificationList";
 ---
 
 <BaseLayout>
@@ -11,7 +12,7 @@ import CareerTree from "../components/CareerTree.astro";
     <div class="max-w-2xl mx-auto">
       <header class="text-center mb-8 md:mb-12">
         <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
-          About Me
+          About Me 👋🏻
         </h1>
       </header>
     </div>
@@ -101,8 +102,9 @@ import CareerTree from "../components/CareerTree.astro";
         </div>
       </div>
     </div>
-
     <Skills />
+    <CertificationList client:visible />
+
     <CareerTree />
     <style>
       .bg-gradient-to-r {

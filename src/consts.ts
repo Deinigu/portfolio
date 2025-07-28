@@ -45,6 +45,33 @@ export const socialLinks = [
   },
 ];
 
+export interface Certifications {
+  title: string;
+  imageSrc: string;
+  link: string;
+}
+// The certifications obtained, with their titles, image sources, and links.
+export const certifications: Certifications[] = [
+  {
+    title: "Microsoft Certified: Azure AI Engineer Associate",
+    imageSrc:
+      "https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-associate-badge.svg",
+    link: "https://learn.microsoft.com/api/credentials/share/es-es/DiegoLpezReduello-6168/D283023F8C82FC1D?sharingId",
+  },
+  {
+    title: "Machine Learning Specialization",
+    imageSrc:
+      "https://coursera-university-assets.s3.amazonaws.com/b4/5cb90bb92f420b99bf323a0356f451/Icon.png",
+    link: "https://www.coursera.org/account/accomplishments/specialization/B13ANDOH6KSR",
+  },
+  {
+    title: "Microsoft Certified: Azure AI Fundamentals",
+    imageSrc:
+      "https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-fundamentals-badge.svg",
+    link: "https://www.credly.com/badges/84ca4507-36c2-4351-b3e4-351c56844016/linked_in_profile",
+  },
+];
+
 // The skills used in the portfolio, with their titles and image sources.
 export interface Skill {
   title: string;

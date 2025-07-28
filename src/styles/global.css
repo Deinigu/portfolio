@@ -17,9 +17,9 @@
   --color-ctp-sapphire: hsl(189, 70%, 42%);
   --color-ctp-blue: hsl(220, 91%, 54%);
   --color-ctp-lavender: hsl(231, 97%, 72%);
-  --color-ctp-text: hsl(234, 16%, 35%);
-  --color-ctp-subtext1: hsl(233, 13%, 41%);
-  --color-ctp-subtext0: hsl(233, 10%, 47%);
+  --color-ctp-text: hsl(234, 20%, 20%);
+  --color-ctp-subtext1: hsl(233, 14%, 35%);
+  --color-ctp-subtext0: hsl(233, 12%, 42%);
   --color-ctp-overlay2: hsl(232, 10%, 53%);
   --color-ctp-overlay1: hsl(231, 10%, 59%);
   --color-ctp-overlay0: hsl(228, 11%, 65%);
@@ -57,11 +57,13 @@
   --color-ctp-base: hsl(232, 23%, 18%);
   --color-ctp-mantle: hsl(233, 23%, 15%);
   --color-ctp-crust: hsl(236, 23%, 12%);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   .astro-code,
   .astro-code span {
     color: var(--shiki-dark) !important;
     background-color: var(--shiki-dark-bg) !important;
-    /* Optional, if you also want font styles */
     font-style: var(--shiki-dark-font-style) !important;
     font-weight: var(--shiki-dark-font-weight) !important;
     text-decoration: var(--shiki-dark-text-decoration) !important;
@@ -72,30 +74,39 @@ body {
   font-family: "Atkinson", sans-serif;
   margin: 0;
   padding: 0;
+  font-size: 18px; /* reduced from 20px */
+  line-height: 1.6; /* reduced from 1.7 */
   text-align: left;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  font-size: 20px;
-  line-height: 1.7;
   caret-color: transparent;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
+
 .astro-code,
 .astro-code span {
   color: var(--shiki-light) !important;
   background-color: var(--shiki-light-bg) !important;
-  /* Optional, if you also want font styles */
   font-style: var(--shiki-light-font-style) !important;
   font-weight: var(--shiki-light-font-weight) !important;
   text-decoration: var(--shiki-light-text-decoration) !important;
+
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-ctp-surface1);
+  box-shadow: 0 2px 4px hsla(220, 20%, 30%, 0.05);
 }
 @layer components {
   .ctp-prose {
-    @apply prose dark:prose-invert max-w-3xl mx-auto;
+    @apply prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-0;
 
     /* === Textos base === */
     @apply prose-p:leading-relaxed prose-p:my-4 prose-p:text-ctp-text;
     @apply prose-strong:font-semibold prose-strong:text-ctp-text;
-    @apply prose-em:italic prose-em:text-ctp-text;
+    @apply prose-em:italic prose-em:text-ctp-subtext0;
 
     /* === Títulos === */
     @apply prose-h1:text-4xl prose-h1:font-extrabold prose-h1:mt-0 prose-h1:mb-4;
@@ -104,14 +115,16 @@ body {
     @apply prose-h4:text-xl prose-h4:font-medium prose-h4:mt-4 prose-h4:mb-2;
 
     /* === Enlaces === */
-    @apply prose-a:text-ctp-blue prose-a:no-underline prose-a:hover:underline prose-a:hover:text-ctp-lavender prose-a:hover:decoration-ctp-blue prose-a:font-semibold;
+    @apply prose-a:text-ctp-blue prose-a:no-underline prose-a:font-semibold;
+    @apply prose-a:transition-colors prose-a:duration-200;
+    @apply prose-a:hover:underline prose-a:hover:text-ctp-lavender;
 
     /* === Listas === */
     @apply prose-ul:pl-6 prose-ul:list-disc prose-li:my-1;
     @apply prose-ol:pl-6 prose-ol:list-decimal prose-li:my-1;
 
     /* === Citas === */
-    @apply prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:border-l-4 prose-blockquote:border-ctp-blue prose-blockquote:text-ctp-subtext0;
+    @apply prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:border-l-4 prose-blockquote:border-ctp-blue prose-blockquote:text-ctp-subtext1;
 
     /* === Separadores === */
     @apply prose-hr:my-8 prose-hr:border-t prose-hr:border-ctp-surface1;
@@ -122,8 +135,12 @@ body {
     /* === Imágenes === */
     @apply prose-img:rounded-lg prose-img:shadow-md;
 
+    /* === Dividers === */
+    @apply prose-hr:my-8 prose-hr:border-t prose-hr:border-ctp-surface1;
+
     /* === Tablas === */
     @apply prose-table:table prose-table:min-w-fit prose-table:max-w-max prose-table:my-8 prose-table:mx-auto prose-table:border-collapse prose-table:border prose-table:border-ctp-surface2 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-hidden;
+
     /* === Table Headers === */
     @apply prose-th:font-semibold prose-th:bg-ctp-surface1 prose-th:text-left prose-th:px-4 prose-th:py-2 prose-th:text-ctp-text;
 
