@@ -11,12 +11,14 @@ import SocialLinks from "../components/SocialLinks.astro";
   <main class="min-h-screen bg-gradient-to-br py-12 px-4">
     <div class="max-w-4xl mx-auto text-center">
       <div class="mb-8">
-        <Image
-          src={imgPath}
-          alt="Diego's profile picture"
-          class="rounded-full mx-auto mb-6 shadow-lg border-4 border-ctp-overlay1"
-          style="max-width: 300px; width: 100%; height: auto;"
-        />
+        <a href="/portfolio/about" title="Read more about me">
+          <Image
+            src={imgPath}
+            alt="Diego's profile picture"
+            class="rounded-full mx-auto mb-6 border-4 border-ctp-overlay1 hover:border-ctp-blue hover:scale-105 transition-transform duration-300"
+            style="max-width: 300px; width: 100%; height: auto;"
+          />
+        </a>
 
         <h1 class="text-4xl md:text-6xl font-bold">
           Hi, I'm <span class="text-ctp-blue">Diego</span>!
@@ -28,6 +30,13 @@ import SocialLinks from "../components/SocialLinks.astro";
             class="text-ctp-blue font-semibold inline-block text-left"></span>
           <span class="animate-pulse text-ctp-blue">|</span>
         </div>
+        <p class="mt-4 text-base md:text-lg text-ctp-subtext0 max-w-xl mx-auto">
+          Want to know more details about me? <a
+            href="/portfolio/about"
+            class="underline text-ctp-blue hover:text-ctp-lavender transition-colors"
+            >Click here! →</a
+          >
+        </p>
       </div>
       <SocialLinks />
     </div>
