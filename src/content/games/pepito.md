@@ -4,7 +4,7 @@ description: "A survivors-style game created for LowRezJam, where the main chall
 pubDate: "2023-08-01"
 heroImage: "../../assets/images/games/pepito_portada.png"
 collection: "games"
-tags: ["Godot", "Game Design"]
+tags: ["Godot", "Game Design", "Browser"]
 ---
 
 ## About the game
