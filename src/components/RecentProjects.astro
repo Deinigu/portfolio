@@ -1,5 +1,4 @@
 ---
-// Importaciones necesarias
 import {
   getCollection,
   type CollectionKey,
@@ -8,13 +7,12 @@ import {
 } from "astro:content";
 import Card from "./Card.astro";
 import MotionCard from "./MotionCard";
+import { collectionsKeys } from "../content.config";
 
-// Lista de todas las colecciones que quieres incluir
-const collections: CollectionKey[] = ["music", "games", "projects"]; // modifica esto con los nombres reales
+// List of all collections to include
 
-// Obtener todas las entradas de todas las colecciones
 const entries = await Promise.all(
-  collections.map((collection) =>
+  collectionsKeys.map((collection) =>
     getCollection(collection).then((posts) =>
       posts.map((post) => ({
         ...post,
@@ -26,17 +24,14 @@ const entries = await Promise.all(
 
 const { limit } = Astro.props;
 
-// Unir todas las entradas en una sola lista
 const allPosts = entries.flat();
 
-// Ordenar por fecha de publicación descendente (si existe pubDate)
 const sortedPosts = allPosts.sort((a, b) => {
   const dateA = new Date(a.data.pubDate || 0).getTime();
   const dateB = new Date(b.data.pubDate || 0).getTime();
   return dateB - dateA;
 });
 
-// Seleccionar solo las tres primeras
 const selectedPosts = sortedPosts.slice(0, limit);
 ---
 

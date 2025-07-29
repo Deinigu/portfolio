@@ -61,7 +61,11 @@ const finalHref = `${base}/${collection}`;
             <span class="font-semibold bg-ctp-mauve text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
               🎵 {collection.charAt(0).toUpperCase() + collection.slice(1)}
             </span>
-          ) : null)
+          ) : (
+            <span class="font-semibold bg-ctp-red text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
+              error {collection.charAt(0).toUpperCase() + collection.slice(1)}
+            </span>
+          ))
       }
       {
         post.data.tags?.map((tag) => (

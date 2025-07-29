@@ -6,36 +6,48 @@ import {
 } from "astro:content";
 import Card from "./Card.astro";
 import MotionCard from "./MotionCard";
+import { collectionsKeys } from "../content.config";
 
-const collection = Astro.props.collection;
-const limit = Astro.props.limit || 0;
+const collectionName = Astro.props.collection ? Astro.props.collection : "";
 
-// Get the title of the collection from the props
 const collectionTitle =
-  collection.charAt(0).toUpperCase() + collection.slice(1);
+  collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
-const posts: {
-  [x: string]: any;
-  id: string;
-  body?: string;
-  collection: typeof collection;
-  data: InferEntrySchema<"blog">;
-  rendered?: RenderedContent;
-  filePath?: string;
-}[] = await getCollection(collection);
-
-// Sort posts by publication date in descending order
-posts.sort((a, b) => {
-  return (
-    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+const entries = (
+  await Promise.all(
+    collectionsKeys.map((key) =>
+      getCollection(key).then((posts) =>
+        posts.map((post) => ({
+          ...post,
+        }))
+      )
+    )
+  )
+)
+  .flat()
+  .filter(
+    collectionName !== ""
+      ? (entry: { collection: any }) => entry.collection === collectionName
+      : () => true
   );
+
+const { limit } = Astro.props;
+
+const allPosts = entries.flat();
+
+const sortedPosts = allPosts.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate || 0).getTime();
+  const dateB = new Date(b.data.pubDate || 0).getTime();
+  return dateB - dateA;
 });
+
+const posts = sortedPosts.slice(0, limit);
 ---
 
 <section class="px-4 md:px-8 py-10">
   <header class="text-center mb-12">
     <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
-      {collectionTitle}
+      {collectionTitle ? `${collectionTitle}` : "Recent Posts"}
     </h1>
   </header>
   <div
@@ -62,7 +74,7 @@ posts.sort((a, b) => {
                 },
               }}
               collection={post.collection}
-              putCollectionTag={false}
+              putCollectionTag={Astro.props.collection ? false : true}
             />
           </MotionCard>
         )

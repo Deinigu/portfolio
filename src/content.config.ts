@@ -1,6 +1,6 @@
 // src/content/config.ts
 import { glob } from "astro/loaders";
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type CollectionKey } from "astro:content";
 
 const baseSchema = ({ image }: any) =>
   z.object({
@@ -14,7 +14,7 @@ const baseSchema = ({ image }: any) =>
     sourceCode: z.string().optional(),
   });
 
-const blog = defineCollection({
+const posts = defineCollection({
   loader: glob({ base: "./src/content/", pattern: "**/**/*.{md,mdx}" }),
   schema: baseSchema,
 });
@@ -34,4 +34,6 @@ const games = defineCollection({
   schema: baseSchema,
 });
 
-export const collections = { blog, projects, music, games };
+export const collectionsKeys: CollectionKey[] = ["music", "games", "projects"];
+
+export const collections = { posts, projects, music, games };

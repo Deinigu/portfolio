@@ -2,7 +2,7 @@
 title: "Detection and Classification of pieces in a real Chess Board"
 description: "My Final Degree Project: training a YOLOv8 model to recognize real chess pieces and using OpenCV to recognize the position of each piece."
 pubDate: "2024-07-16"
-heroImage: "../../assets/images/posts/chess/chess.png"
+heroImage: "../../assets/images/projects/chess/chess.png"
 collection: "projects"
 tags: ["YOLOv8", "OpenCV", "Computer Vision", "AI", "Deep Learning"]
 ---
@@ -62,7 +62,7 @@ Develop software that detects and classifies chess pieces on a real board image 
 
 ## 📷 Dataset Creation
 
-![Labeled image example](../../assets/images/posts/chess/labels.png)
+![Labeled image example](../../assets/images/projects/chess/labels.png)
 
 Due to the lack of publicly available datasets that suited the specific needs of my project, I decided to create my own. I used a camera to capture images of a chessboard placed in my yard, ensuring a variety of natural lighting conditions. Each image was then meticulously labeled manually, identifying every piece individually.
 
@@ -77,7 +77,7 @@ The resulting dataset has the following characteristics:
   - 90 training
   - 30 validation
   - 10 test (never seen during training)
-    ![Labels Distribution](../../assets/images/posts/chess/train_labels.jpg)
+    ![Labels Distribution](../../assets/images/projects/chess/train_labels.jpg)
 
 ### Example label:
 
@@ -122,7 +122,7 @@ These resources provided a diverse set of strategic examples to enhance the data
 
 ## 🧠 Piece Classification
 
-![Prediction example](../../assets/images/posts/chess/prediction.png)
+![Prediction example](../../assets/images/projects/chess/prediction.png)
 
 **Model:** YOLOv8 (via Ultralytics)
 
@@ -142,7 +142,7 @@ model.train(
 **Hardware:** NVIDIA Tesla T4 (via Google Colab)
 
 **Validation:** 5-fold cross-validation  
-![Train Confusion Matrix](../../assets/images/posts/chess/train_confusion_matrix.png)
+![Train Confusion Matrix](../../assets/images/projects/chess/train_confusion_matrix.png)
 
 ---
 
@@ -170,7 +170,7 @@ def canny_edge(img, sigma=0.33):
 cv2.HoughLines(image, 1, np.pi / 180, 125)
 ```
 
-![Canny + Hough Example](../../assets/images/posts/chess/cannyhough.png)
+![Canny + Hough Example](../../assets/images/projects/chess/cannyhough.png)
 
 ---
 
@@ -250,7 +250,7 @@ for k in range(5):
 
 ### Example Output
 
-![Salida de imagen con celdas y piezas](../../assets/images/posts/chess/result.png)
+![Salida de imagen con celdas y piezas](../../assets/images/projects/chess/result.png)
 
 ### Lichess Output
 
