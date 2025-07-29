@@ -16,10 +16,6 @@ The purpose of this project is to develop a neural network system that detects a
 
 ---
 
-## 📚 Table of Contents
-
----
-
 ## 🔍 Project Overview
 
 This project focuses on automating the recognition of chessboard positions using **YOLOv8**, **OpenCV**, and a custom dataset. The output is provided in **Forsyth-Edwards Notation (FEN)** for seamless import into platforms like Lichess.
@@ -144,7 +140,9 @@ model.train(
 **Validation:** 5-fold cross-validation  
 ![Train Confusion Matrix](../../assets/images/projects/chess/train_confusion_matrix.png)
 
----
+### 📽️ Video Demostration
+
+## <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">Chess pieces detection with <a href="https://twitter.com/hashtag/YoloV8?src=hash&amp;ref_src=twsrc%5Etfw">#YoloV8</a> for my Final Degree Project: <a href="https://t.co/H4aqdLVzcO">pic.twitter.com/H4aqdLVzcO</a></p>&mdash; Deinigu (@DeiniguDev) <a href="https://twitter.com/DeiniguDev/status/1767267141680550073?ref_src=twsrc%5Etfw">March 11, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## ♟️ Board Detection
 
@@ -190,19 +188,52 @@ The core of the application follows a **multi-stage pipeline** that combines dee
 
 3. **Piece Detection & Classification**
    - YOLOv8 detects and classifies all pieces.
-   - Output saved as `labels.txt` with piece type, confidence, and bounding box info.
+     ![](../../assets/images/projects/chess/predict/vlcsnap-2024-02-27-14h00m19s579.png)
+   - Output saved as `labels.txt` with piece type, confidence, and bounding box info. For example:
+
+```txt
+7 0.393105 0.665913 0.0514038 0.158451
+9 0.280013 0.47629 0.0551658 0.142217
+11 0.345507 0.358007 0.0563328 0.174681
+2 0.595982 0.213026 0.0486311 0.138532
+5 0.412208 0.203345 0.0514366 0.171442
+4 0.652038 0.165326 0.0362755 0.101061
+0 0.76361 0.540985 0.0635183 0.19865
+6 0.260062 0.534434 0.0618882 0.201384
+4 0.693028 0.690002 0.0452681 0.115042
+10 0.346834 0.475197 0.0442602 0.108371
+10 0.330178 0.676344 0.0461226 0.11515
+9 0.53991 0.299925 0.0464019 0.141713
+1 0.719523 0.215075 0.0452726 0.143501
+10 0.359922 0.230664 0.0392281 0.101181
+4 0.60468 0.384311 0.0422276 0.113551
+10 0.340781 0.578749 0.0442157 0.112926
+4 0.692592 0.57734 0.0440464 0.117031
+10 0.374617 0.0966979 0.0360764 0.097045
+3 0.73503 0.382123 0.0478531 0.13469
+4 0.643071 0.0976982 0.0354422 0.0950123
+3 0.605947 0.469218 0.0467537 0.142844
+```
 
 4. **Preprocessing**
    - Convert image to grayscale.
+     ![BW Image](../../assets/images/projects/chess/test4_bw.png)
    - Apply Gaussian blur to reduce noise.
+     ![Blur Image](../../assets/images/projects/chess/test4_blur.png)
+
    - Detect edges using **Canny edge detector**.
+     ![Canny Edge Image](../../assets/images/projects/chess/test4_canny.png)
 
 5. **Line & Corner Detection**
    - Apply **Hough Line Transform** to detect vertical and horizontal lines.
+     ![Hough Image](../../assets/images/projects/chess/test4_hough.png)
+
    - Calculate intersections = cell corners.
+     ![Edges Image](../../assets/images/projects/chess/test4_edges.png)
 
 6. **Cell Grid Construction**
    - Group intersection points to reconstruct the 8x8 chessboard grid.
+     ![Chessboard grid Image](../../assets/images/projects/chess/test4_cells.png)
    - Assign each cell a board coordinate (e.g., e4, d5).
 
 7. **Piece-to-Cell Assignment**
@@ -213,6 +244,10 @@ The core of the application follows a **multi-stage pipeline** that combines dee
    - Build a FEN string from the final board state.
    - Save FEN to a `.txt` file and display a Lichess URL with the position.
 
+   ```txt
+   2b1r1k1/pp4pp/2n1pr2/3R4/8/2q4B/P1P1QPPP/5RK1
+   ```
+
 9. **Annotated Output**
    - Generate images showing:
      - Edge detection
@@ -222,6 +257,53 @@ The core of the application follows a **multi-stage pipeline** that combines dee
 
 10. **Debug Mode**
     - Optional flag `--debug` shows intermediate images (grayscale, edges, etc.)
+
+## 📸 Examples
+
+### Example Console Output
+
+```zsh
+❯ python main.py -i workspace/images/test4.png
+Model loaded: workspace/model/model.pt
+
+image 1/1 /home/deltablade/TFG-Diego/workspace/images/test4.png: 448x640 1 black-king, 1 black-bishop, 1 black-knight, 2 black-rooks, 5 black-pawns, 1 black-queen, 1 white-king, 1 white-bishop, 2 white-rooks, 5 white-pawns, 2 white-queens, 75.0ms
+Speed: 1.1ms preprocess, 75.0ms inference, 187.6ms postprocess per image at shape (1, 3, 448, 640)
+Results saved to workspace/results/2025-07-29_15-03-06_test4/predict
+1 label saved to workspace/results/2025-07-29_15-03-06_test4/predict/labels
+Chessboard from the perspective of the image:
+▢ ♟ ▢ ▢ ▢ ▢ ♙ ▢
+▢ ▢ ▢ ▢ ▢ ▢ ♙ ▢
+▢ ♟ ♕ ▢ ▢ ♘ ▢ ♗
+▢ ▢ ▢ ▢ ♜ ▢ ▢ ▢
+▢ ♛ ▢ ▢ ▢ ♙ ▢ ♖
+♜ ♟ ▢ ▢ ▢ ♖ ▢ ▢
+♚ ♟ ▢ ▢ ▢ ▢ ♙ ♔
+▢ ♟ ♝ ▢ ▢ ▢ ♙ ▢
+
+Final Result:
+▢ ▢ ♗ ▢ ♖ ▢ ♔ ▢
+♙ ♙ ▢ ▢ ▢ ▢ ♙ ♙
+▢ ▢ ♘ ▢ ♙ ♖ ▢ ▢
+▢ ▢ ▢ ♜ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢ ▢ ▢ ▢
+▢ ▢ ♕ ▢ ▢ ▢ ▢ ♝
+♟ ▢ ♟ ▢ ♛ ♟ ♟ ♟
+▢ ▢ ▢ ▢ ▢ ♜ ♚ ▢
+
+https://lichess.org/editor/2b1r1k1/pp4pp/2n1pr2/3R4/8/2q4B/P1P1QPPP/5RK1
+```
+
+### Example Image Output
+
+![Salida de imagen con celdas y piezas](../../assets/images/projects/chess/test4_result.png)
+
+### Lichess Output
+
+![Lichess Output Image](../../assets/images/projects/chess/lichess.png)
+
+### 📽️ Video Demostration
+
+<blockquote class="twitter-tweet" data-media-max-width="1080"><p lang="en" dir="ltr">Final version executed! I&#39;m thrilled with how project turned out. ♟️ <a href="https://twitter.com/hashtag/Chess?src=hash&amp;ref_src=twsrc%5Etfw">#Chess</a> <a href="https://twitter.com/hashtag/AI?src=hash&amp;ref_src=twsrc%5Etfw">#AI</a> <a href="https://twitter.com/hashtag/YoloV8?src=hash&amp;ref_src=twsrc%5Etfw">#YoloV8</a> <a href="https://twitter.com/hashtag/OpenCV?src=hash&amp;ref_src=twsrc%5Etfw">#OpenCV</a> <a href="https://twitter.com/hashtag/SoftwareDevelopment?src=hash&amp;ref_src=twsrc%5Etfw">#SoftwareDevelopment</a> <a href="https://t.co/jp0VNBykG1">https://t.co/jp0VNBykG1</a> <a href="https://t.co/GgwBZJ79pB">pic.twitter.com/GgwBZJ79pB</a></p>&mdash; Deinigu (@DeiniguDev) <a href="https://twitter.com/DeiniguDev/status/1820090248933625980?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ---
 
@@ -244,14 +326,8 @@ for k in range(5):
   results[k] = model.metrics
 ```
 
-## ✅ Results
+You can find more information in the [official paper](https://www.linkedin.com/posts/dlreduello_tfg-activity-7222631442877472768-mZHz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEcYgbUBm3jHuqQll3I-uZcozZftcskZH0c).
 
-## 📸 Image & Video Examples
+### 📽️ Video Demostration
 
-### Example Output
-
-![Salida de imagen con celdas y piezas](../../assets/images/projects/chess/result.png)
-
-### Lichess Output
-
-### Video Demo
+<blockquote class="twitter-tweet" data-media-max-width="1080"><p lang="en" dir="ltr">As well as that, check out this video showcasing the tests executed! <a href="https://t.co/g4CeTXOUjC">pic.twitter.com/g4CeTXOUjC</a></p>&mdash; Deinigu (@DeiniguDev) <a href="https://twitter.com/DeiniguDev/status/1820090758340170095?ref_src=twsrc%5Etfw">August 4, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
