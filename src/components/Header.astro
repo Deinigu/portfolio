@@ -7,21 +7,19 @@ import Logo from "./Logo.astro";
   <nav
     class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
   >
-    <!-- Left side: Logo -->
-    <div class="items-left space-x-1 sm:space-x-2">
+    <!-- Left: Logo -->
+    <div class="flex flex-1 items-center">
       <Logo href="/portfolio/" />
     </div>
-    <!-- Center: Navigation links -->
-    <div class="items-center space-x-1 sm:space-x-2">
-      <!-- Mobile hamburger -->
+    <!-- Center: Hamburger (mobile only) -->
+    <div class="flex flex-1 justify-center lg:hidden">
       <button
         id="menu-toggle"
         aria-label="Toggle navigation menu"
         aria-expanded="false"
-        class="hover:bg-ctp-overlay2 focus:bg-ctp-surface1 hover:text-ctp-base flex items-center justify-center rounded-3xl p-3 transition-all duration-100 active:scale-95 lg:hidden ease-in"
+        class="hover:bg-ctp-overlay2 focus:bg-ctp-surface1 hover:text-ctp-base flex items-center justify-center rounded-3xl p-3 transition-all duration-100 active:scale-95"
       >
-        <span class="hamburguer-icon">
-          <span class="hamburguer-icon flex flex-col"></span>
+        <span class="hamburger-icon flex flex-col">
           <span
             class="mb-1 block h-0.5 w-6 bg-current transition-transform duration-100"
           ></span>
@@ -34,20 +32,20 @@ import Logo from "./Logo.astro";
         </span>
       </button>
     </div>
-    <!-- Desktop navigation -->
+    <!-- Center: Navigation links (desktop only) -->
     <div
-      class="hidden items-center space-x-1 lg:flex lg:flex-1 lg:justify-center xl:space-x-2"
+      class="hidden flex-1 items-center justify-center space-x-1 lg:flex xl:space-x-2"
     >
       <HeaderLink href="/portfolio/">Home</HeaderLink>
       <HeaderLink href="/portfolio/about/">About</HeaderLink>
+      <HeaderLink href="/portfolio/posts">Posts</HeaderLink>
       <HeaderLink href="/portfolio/projects/">Projects</HeaderLink>
       <HeaderLink href="/portfolio/games/">Games</HeaderLink>
       <HeaderLink href="/portfolio/music/">Music</HeaderLink>
       <HeaderLink href="/portfolio/contact/">Contact</HeaderLink>
     </div>
-    <!-- Right side: Theme toggle-->
-    <div class="flex flex-col items-right space-x-1 sm:space-x-1">
-      <!-- Theme toggle -->
+    <!-- Right: Theme toggle -->
+    <div class="flex flex-1 justify-end items-center">
       <button
         id="theme-toggle"
         aria-label="Toggle theme"
@@ -73,6 +71,9 @@ import Logo from "./Logo.astro";
       >
       <HeaderLink href="/portfolio/about/" class="block py-2 text-center"
         >About</HeaderLink
+      >
+      <HeaderLink href="/portfolio/posts" class="block py-2 text-center"
+        >Posts</HeaderLink
       >
       <HeaderLink href="/portfolio/projects/" class="block py-2 text-center"
         >Projects</HeaderLink
