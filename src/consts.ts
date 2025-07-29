@@ -3,7 +3,8 @@
 
 // The name of the site, used in the title and meta tags.
 export const SITE_TITLE = "Diego López Reduello";
-export const SITE_DESCRIPTION = "This is the portfolio of Deinigu!";
+export const SITE_DESCRIPTION =
+  "This is the portfolio of Diego López Reduello!";
 export const SITE_NAME = "Deinigu";
 // Social media links for the header
 export const socialLinks = [
