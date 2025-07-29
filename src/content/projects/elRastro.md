@@ -56,3 +56,14 @@ The application is structured into several microservices for functionalities suc
 5.  **RESTful API:** A set of APIs for managing users, products, bids, ratings, and conversations, enabling communication between the different microservices.
 
 ---
+
+## 🦾 Credits
+
+This project was developed in close collaboration with an outstanding team:
+
+- [Lucas Colbert Eastgate](https://www.linkedin.com/in/lucas-colbert-eastgate-140a911b3/)
+- [Alba Sánchez Ibañez](https://www.linkedin.com/in/alba-s-093242259/)
+- [Miguel Moya Castillo](https://www.linkedin.com/in/miguel-moya-castillo-07a0a7303/)
+- [Fernando Calvo Díaz](https://www.linkedin.com/in/fernando-calvo-d%C3%ADaz-8808a1268/)
+
+Their expertise, dedication, and teamwork were essential to the development of _elRastro_.
