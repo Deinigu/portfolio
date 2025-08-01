@@ -2,7 +2,7 @@
 title: "elRastro"
 description: "Development of an auction and e-commerce application with microservices, cloud deployment and OAuth and PapyPal integrations."
 pubDate: "2023-12-31"
-heroImage: "../../assets/images/projects/elrastro/portada.png"
+heroImage: "../../../assets/images/projects/elrastro/portada.png"
 collection: "projects"
 tags: ["Python", "Django", "Angular", "MongoDB", "AWS", "Web Development"]
 ---
@@ -47,7 +47,7 @@ The application is structured into several microservices for functionalities suc
 
 ### Main features:
 
-![](../../assets/images/projects/elrastro/link.png)
+![](../../../assets/images/projects/elrastro/link.png)
 
 1.  **Google Login and Registration:** Users can securely register and log in using their Google accounts via OAuth 2.0.
 2.  **PayPal Payment System:** Integration with the `ngx-paypal` library to facilitate payment for winning bids.

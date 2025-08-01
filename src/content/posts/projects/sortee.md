@@ -2,7 +2,7 @@
 title: "Sortee"
 description: "A visual application designed to visualize the different sorting algorithms made in Pygame."
 pubDate: "2023-08-23"
-heroImage: "../../assets/images/projects/sortee.png"
+heroImage: "../../../assets/images/projects/sortee.png"
 collection: "projects"
 tags: ["Python", "PyGame", "Algorithms", "Data Science"]
 ---

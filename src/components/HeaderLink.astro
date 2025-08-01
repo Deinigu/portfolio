@@ -1,8 +1,4 @@
 ---
-import type { HTMLAttributes } from "astro/types";
-
-type Props = HTMLAttributes<"a">;
-
 const { href = "/", class: className = "", ...props } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -15,9 +11,14 @@ const hrefString = href?.toString() || "/";
 const normalizedHref = normalizePath(hrefString);
 
 const isRootPath = normalizedHref === "/portfolio";
+const isPostsBase = normalizedHref === "/portfolio/posts";
+
 const isActive = isRootPath
   ? normalizedCurrent === normalizedHref
-  : normalizedCurrent === normalizedHref;
+  : isPostsBase
+    ? normalizedCurrent.startsWith(normalizedHref)
+    : normalizedCurrent === normalizedHref;
+
 ---
 
 <a

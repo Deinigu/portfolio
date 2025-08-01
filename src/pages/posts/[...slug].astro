@@ -1,0 +1,36 @@
+---
+import { getCollection, render, type DataEntryMap } from "astro:content";
+import { collectionsKeys } from "../../content.config";
+import BlogPost from "../../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const collection of collectionsKeys) {
+    const posts = await getCollection(collection as keyof DataEntryMap);
+    for (const post of posts) {
+      paths.push({ params: { slug: `${collection}/${post.id}` } });
+    }
+  }
+
+  return paths;
+}
+
+const [collection, id] = Astro.params.slug.split('/');
+
+if (!collectionsKeys.includes(collection as keyof DataEntryMap)) {
+  throw new Error(`Invalid collection: ${collection}`);
+}
+
+const posts = await getCollection(collection as keyof DataEntryMap);
+const post = posts.find((p) => p.id === id);
+
+if (!post) throw new Error(`Post not found: ${collection}/${id}`);
+
+const { Content } = await render(post);
+
+---
+
+<BlogPost {...post.data}>
+  <Content />
+</BlogPost>

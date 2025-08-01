@@ -15,25 +15,25 @@ const baseSchema = ({ image }: any) =>
   });
 
 const posts = defineCollection({
-  loader: glob({ base: "./src/content/", pattern: "**/**/*.{md,mdx}" }),
+  loader: glob({ base: "./src/content/", pattern: "**/**/**/*.{md,mdx}" }),
   schema: baseSchema,
 });
 
 const projects = defineCollection({
-  loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
+  loader: glob({ base: "./src/content/posts/projects", pattern: "**/*.{md,mdx}" }),
   schema: baseSchema,
 });
 
 const music = defineCollection({
-  loader: glob({ base: "./src/content/music", pattern: "**/*.{md,mdx}" }),
+  loader: glob({ base: "./src/content/posts/music", pattern: "**/*.{md,mdx}" }),
   schema: baseSchema,
 });
 
 const games = defineCollection({
-  loader: glob({ base: "./src/content/games", pattern: "**/*.{md,mdx}" }),
+  loader: glob({ base: "./src/content/posts/games", pattern: "**/*.{md,mdx}" }),
   schema: baseSchema,
 });
 
-export const collectionsKeys: CollectionKey[] = ["music", "games", "projects"];
+export const collectionsKeys: CollectionKey[] = ["projects", "games", "music"];
 
 export const collections = { posts, projects, music, games };

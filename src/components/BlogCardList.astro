@@ -45,11 +45,36 @@ const posts = sortedPosts.slice(0, limit);
 ---
 
 <section class="px-4 md:px-8 py-10">
-  <header class="text-center mb-12">
-    <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
+  <header class="text-center mb-6">
+    <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-6">
       {collectionTitle ? `${collectionTitle}` : "Posts"}
     </h1>
   </header>
+ <div class="flex flex-wrap justify-center gap-4 mb-8 px-4 sm:px-6 lg:px-8">
+  <a
+    href="/portfolio/posts/"
+    class="px-5 py-3 rounded-xl bg-ctp-crust text-ctp-text font-semibold shadow-md
+           hover:bg-ctp-surface hover:text-ctp-lavender transform transition
+           duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4
+           focus:ring-ctp-lavender focus:ring-opacity-60 focus:animate-pulse"
+    aria-label="View all posts"
+  >
+    All Posts
+  </a>
+  {collectionsKeys.map((key) => (
+    <a
+      href={`/portfolio/posts/${key}/`}
+      class="px-5 py-3 rounded-xl bg-ctp-mantle text-ctp-text font-semibold shadow-md
+             hover:bg-ctp-surface hover:text-ctp-lavender transform transition
+             duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4
+             focus:ring-ctp-lavender focus:ring-opacity-60 focus:animate-pulse"
+      aria-label={`Filter posts by ${key.charAt(0).toUpperCase() + key.slice(1)}`}
+    >
+      {key.charAt(0).toUpperCase() + key.slice(1)}
+    </a>
+  ))}
+</div>
+
   <div
     class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
   >
@@ -74,7 +99,7 @@ const posts = sortedPosts.slice(0, limit);
                 },
               }}
               collection={post.collection}
-              putCollectionTag={Astro.props.collection ? false : true}
+              putCollectionTag={true}
             />
           </MotionCard>
         )

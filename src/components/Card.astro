@@ -23,7 +23,7 @@ const { collection, post, putCollectionTag, ...props } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // Ruta final corregida
-const finalHref = `${base}/${collection}`;
+const finalHref = `${base}/posts/${collection}`;
 ---
 
 <a

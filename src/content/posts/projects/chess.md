@@ -2,7 +2,7 @@
 title: "Detection and Classification of pieces in a real Chess Board"
 description: "My Final Degree Project: training a YOLOv8 model to recognize real chess pieces and using OpenCV to recognize the position of each piece."
 pubDate: "2024-07-16"
-heroImage: "../../assets/images/projects/chess/chess.png"
+heroImage: "../../../assets/images/projects/chess/chess.png"
 collection: "projects"
 tags: ["YOLOv8", "OpenCV", "Computer Vision", "AI", "Deep Learning"]
 ---
@@ -58,7 +58,7 @@ Develop software that detects and classifies chess pieces on a real board image 
 
 ## 📷 Dataset Creation
 
-![Labeled image example](../../assets/images/projects/chess/labels.png)
+![Labeled image example](../../../assets/images/projects/chess/labels.png)
 
 Due to the lack of publicly available datasets that suited the specific needs of my project, I decided to create my own. I used a camera to capture images of a chessboard placed in my yard, ensuring a variety of natural lighting conditions. Each image was then meticulously labeled manually, identifying every piece individually.
 
@@ -73,7 +73,7 @@ The resulting dataset has the following characteristics:
   - 90 training
   - 30 validation
   - 10 test (never seen during training)
-    ![Labels Distribution](../../assets/images/projects/chess/train_labels.jpg)
+    ![Labels Distribution](../../../assets/images/projects/chess/train_labels.jpg)
 
 ### Example label:
 
@@ -118,7 +118,7 @@ These resources provided a diverse set of strategic examples to enhance the data
 
 ## 🧠 Piece Classification
 
-![Prediction example](../../assets/images/projects/chess/prediction.png)
+![Prediction example](../../../assets/images/projects/chess/prediction.png)
 
 **Model:** YOLOv8 (via Ultralytics)
 
@@ -138,7 +138,7 @@ model.train(
 **Hardware:** NVIDIA Tesla T4 (via Google Colab)
 
 **Validation:** 5-fold cross-validation  
-![Train Confusion Matrix](../../assets/images/projects/chess/train_confusion_matrix.png)
+![Train Confusion Matrix](../../../assets/images/projects/chess/train_confusion_matrix.png)
 
 ### 📽️ Video Demostration
 
@@ -168,7 +168,7 @@ def canny_edge(img, sigma=0.33):
 cv2.HoughLines(image, 1, np.pi / 180, 125)
 ```
 
-![Canny + Hough Example](../../assets/images/projects/chess/cannyhough.png)
+![Canny + Hough Example](../../../assets/images/projects/chess/cannyhough.png)
 
 ---
 
@@ -188,7 +188,7 @@ The core of the application follows a **multi-stage pipeline** that combines dee
 
 3. **Piece Detection & Classification**
    - YOLOv8 detects and classifies all pieces.
-     ![](../../assets/images/projects/chess/predict/vlcsnap-2024-02-27-14h00m19s579.png)
+     ![](../../../assets/images/projects/chess/predict/vlcsnap-2024-02-27-14h00m19s579.png)
    - Output saved as `labels.txt` with piece type, confidence, and bounding box info. For example:
 
 ```txt
@@ -217,23 +217,23 @@ The core of the application follows a **multi-stage pipeline** that combines dee
 
 4. **Preprocessing**
    - Convert image to grayscale.
-     ![BW Image](../../assets/images/projects/chess/test4_bw.png)
+     ![BW Image](../../../assets/images/projects/chess/test4_bw.png)
    - Apply Gaussian blur to reduce noise.
-     ![Blur Image](../../assets/images/projects/chess/test4_blur.png)
+     ![Blur Image](../../../assets/images/projects/chess/test4_blur.png)
 
    - Detect edges using **Canny edge detector**.
-     ![Canny Edge Image](../../assets/images/projects/chess/test4_canny.png)
+     ![Canny Edge Image](../../../assets/images/projects/chess/test4_canny.png)
 
 5. **Line & Corner Detection**
    - Apply **Hough Line Transform** to detect vertical and horizontal lines.
-     ![Hough Image](../../assets/images/projects/chess/test4_hough.png)
+     ![Hough Image](../../../assets/images/projects/chess/test4_hough.png)
 
    - Calculate intersections = cell corners.
-     ![Edges Image](../../assets/images/projects/chess/test4_edges.png)
+     ![Edges Image](../../../assets/images/projects/chess/test4_edges.png)
 
 6. **Cell Grid Construction**
    - Group intersection points to reconstruct the 8x8 chessboard grid.
-     ![Chessboard grid Image](../../assets/images/projects/chess/test4_cells.png)
+     ![Chessboard grid Image](../../../assets/images/projects/chess/test4_cells.png)
    - Assign each cell a board coordinate (e.g., e4, d5).
 
 7. **Piece-to-Cell Assignment**
@@ -295,11 +295,11 @@ https://lichess.org/editor/2b1r1k1/pp4pp/2n1pr2/3R4/8/2q4B/P1P1QPPP/5RK1
 
 ### Example Image Output
 
-![Salida de imagen con celdas y piezas](../../assets/images/projects/chess/test4_result.png)
+![Salida de imagen con celdas y piezas](../../../assets/images/projects/chess/test4_result.png)
 
 ### Lichess Output
 
-![Lichess Output Image](../../assets/images/projects/chess/lichess.png)
+![Lichess Output Image](../../../assets/images/projects/chess/lichess.png)
 
 ### 📽️ Video Demostration
 
