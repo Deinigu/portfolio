@@ -50,30 +50,41 @@ const posts = sortedPosts.slice(0, limit);
       {collectionTitle ? `${collectionTitle}` : "Posts"}
     </h1>
   </header>
- <div class="flex flex-wrap justify-center gap-4 mb-8 px-4 sm:px-6 lg:px-8">
-  <a
-    href="/portfolio/posts/"
-    class="px-5 py-3 rounded-xl bg-ctp-crust text-ctp-text font-semibold shadow-md
-           hover:bg-ctp-surface hover:text-ctp-lavender transform transition
-           duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4
-           focus:ring-ctp-lavender focus:ring-opacity-60 focus:animate-pulse"
-    aria-label="View all posts"
-  >
-    All Posts
-  </a>
-  {collectionsKeys.map((key) => (
+  <div class="flex flex-wrap justify-center gap-4 mb-8 px-4 sm:px-6 lg:px-8">
     <a
-      href={`/portfolio/posts/${key}/`}
-      class="px-5 py-3 rounded-xl bg-ctp-mantle text-ctp-text font-semibold shadow-md
-             hover:bg-ctp-surface hover:text-ctp-lavender transform transition
-             duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4
-             focus:ring-ctp-lavender focus:ring-opacity-60 focus:animate-pulse"
-      aria-label={`Filter posts by ${key.charAt(0).toUpperCase() + key.slice(1)}`}
+      href="/portfolio/posts/"
+      aria-label="View all posts"
+      class={`px-5 py-3 rounded-xl font-semibold shadow-md transition duration-300 ease-in-out transform
+        ${
+          collectionName === ""
+            ? "bg-ctp-blue text-ctp-base scale-105"
+            : "bg-ctp-mantle text-ctp-text hover:bg-ctp-lavender hover:text-ctp-base hover:scale-105"
+        }
+        focus:outline-none focus:ring-4 focus:ring-ctp-blue focus:ring-opacity-60 focus:animate-pulse focus:scale-95`}
     >
-      {key.charAt(0).toUpperCase() + key.slice(1)}
+      All Posts
     </a>
-  ))}
-</div>
+    {
+      collectionsKeys.map((key) => {
+        const isActive = collectionName === key;
+        return (
+          <a
+            href={`/portfolio/posts/${key}/`}
+            class={`px-5 py-3 rounded-xl font-semibold shadow-md transition duration-300 ease-in-out transform
+              ${
+                isActive
+                  ? "bg-ctp-blue text-ctp-base scale-105"
+                  : "bg-ctp-mantle text-ctp-text hover:bg-ctp-lavender hover:text-ctp-base hover:scale-105"
+              }
+              focus:outline-none focus:ring-4 focus:ring-ctp-blue focus:ring-opacity-60 focus:animate-pulse focus:scale-95`}
+            aria-label={`Filter posts by ${key.charAt(0).toUpperCase() + key.slice(1)}`}
+          >
+            {key.charAt(0).toUpperCase() + key.slice(1)}
+          </a>
+        );
+      })
+    }
+  </div>
 
   <div
     class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
