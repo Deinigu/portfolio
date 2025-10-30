@@ -76,7 +76,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </div>
 
           <!-- Google reCAPTCHA -->
-          <div class="g-recaptcha" data-sitekey="6LfxFfwrAAAAAJ-2kYG4AZTotzQTu6Tq18NsFOfQ"></div>
+          <div class="flex justify-center items-center py-4 px-2 mx-auto">
+            <div
+              class="g-recaptcha flex justify-center"
+              data-sitekey="6LfxFfwrAAAAAJ-2kYG4AZTotzQTu6Tq18NsFOfQ"
+              data-theme="dark"
+            >
+            </div>
+          </div>
+          <div class="flex justify-center items-center">
+            <div id="recaptcha-error" class="text-ctp-red text-sm hidden"></div>
+          </div>
 
           <button
             type="submit"
@@ -97,5 +107,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   input:focus,
   textarea:focus {
     caret-color: var(--color-ctp-blue);
+  }
+  .g-recaptcha {
+    transform: scale(0.75);
+  }
+  @media (min-width: 420px) {
+    .g-recaptcha {
+      transform: scale(0.9);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .g-recaptcha {
+      transform: scale(1);
+    }
+  }
+  .g-recaptcha div {
+    transform-origin: 0 0;
   }
 </style>
