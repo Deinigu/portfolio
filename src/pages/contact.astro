@@ -22,6 +22,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           method="POST"
           class="space-y-6"
         >
+          <!-- Honeypot: invisible trap for bots -->
+          <input type="text" name="_gotcha" style="display:none" />
+
           <div class="space-y-2">
             <label
               for="name"
@@ -72,6 +75,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
               placeholder="Tell me about your project..."></textarea>
           </div>
 
+          <!-- Google reCAPTCHA -->
+          <div class="g-recaptcha" data-sitekey="6LfxFfwrAAAAAJ-2kYG4AZTotzQTu6Tq18NsFOfQ"></div>
+
           <button
             type="submit"
             class="w-full bg-gradient-to-r from-ctp-blue to-ctp-sky hover:from-ctp-sky hover:to-ctp-lavender hover:cursor-pointer text-ctp-mantle font-semibold py-4 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-[1.05] focus:ring-4 focus:ring-ctp-blue focus:ring-opacity-50 transition duration-200"
@@ -80,6 +86,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </button>
         </form>
       </section>
+
+      <!-- Load reCAPTCHA script -->
+      <script src="https://www.google.com/recaptcha/api.js" async defer
+      ></script>
     </div>
   </main>
 </BaseLayout>
