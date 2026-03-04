@@ -49,7 +49,7 @@ export default function CertificationList() {
         </div>
         <motion.ul
           className={
-            "grid gap-6 justify-items-center md:grid-cols-2 lg:grid-cols-3"
+            "grid gap-6 md:grid-cols-2 lg:grid-cols-3 [&>*:last-child:nth-child(3n+1)]:md:col-start-2 [&>*:last-child:nth-child(odd)]:md:col-start-1 [&>*:last-child:nth-child(odd)]:lg:col-start-2"
           }
           variants={container}
           initial="hidden"
@@ -61,33 +61,33 @@ export default function CertificationList() {
               key={cert.title}
               variants={item}
               whileHover={{
-                y: -8,
-                rotateX: 3,
-                scale: 1.03,
-                transition: { type: "spring", stiffness: 300, damping: 15 },
+          y: -8,
+          rotateX: 3,
+          scale: 1.03,
+          transition: { type: "spring", stiffness: 300, damping: 15 },
               }}
               className="flex flex-col items-center text-center bg-ctp-surface0 rounded-xl p-4 shadow-md transition-colors duration-300"
             >
               <a
-                href={cert.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="focus:outline-none focus-visible:ring-2  rounded-full"
+          href={cert.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus:outline-none focus-visible:ring-2  rounded-full"
               >
-                <motion.img
-                  whileHover={{
-                    scale: 1.1,
-                    transition: { duration: 0.3, ease: "easeInOut" },
-                  }}
-                  transition={{ duration: 0.3 }}
-                  src={cert.imageSrc}
-                  alt={cert.title}
-                  className="w-26 h-26 rounded-full shadow-md aspect-ratio object-cover"
-                  loading="lazy"
-                />
+          <motion.img
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.3, ease: "easeInOut" },
+            }}
+            transition={{ duration: 0.3 }}
+            src={cert.imageSrc}
+            alt={cert.title}
+            className="w-26 h-26 rounded-full shadow-md aspect-ratio object-cover"
+            loading="lazy"
+          />
               </a>
               <p className="mt-4 text-sm font-medium text-ctp-text">
-                {cert.title}
+          {cert.title}
               </p>
             </motion.li>
           ))}

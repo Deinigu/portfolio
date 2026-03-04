@@ -71,6 +71,12 @@ export const certifications: Certifications[] = [
       "https://learn.microsoft.com/en-us/media/learn/certification/badges/microsoft-certified-fundamentals-badge.svg",
     link: "https://www.credly.com/badges/84ca4507-36c2-4351-b3e4-351c56844016/linked_in_profile",
   },
+  {
+    title: "Deep Learning Specialization",
+    imageSrc:
+      "https://coursera-university-assets.s3.amazonaws.com/b4/5cb90bb92f420b99bf323a0356f451/Icon.png",
+    link: "https://www.coursera.org/account/accomplishments/specialization/O2KWIQ4KNB4D",
+  },
 ];
 
 // The skills used in the portfolio, with their titles and image sources.
