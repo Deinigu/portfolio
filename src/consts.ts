@@ -170,14 +170,18 @@ export const skills: SkillList[] = [
           "https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg",
       },
       {
-        title: "OpenAI API",
+        title: "Azure OpenAI",
         imageSrc:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/OpenAI_logo_2025_%28symbol%29.svg/512px-OpenAI_logo_2025_%28symbol%29.svg.png",
+          "https://az-icons.com/export/icons/ab7d4a660b7712dc407b9eef4c69f2ef.svg",
       },
       {
-        title: "Microsoft Azure ML",
+        title: "OpenAI API",
+        imageSrc: "https://www.svgrepo.com/show/306500/openai.svg",
+      },
+      {
+        title: "Azure Foundry",
         imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+          "https://github.com/maskati/azure-icons/blob/main/svg/Microsoft_Azure_MLTeamAccounts/AIStudioCreate.svg?raw=true",
       },
       {
         title: "Github Copilot",
@@ -190,19 +194,9 @@ export const skills: SkillList[] = [
     category: "Web & API Development",
     skills: [
       {
-        title: "React",
+        title: "FastAPI",
         imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-      },
-      {
-        title: "Angular",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
-      },
-      {
-        title: "Astro",
-        imageSrc:
-          "https://icon.icepanel.io/Technology/png-shadow-512/Astro.png",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
       },
       {
         title: "Flask",
@@ -214,34 +208,20 @@ export const skills: SkillList[] = [
         imageSrc: "https://www.svgrepo.com/show/373554/django.svg",
       },
       {
-        title: "FastAPI",
+        title: "Angular",
         imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
       },
+      {
+        title: "Astro",
+        imageSrc:
+          "https://icon.icepanel.io/Technology/png-shadow-512/Astro.png",
+      },
+
       {
         title: "Spring Boot",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
-      },
-      {
-        title: "HTML",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-      },
-      {
-        title: "CSS",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-      },
-      {
-        title: "Tailwind CSS",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-      },
-      {
-        title: "Bootstrap",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
       },
       {
         title: "DiscordJS",
@@ -398,16 +378,6 @@ export const skills: SkillList[] = [
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg",
       },
       {
-        title: "IntelliJ IDEA",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg",
-      },
-      {
-        title: "Eclipse",
-        imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eclipse/eclipse-original.svg",
-      },
-      {
         title: "Neovim",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg",
@@ -416,6 +386,16 @@ export const skills: SkillList[] = [
         title: "Git",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      },
+      {
+        title: "IntelliJ IDEA",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg",
+      },
+      {
+        title: "Eclipse",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eclipse/eclipse-original.svg",
       },
       {
         title: "GitHub",
@@ -438,15 +418,21 @@ export const skills: SkillList[] = [
     category: "OS & Platforms",
     skills: [
       {
-        title: "Arch Linux",
+        title: "Fedora",
         imageSrc:
-          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/archlinux/archlinux-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fedora/fedora-original.svg",
       },
       {
         title: "Debian",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original.svg",
       },
+      {
+        title: "Arch Linux",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/archlinux/archlinux-original.svg",
+      },
+
       {
         title: "MacOS",
         imageSrc:
