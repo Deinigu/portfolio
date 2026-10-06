@@ -1,36 +1,28 @@
 ---
-import { getCollection, render, type DataEntryMap } from "astro:content";
-import { collectionsKeys } from "../../content.config";
+import { render } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
+import { getAllPosts, readingTime, type Post } from "../../scripts/posts";
 
 export async function getStaticPaths() {
-  const paths = [];
-
-  for (const collection of collectionsKeys) {
-    const posts = await getCollection(collection as keyof DataEntryMap);
-    for (const post of posts) {
-      paths.push({ params: { slug: `${collection}/${post.id}` } });
-    }
-  }
-
-  return paths;
+  // Sorted newest → oldest, so neighbours give prev/next navigation.
+  const posts = await getAllPosts();
+  return posts.map((post, i) => ({
+    params: { slug: `${post.collection}/${post.id}` },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
 }
 
-const [collection, id] = Astro.params.slug.split('/');
-
-if (!collectionsKeys.includes(collection as keyof DataEntryMap)) {
-  throw new Error(`Invalid collection: ${collection}`);
-}
-
-const posts = await getCollection(collection as keyof DataEntryMap);
-const post = posts.find((p) => p.id === id);
-
-if (!post) throw new Error(`Post not found: ${collection}/${id}`);
-
-const { Content } = await render(post);
-
+type Props = { post: Post; newer?: Post; older?: Post };
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await render(post);
 ---
 
-<BlogPost {...post.data}>
+<BlogPost
+  post={post}
+  headings={headings}
+  minutes={readingTime(post.body)}
+  newer={newer}
+  older={older}
+>
   <Content />
 </BlogPost>

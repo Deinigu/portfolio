@@ -1,44 +1,42 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
 const { href = "/", class: className = "", ...props } = Astro.props;
 
-const currentPath = Astro.url.pathname;
-
-// Normaliza eliminando slash final (si tiene) para comparar bien
+// Normalise trailing slashes so "/portfolio/about" and "/portfolio/about/" match
 const normalizePath = (path: string) => path.replace(/\/$/, "");
 
-const normalizedCurrent = normalizePath(currentPath);
-const hrefString = href?.toString() || "/";
-const normalizedHref = normalizePath(hrefString);
+const base = normalizePath(import.meta.env.BASE_URL);
+const current = normalizePath(Astro.url.pathname);
+const target = normalizePath(href.toString());
 
-const isRootPath = normalizedHref === "/portfolio";
-const isPostsBase = normalizedHref === "/portfolio/posts";
-
-const isActive = isRootPath
-  ? normalizedCurrent === normalizedHref
-  : isPostsBase
-    ? normalizedCurrent.startsWith(normalizedHref)
-    : normalizedCurrent === normalizedHref;
-
+// Home only matches exactly; sections also match their sub-pages.
+const isActive =
+  target === base ? current === target : current.startsWith(target);
 ---
 
 <a
   href={href}
-  class={`${className} bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 hover:text-ctp-base m-1.5 flex rounded-3xl p-3 transition-all duration-100 hover:scale-110 active:scale-95 ease-in ${
-    isActive ? "active" : ""
-  }`}
+  aria-current={isActive ? "page" : undefined}
+  data-astro-prefetch="load"
+  class:list={[
+    "relative isolate flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200",
+    isActive
+      ? "text-ctp-crust"
+      : "text-ctp-subtext1 hover:text-ctp-text hover:bg-ctp-surface0/60",
+    className,
+  ]}
   {...props}
 >
+  {
+    isActive && (
+      <span
+        class="bg-ctp-blue absolute inset-0 -z-10 rounded-full shadow-[0_0_20px_-4px_var(--color-ctp-blue)]"
+        aria-hidden="true"
+      />
+    )
+  }
   <slot />
 </a>
-
-<style>
-  a {
-    display: inline-block;
-    text-decoration: none;
-  }
-
-  a.active {
-    background: var(--color-ctp-blue);
-    color: var(--color-ctp-base);
-  }
-</style>

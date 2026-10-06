@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { BASE } from "../scripts/posts";
+---
+
+<BaseLayout title="404 — Lost in space" description="This page drifted off into the void.">
+  <section class="flex min-h-[65vh] flex-col items-center justify-center py-16 text-center">
+    <p class="eyebrow mb-4">// error: route not found</p>
+    <h1 class="glitch font-mono text-[clamp(6rem,22vw,14rem)] leading-none font-bold" data-text="404">
+      404
+    </h1>
+    <div class="panel mt-10 w-full max-w-lg p-5 text-left font-mono text-sm leading-7">
+      <p><span class="text-ctp-green">diego@portfolio</span>:<span class="text-ctp-blue">~</span>$ cd <span id="path" class="text-ctp-peach"></span></p>
+      <p class="text-ctp-red">bash: cd: no such file or directory</p>
+      <p class="text-ctp-subtext0"># Roberto the Rover went looking for it on Mars. No luck.</p>
+      <p><span class="text-ctp-green">diego@portfolio</span>:<span class="text-ctp-blue">~</span>$ <span class="bg-ctp-blue inline-block h-4 w-2 animate-pulse align-middle"></span></p>
+    </div>
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <a href={`${BASE}/`} class="btn btn-primary">← Take me home</a>
+      <button type="button" data-open-palette class="btn btn-ghost">Search instead</button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .glitch {
+    position: relative;
+    color: var(--color-ctp-text);
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+  }
+  .glitch::before {
+    color: var(--color-ctp-pink);
+    animation: glitch 2.5s infinite linear alternate-reverse;
+    clip-path: inset(0 0 60% 0);
+    translate: -4px 0;
+  }
+  .glitch::after {
+    color: var(--color-ctp-sky);
+    animation: glitch 3s infinite linear alternate;
+    clip-path: inset(55% 0 0 0);
+    translate: 4px 0;
+  }
+  @keyframes glitch {
+    0% { clip-path: inset(10% 0 80% 0); }
+    20% { clip-path: inset(60% 0 10% 0); translate: -6px 0; }
+    40% { clip-path: inset(40% 0 40% 0); translate: 5px 0; }
+    60% { clip-path: inset(80% 0 5% 0); translate: -3px 0; }
+    80% { clip-path: inset(20% 0 65% 0); translate: 6px 0; }
+    100% { clip-path: inset(50% 0 30% 0); translate: -4px 0; }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("path");
+    if (el) el.textContent = decodeURIComponent(location.pathname);
+  });
+</script>

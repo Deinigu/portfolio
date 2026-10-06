@@ -1,0 +1,199 @@
+---
+// The three things I make, each with a tiny animated "screen".
+import { getAllPosts, collectionMeta, BASE } from "../scripts/posts";
+
+const posts = await getAllPosts();
+const count = (c: string) => posts.filter((p) => p.collection === c).length;
+const latest = (c: string) => posts.find((p) => p.collection === c)?.data.title;
+
+// 11x8 pixel-art invader, 1 = filled
+const invader = [
+  "00100000100",
+  "00010001000",
+  "00111111100",
+  "01101110110",
+  "11111111111",
+  "10111111101",
+  "10100000101",
+  "00011011000",
+].join("");
+---
+
+<section aria-labelledby="worlds-title" class="py-16">
+  <div class="mb-10 text-center">
+    <p class="eyebrow mb-3">// 01 — what I make</p>
+    <h2 id="worlds-title" class="text-4xl font-bold md:text-5xl">
+      Three worlds, one <span class="gradient-text">curious mind</span>
+    </h2>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-6">
+    <!-- Code -->
+    <a
+      href={`${BASE}/posts/projects/`}
+      class="spotlight panel reveal group flex flex-col gap-5 p-6 md:col-span-4"
+      style={`--spot-color:${collectionMeta.projects.color}`}
+    >
+      <div
+        class="bg-ctp-crust/80 overflow-hidden rounded-xl border border-ctp-surface0 font-mono text-[0.78rem] leading-6 shadow-inner"
+      >
+        <div class="flex items-center gap-1.5 border-b border-ctp-surface0 px-3 py-2">
+          <span class="bg-ctp-red h-2.5 w-2.5 rounded-full"></span>
+          <span class="bg-ctp-yellow h-2.5 w-2.5 rounded-full"></span>
+          <span class="bg-ctp-green h-2.5 w-2.5 rounded-full"></span>
+          <span class="text-ctp-overlay1 ml-2 text-xs">train.py</span>
+        </div>
+        <pre class="code-lines overflow-hidden px-4 py-3"><span><span class="text-ctp-mauve">from</span> <span class="text-ctp-text">diego</span> <span class="text-ctp-mauve">import</span> <span class="text-ctp-yellow">Curiosity</span></span>
+<span><span class="text-ctp-text">model</span> <span class="text-ctp-sky">=</span> <span class="text-ctp-yellow">Curiosity</span>(<span class="text-ctp-peach">layers</span>=<span class="text-ctp-peach">∞</span>)</span>
+<span><span class="text-ctp-text">model</span>.<span class="text-ctp-blue">fit</span>(<span class="text-ctp-green">"ideas"</span>, <span class="text-ctp-peach">epochs</span>=<span class="text-ctp-peach">2024</span>)</span>
+<span><span class="text-ctp-overlay1"># ✓ loss: 0.0042 — shipping it 🚀</span></span></pre>
+      </div>
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h3 class="group-hover:text-ctp-green text-2xl font-bold transition-colors">
+            Projects
+          </h3>
+          <p class="text-ctp-subtext0 text-sm">{collectionMeta.projects.blurb}</p>
+          {latest("projects") && <p class="text-ctp-overlay1 mt-1 font-mono text-xs">latest → {latest("projects")}</p>}
+        </div>
+        <span class="text-ctp-green font-mono text-4xl font-bold">{String(count("projects")).padStart(2, "0")}</span>
+      </div>
+    </a>
+
+    <!-- Games -->
+    <a
+      href={`${BASE}/posts/games/`}
+      class="spotlight panel reveal group flex flex-col gap-5 p-6 md:col-span-2"
+      style={`--spot-color:${collectionMeta.games.color}`}
+    >
+      <div
+        class="bg-ctp-crust/80 relative grid h-40 place-items-center overflow-hidden rounded-xl border border-ctp-surface0"
+      >
+        <div class="text-ctp-overlay1 absolute top-2 left-3 font-mono text-[0.65rem]">1UP 00420</div>
+        <div class="text-ctp-overlay1 absolute top-2 right-3 font-mono text-[0.65rem]">HI 99999</div>
+        <div class="invader grid grid-cols-11 gap-[2px]" aria-hidden="true">
+          {[...invader].map((px) => <span class:list={["h-[6px] w-[6px]", px === "1" && "bg-ctp-peach"]} />)}
+        </div>
+        <div class="text-ctp-peach absolute bottom-2 font-mono text-[0.7rem] tracking-widest blink">PRESS START</div>
+      </div>
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h3 class="group-hover:text-ctp-peach text-2xl font-bold transition-colors">Games</h3>
+          <p class="text-ctp-subtext0 text-sm">{collectionMeta.games.blurb}</p>
+        </div>
+        <span class="text-ctp-peach font-mono text-4xl font-bold">{String(count("games")).padStart(2, "0")}</span>
+      </div>
+    </a>
+
+    <!-- Music -->
+    <a
+      href={`${BASE}/posts/music/`}
+      class="spotlight panel reveal group flex flex-col gap-5 p-6 md:col-span-3"
+      style={`--spot-color:${collectionMeta.music.color}`}
+    >
+      <div
+        class="bg-ctp-crust/80 flex h-40 items-end justify-center gap-1 overflow-hidden rounded-xl border border-ctp-surface0 px-4 pb-4"
+        aria-hidden="true"
+      >
+        {
+          Array.from({ length: 28 }, (_, i) => (
+            <span
+              class="eq-bar from-ctp-mauve to-ctp-pink w-full max-w-2 rounded-full bg-gradient-to-t"
+              style={`--d:${(0.5 + ((i * 37) % 11) / 10).toFixed(2)}s; --delay:-${((i * 53) % 17) / 10}s`}
+            />
+          ))
+        }
+      </div>
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h3 class="group-hover:text-ctp-mauve text-2xl font-bold transition-colors">Music</h3>
+          <p class="text-ctp-subtext0 text-sm">{collectionMeta.music.blurb}</p>
+          {latest("music") && <p class="text-ctp-overlay1 mt-1 font-mono text-xs">♪ now playing → {latest("music")}</p>}
+        </div>
+        <span class="text-ctp-mauve font-mono text-4xl font-bold">{String(count("music")).padStart(2, "0")}</span>
+      </div>
+    </a>
+
+    <!-- About teaser -->
+    <a
+      href={`${BASE}/about/`}
+      class="spotlight panel reveal group relative flex flex-col justify-between gap-6 overflow-hidden p-6 md:col-span-3"
+    >
+      <div
+        class="from-ctp-blue/20 via-ctp-mauve/10 absolute -top-20 -right-20 h-64 w-64 rounded-full bg-gradient-to-br to-transparent blur-2xl transition-transform duration-700 group-hover:scale-150"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="font-mono text-sm leading-7">
+        <p><span class="text-ctp-green">diego@málaga</span><span class="text-ctp-overlay1">:</span><span class="text-ctp-blue">~</span>$ whoami</p>
+        <p class="text-ctp-subtext1">Data Scientist @ Plain Concepts</p>
+        <p><span class="text-ctp-green">diego@málaga</span><span class="text-ctp-overlay1">:</span><span class="text-ctp-blue">~</span>$ cat interests.txt</p>
+        <p class="text-ctp-subtext1">LLMs · computer vision · making games · composing</p>
+        <p><span class="text-ctp-green">diego@málaga</span><span class="text-ctp-overlay1">:</span><span class="text-ctp-blue">~</span>$ <span class="caret"></span></p>
+      </div>
+      <div class="flex items-center justify-between">
+        <h3 class="group-hover:text-ctp-blue text-2xl font-bold transition-colors">More about me</h3>
+        <span class="text-ctp-blue font-mono transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  .code-lines {
+    white-space: normal;
+  }
+  .code-lines > span {
+    display: block;
+    width: fit-content;
+    white-space: pre;
+    clip-path: inset(0 100% 0 0);
+    animation: type-line 1s steps(30, end) forwards;
+  }
+  .code-lines > span:nth-child(2) { animation-delay: 0.9s; }
+  .code-lines > span:nth-child(3) { animation-delay: 1.8s; }
+  .code-lines > span:nth-child(4) { animation-delay: 2.7s; }
+  @keyframes type-line {
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  .invader {
+    animation: invade 2.4s steps(4) infinite alternate, float 1.2s ease-in-out infinite;
+  }
+  @keyframes invade {
+    from { translate: -40px 0; }
+    to { translate: 40px 0; }
+  }
+  .group:hover .invader {
+    filter: drop-shadow(0 0 8px var(--color-ctp-peach));
+  }
+  .blink {
+    animation: blink 1s steps(2, start) infinite;
+  }
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+
+  .eq-bar {
+    height: 100%;
+    transform-origin: bottom;
+    animation: eq var(--d) ease-in-out var(--delay) infinite alternate;
+  }
+  @keyframes eq {
+    0% { transform: scaleY(0.1); }
+    50% { transform: scaleY(0.75); }
+    100% { transform: scaleY(0.35); }
+  }
+  .group:hover .eq-bar {
+    animation-duration: calc(var(--d) / 2);
+  }
+
+  .caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    vertical-align: text-bottom;
+    background: var(--color-ctp-blue);
+    animation: blink 1s steps(2, start) infinite;
+  }
+</style>

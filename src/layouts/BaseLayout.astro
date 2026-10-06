@@ -1,34 +1,71 @@
 ---
+import type { ImageMetadata } from "astro";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import CommandPalette from "../components/CommandPalette.astro";
+import Effects from "../components/Effects.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: ImageMetadata;
+  type?: "website" | "article";
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image,
+  type,
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark transition-colors duration-300">
+<html lang="en">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script is:inline>
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      const savedTheme = localStorage.getItem("theme");
-      const theme = savedTheme ?? (prefersDark ? "dark" : "light");
-      document.documentElement.classList.toggle("dark", theme === "dark");
-    </script>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+    />
   </head>
-  <body
-    class="bg-ctp-base dark:bg-ctp-surface0 text-ctp-text min-h-screen flex flex-col"
-  >
+  <body class="text-ctp-text flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="bg-ctp-blue text-ctp-crust sr-only z-[100] rounded-full px-4 py-2 font-semibold focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      >Skip to content</a
+    >
+
+    <!-- Scroll progress -->
+    <div
+      id="scroll-progress"
+      class="from-ctp-blue via-ctp-mauve to-ctp-pink fixed inset-x-0 top-0 z-[60] h-[3px] origin-left scale-x-0 bg-gradient-to-r"
+      aria-hidden="true"
+
+    >
+    </div>
+
+    <!-- Ambient background -->
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+      aria-hidden="true"
+
+    >
+      <div class="ambient-glow absolute inset-0"></div>
+      <div class="bg-grid absolute inset-0"></div>
+    </div>
+
     <Header />
-    <main class="grow px-4 md:px-8 py-6">
-      <div class="max-w-7xl mx-auto w-full">
+    <main id="main" class="grow px-4 py-8 md:px-8">
+      <div class="mx-auto w-full max-w-7xl">
         <slot />
       </div>
     </main>
     <Footer />
+    <CommandPalette />
+    <Effects />
   </body>
 </html>

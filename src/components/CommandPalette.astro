@@ -1,0 +1,282 @@
+---
+import { socialLinks } from "../consts";
+import { getAllPosts, postUrl, collectionMeta, BASE } from "../scripts/posts";
+
+const posts = await getAllPosts();
+
+type Item = {
+  group: string;
+  title: string;
+  hint?: string;
+  icon: string;
+  href?: string;
+  action?: string;
+  keywords?: string;
+};
+
+const items: Item[] = [
+  { group: "Pages", title: "Home", icon: "⌂", href: `${BASE}/` },
+  { group: "Pages", title: "About me", icon: "☺", href: `${BASE}/about/` },
+  { group: "Pages", title: "All posts", icon: "▤", href: `${BASE}/posts/` },
+  ...(["projects", "games", "music"] as const).map((key) => ({
+    group: "Pages",
+    title: collectionMeta[key].label,
+    hint: collectionMeta[key].blurb,
+    icon: collectionMeta[key].icon,
+    href: `${BASE}/posts/${key}/`,
+  })),
+  { group: "Pages", title: "Contact", icon: "✉", href: `${BASE}/contact/` },
+  ...posts.map((p) => ({
+    group: "Posts",
+    title: p.data.title,
+    hint: collectionMeta[p.collection].label,
+    icon: collectionMeta[p.collection].icon,
+    href: postUrl(p),
+    keywords: [p.data.description, ...(p.data.tags ?? [])].join(" "),
+  })),
+  { group: "Actions", title: "Toggle dark / light theme", icon: "◐", action: "theme" },
+  { group: "Actions", title: "Download CV", icon: "⇩", action: "cv", href: `${BASE}/pdf/cv.pdf` },
+  { group: "Actions", title: "Toggle retro mode", icon: "👾", action: "retro", hint: "psst… or try the Konami code" },
+  ...socialLinks
+    .filter((s) => s.href.startsWith("http"))
+    .map((s) => ({
+      group: "Elsewhere",
+      title: s.name,
+      hint: s.label,
+      icon: "↗",
+      href: s.href,
+    })),
+];
+---
+
+<dialog
+  id="cmdk"
+  aria-label="Command palette"
+  class="glass glass-blur text-ctp-text m-auto mt-[12vh] w-[min(640px,calc(100vw-2rem))] max-w-none overflow-hidden rounded-2xl p-0 shadow-2xl backdrop:bg-black/40 backdrop:backdrop-blur-sm"
+>
+  <div class="flex items-center gap-3 border-b border-ctp-surface0 px-4">
+    <span class="text-ctp-blue font-mono" aria-hidden="true">❯</span>
+    <input
+      id="cmdk-input"
+      type="text"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder="Search posts, pages, actions…"
+      class="placeholder:text-ctp-overlay1 w-full bg-transparent py-4 font-mono text-base outline-none focus-visible:outline-none"
+      role="combobox"
+      aria-expanded="true"
+      aria-controls="cmdk-list"
+    />
+    <kbd class="key">Esc</kbd>
+  </div>
+  <ul
+    id="cmdk-list"
+    role="listbox"
+    class="max-h-[55vh] overflow-y-auto overscroll-contain p-2"
+  >
+  </ul>
+  <div
+    class="text-ctp-subtext0 flex items-center gap-4 border-t border-ctp-surface0 px-4 py-2 font-mono text-[0.7rem]"
+  >
+    <span><kbd class="key">↑</kbd> <kbd class="key">↓</kbd> navigate</span>
+    <span><kbd class="key">↵</kbd> open</span>
+    <span class="ml-auto">deinigu.sh</span>
+  </div>
+  <script type="application/json" id="cmdk-data" set:html={JSON.stringify(items)} />
+</dialog>
+
+<style>
+  dialog[open] {
+    animation: cmdk-in 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  }
+  dialog[open]::backdrop {
+    animation: fade 0.2s ease-out;
+  }
+  @keyframes cmdk-in {
+    from {
+      opacity: 0;
+      transform: translateY(-12px) scale(0.97);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+
+  type Item = {
+    group: string;
+    title: string;
+    hint?: string;
+    icon: string;
+    href?: string;
+    action?: string;
+    keywords?: string;
+  };
+
+  let active = 0;
+  let results: Item[] = [];
+
+  const $ = <T extends HTMLElement>(id: string) =>
+    document.getElementById(id) as T | null;
+
+  // Lightweight fuzzy score: every query char must appear in order.
+  const score = (q: string, text: string, fuzzy = true) => {
+    if (!q) return 1;
+    const t = text.toLowerCase();
+    if (t.includes(q)) return 100 - Math.min(t.indexOf(q), 99);
+    if (!fuzzy) return 0;
+    let i = 0;
+    for (const ch of t) if (ch === q[i]) i++;
+    return i === q.length ? 1 : 0;
+  };
+
+  const escapeHtml = (s: string) =>
+    s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+
+  function render() {
+    const list = $("cmdk-list");
+    const input = $<HTMLInputElement>("cmdk-input");
+    const data = $("cmdk-data");
+    if (!list || !input || !data) return;
+    const all: Item[] = JSON.parse(data.textContent || "[]");
+    const q = input.value.trim().toLowerCase();
+    results = all
+      .map((it) => ({
+        it,
+        s: Math.max(
+          score(q, it.title) * 2,
+          // Long descriptions only match on exact substrings
+          score(q, `${it.hint ?? ""} ${it.keywords ?? ""}`, false)
+        ),
+      }))
+      .filter((r) => r.s > 0)
+      .sort((a, b) => (q ? b.s - a.s : 0))
+      .map((r) => r.it);
+    active = Math.min(active, Math.max(results.length - 1, 0));
+
+    if (!results.length) {
+      list.innerHTML = `<li class="px-4 py-10 text-center font-mono text-sm text-ctp-subtext0">No results for “${escapeHtml(input.value)}” ¯\\_(ツ)_/¯</li>`;
+      return;
+    }
+    let lastGroup = "";
+    list.innerHTML = results
+      .map((it, i) => {
+        const header =
+          it.group !== lastGroup
+            ? `<li role="presentation" class="px-3 pt-3 pb-1 font-mono text-[0.65rem] uppercase tracking-widest text-ctp-overlay1">${it.group}</li>`
+            : "";
+        lastGroup = it.group;
+        const selected = i === active;
+        return `${header}<li id="cmdk-opt-${i}" role="option" aria-selected="${selected}" data-index="${i}"
+          class="flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-colors ${selected ? "bg-ctp-blue/15 text-ctp-text" : "text-ctp-subtext1"}">
+          <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg ${selected ? "bg-ctp-blue text-ctp-crust" : "bg-ctp-surface0/60"}">${escapeHtml(it.icon)}</span>
+          <span class="min-w-0 flex-1">
+            <span class="block truncate font-medium">${escapeHtml(it.title)}</span>
+            ${it.hint ? `<span class="block truncate text-xs text-ctp-subtext0">${escapeHtml(it.hint)}</span>` : ""}
+          </span>
+          ${selected ? `<span class="font-mono text-xs text-ctp-blue">↵</span>` : ""}
+        </li>`;
+      })
+      .join("");
+    input.setAttribute("aria-activedescendant", `cmdk-opt-${active}`);
+    document
+      .getElementById(`cmdk-opt-${active}`)
+      ?.scrollIntoView({ block: "nearest" });
+  }
+
+  function open() {
+    const dlg = $<HTMLDialogElement>("cmdk");
+    const input = $<HTMLInputElement>("cmdk-input");
+    if (!dlg || !input || dlg.open) return;
+    input.value = "";
+    active = 0;
+    render();
+    dlg.showModal();
+    input.focus();
+  }
+
+  function close() {
+    $<HTMLDialogElement>("cmdk")?.close();
+  }
+
+  function run(it: Item | undefined) {
+    if (!it) return;
+    close();
+    if (it.action === "theme") {
+      document.getElementById("theme-toggle")?.click();
+    } else if (it.action === "retro") {
+      const on = document.documentElement.classList.toggle("retro");
+      try {
+        sessionStorage.setItem("retro", on ? "1" : "0");
+      } catch {}
+      (window as any).__toast?.(on ? "🕹️ Retro mode on" : "👾 Retro mode off");
+    } else if (it.action === "cv" && it.href) {
+      window.open(it.href, "_blank");
+    } else if (it.href?.startsWith("http")) {
+      window.open(it.href, "_blank", "noopener");
+    } else if (it.href) {
+      location.href = it.href;
+    }
+  }
+
+  // Global listeners: registered once for the whole session.
+  addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      const dlg = $<HTMLDialogElement>("cmdk");
+      dlg?.open ? close() : open();
+    } else if (
+      e.key === "/" &&
+      !(e.target as HTMLElement).closest("input, textarea, [contenteditable]")
+    ) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("[data-open-palette]")) open();
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const dlg = $<HTMLDialogElement>("cmdk");
+    const input = $<HTMLInputElement>("cmdk-input");
+    const list = $("cmdk-list");
+    if (!dlg || !input || !list) return;
+
+    input.addEventListener("input", () => {
+      active = 0;
+      render();
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        const n = results.length || 1;
+        active = (active + (e.key === "ArrowDown" ? 1 : -1) + n) % n;
+        render();
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        run(results[active]);
+      }
+    });
+    list.addEventListener("click", (e) => {
+      const li = (e.target as Element).closest<HTMLElement>("[data-index]");
+      if (li) run(results[Number(li.dataset.index)]);
+    });
+    list.addEventListener("pointermove", (e) => {
+      const li = (e.target as Element).closest<HTMLElement>("[data-index]");
+      if (li && Number(li.dataset.index) !== active) {
+        active = Number(li.dataset.index);
+        render();
+      }
+    });
+    // Close when clicking the backdrop
+    dlg.addEventListener("click", (e) => {
+      if (e.target === dlg) close();
+    });
+  });
+</script>

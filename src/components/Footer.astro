@@ -1,10 +1,48 @@
 ---
 import SocialLinks from "./SocialLinks.astro";
 
-const today = new Date();
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const year = new Date().getFullYear();
 ---
 
-<footer class="px-4 pt-8 pb-24 text-center text-ctp-text bg-ctp-surface2">
-  <p>&copy; {today.getFullYear()} Diego López Reduello. All rights reserved.</p>
-  <SocialLinks />
+<footer class="relative mt-24 px-4 pt-16 pb-10 sm:px-8">
+  <div
+    class="via-ctp-blue/50 absolute inset-x-0 top-0 mx-auto h-px max-w-5xl bg-gradient-to-r from-transparent to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center">
+    <div>
+      <p class="eyebrow mb-3">// end of transmission</p>
+      <h2 class="text-3xl font-bold sm:text-4xl">
+        Let's build something <span class="gradient-text">together</span>.
+      </h2>
+      <p class="text-ctp-subtext0 mx-auto mt-3 max-w-md">
+        Code, games or music — I'm always up for an interesting project or a
+        good conversation.
+      </p>
+    </div>
+    <a href={`${base}/contact/`} class="btn btn-primary">
+      Say hello <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <SocialLinks />
+    <div
+      class="text-ctp-subtext0 flex w-full flex-col items-center justify-between gap-3 border-t border-ctp-surface0 pt-6 font-mono text-xs sm:flex-row"
+    >
+      <p>© {year} Diego López Reduello</p>
+      <p class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+          <span
+            class="bg-ctp-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+          ></span>
+          <span class="bg-ctp-green relative inline-flex h-2 w-2 rounded-full"
+          ></span>
+        </span>
+        Built with Astro · Catppuccin flavoured
+      </p>
+      <p>
+        Press <kbd class="key">Ctrl</kbd> + <kbd class="key">K</kbd> to navigate
+      </p>
+    </div>
+  </div>
 </footer>

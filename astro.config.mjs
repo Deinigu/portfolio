@@ -11,6 +11,17 @@ export default defineConfig({
   site: "https://deinigu.github.io",
   base: "/portfolio",
   integrations: [mdx(), sitemap(), react()],
+  // Fetch pages before they're clicked: nav links on load (see HeaderLink),
+  // every other link as soon as it's hovered.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
+  // In Chromium browsers, prefetches become full background prerenders
+  // (Speculation Rules API), so clicking shows the page instantly.
+  experimental: {
+    clientPrerender: true,
+  },
 
   vite: {
     plugins: [tailwindcss()],

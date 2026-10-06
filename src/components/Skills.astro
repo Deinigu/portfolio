@@ -1,27 +1,59 @@
 ---
-// src/components/Skill.astro
-import type { Skill } from "../consts";
-
 import { skills } from "../consts";
-import SkillsIsland from "./SkillIsland.tsx";
+
+const sorted = [...skills].sort((a, b) => b.skills.length - a.skills.length);
+const accents = ["blue", "mauve", "green", "peach", "pink", "sky", "yellow", "teal", "lavender"];
 ---
 
-<section id="skills" class="py-16 px-4">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
-        Tech Stack
-      </h2>
-      <p class="text-lg text-ctp-subtext1 max-w-2xl mx-auto">
-        A collection of technologies and tools I work with to bring ideas to
-        life
-      </p>
-    </div>
+<section id="skills" aria-labelledby="skills-title" class="py-16">
+  <div class="mb-12 text-center">
+    <p class="eyebrow mb-3">// 02 — tech stack</p>
+    <h2 id="skills-title" class="text-4xl font-bold md:text-5xl">
+      Tools of the <span class="gradient-text">trade</span>
+    </h2>
+    <p class="text-ctp-subtext0 mx-auto mt-4 max-w-2xl text-lg">
+      Technologies and tools I work with to bring ideas to life.
+    </p>
+  </div>
 
-    <div
-      class="bg-ctp-surface0/50 backdrop-blur-sm rounded-2xl shadow-lg border border-ctp-surface1 p-8"
-    >
-      <SkillsIsland client:visible />
-    </div>
+  <div class="columns-1 gap-6 md:columns-2 xl:columns-3">
+    {
+      sorted.map((section, i) => (
+        <div
+          class="spotlight panel reveal mb-6 break-inside-avoid p-6"
+          style={`--spot-color: var(--color-ctp-${accents[i % accents.length]})`}
+        >
+          <div class="mb-5 flex items-center justify-between">
+            <h3 class="text-lg font-bold">{section.category}</h3>
+            <span
+              class="font-mono text-xs"
+              style={`color: var(--color-ctp-${accents[i % accents.length]})`}
+            >
+              {String(section.skills.length).padStart(2, "0")}
+            </span>
+          </div>
+          <ul class="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-3">
+            {section.skills.map((skill) => (
+              <li class="skill group flex flex-col items-center gap-2 rounded-xl p-2 text-center transition-colors">
+                <span class="bg-ctp-surface0/50 grid h-14 w-14 place-items-center rounded-2xl transition-all duration-300 group-hover:-translate-y-1 group-hover:rotate-6 group-hover:scale-110">
+                  <img
+                    src={skill.imageSrc}
+                    alt=""
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                    decoding="async"
+                    class="h-8 w-8 object-contain"
+                  />
+                </span>
+                <span class="text-ctp-subtext1 group-hover:text-ctp-text text-xs leading-tight font-medium">
+                  {skill.title}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
   </div>
 </section>

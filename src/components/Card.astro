@@ -1,98 +1,101 @@
 ---
-import type { HTMLAttributes } from "astro/types";
-type Props = {
-  collection: string;
-  post: {
-    id: string;
-    data: {
-      title: string;
-      description: string;
-      pubDate: string;
-      heroImage: string;
-      tags: string[];
-      collection: string;
-      sourceCode?: string; // Optional source code link
-    };
-  };
-  putCollectionTag?: boolean;
-} & HTMLAttributes<"a">;
+import { Image } from "astro:assets";
+import {
+  collectionMeta,
+  formatDate,
+  postUrl,
+  readingTime,
+  type Post,
+} from "../scripts/posts";
 
-const { collection, post, putCollectionTag, ...props } = Astro.props;
+type Props = { post: Post; featured?: boolean };
 
-// Base URL sin barra final (ej: "/portfolio")
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-
-// Ruta final corregida
-const finalHref = `${base}/posts/${collection}`;
+const { post, featured = false } = Astro.props;
+const meta = collectionMeta[post.collection];
+const { title, description, heroImage, tags = [], pubDate } = post.data;
+const shownTags = tags.slice(0, 3);
+const extraTags = tags.length - shownTags.length;
 ---
 
 <a
-  href={`${finalHref}/${post.id}`}
-  class="group flex flex-col w-full max-w-md rounded-xl overflow-hidden bg-ctp-mantle shadow border border-ctp-surface1 hover:shadow-2xl transition-shadow duration-200 ease-in-out"
-  {...props}
+  href={postUrl(post)}
+  class:list={[
+    "spotlight panel reveal group flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl",
+    featured && "md:col-span-2 md:flex-row",
+  ]}
+  style={`--spot-color:${meta.color}; --chip-color:${meta.color}`}
 >
-  <img
-    src={post.data.heroImage}
-    alt={`Cover image for "${post.data.title}"`}
-    class="w-full h-48 sm:h-52 md:h-56 lg:h-60 object-cover transition-opacity duration-300"
-    loading="lazy"
-    decoding="async"
-  />
-  <div class="flex flex-col gap-2 p-4 md:p-6">
-    <h2
-      class="text-lg sm:text-xl md:text-2xl font-semibold text-ctp-text leading-snug"
-    >
-      {post.data.title}
-    </h2>
+  <div
+    class:list={[
+      "relative overflow-hidden",
+      featured ? "aspect-video md:aspect-auto md:w-3/5" : "aspect-video",
+    ]}
+  >
+    {
+      heroImage &&
+        (typeof heroImage === "string" ? (
+          <img
+            src={heroImage}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        ) : (
+          <Image
+            src={heroImage}
+            alt=""
+            width={featured ? 900 : 640}
+            class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        ))
+    }
     <div
-      class="flex flex-wrap gap-2 mt-2 text-sm sm:text-base text-ctp-subtext1 items-center"
+      class="from-ctp-crust/70 absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-90"
     >
+    </div>
+    <span class="chip glass absolute top-3 left-3 !bg-ctp-crust/60">
+      <span aria-hidden="true">{meta.icon}</span>
+      {meta.label}
+    </span>
+  </div>
+
+  <div class="flex flex-1 flex-col gap-3 p-5 md:p-6">
+    <div class="text-ctp-subtext0 flex items-center gap-2 font-mono text-xs">
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{readingTime(post.body)} min read</span>
+    </div>
+    <h3
+      class:list={[
+        "group-hover:text-ctp-blue font-bold leading-snug transition-colors",
+        featured ? "text-2xl md:text-3xl" : "text-xl",
+      ]}
+    >
+      {title}
+    </h3>
+    <p class="text-ctp-subtext0 line-clamp-3 text-sm leading-relaxed">
+      {description}
+    </p>
+    <div class="mt-auto flex flex-wrap items-center gap-1.5 pt-2">
       {
-        putCollectionTag &&
-          (collection === "projects" ? (
-            <span class="font-semibold bg-ctp-green text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
-              👨🏻‍💻 {collection.charAt(0).toUpperCase() + collection.slice(1)}
-            </span>
-          ) : collection === "games" ? (
-            <span class="font-semibold bg-ctp-flamingo text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
-              🎮 {collection.charAt(0).toUpperCase() + collection.slice(1)}
-            </span>
-          ) : collection === "music" ? (
-            <span class="font-semibold bg-ctp-mauve text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
-              🎵 {collection.charAt(0).toUpperCase() + collection.slice(1)}
-            </span>
-          ) : (
-            <span class="font-semibold bg-ctp-red text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
-              error {collection.charAt(0).toUpperCase() + collection.slice(1)}
-            </span>
-          ))
-      }
-      {
-        post.data.tags?.map((tag) => (
-          <span class="font-semibold bg-ctp-blue text-ctp-base text-xs px-2.5 py-0.5 rounded-full flex-shrink-0">
+        shownTags.map((tag) => (
+          <span class="chip" style="--chip-color: var(--color-ctp-subtext0)">
             {tag}
           </span>
         ))
       }
-    </div>
-
-    <div class="flex flex-wrap gap-2 mt-2">
       {
-        (
-          <p class="text-sm sm:text-base text-ctp-subtext0 leading-relaxed cut-text">
-            {post.data.description}
-          </p>
+        extraTags > 0 && (
+          <span class="chip" style="--chip-color: var(--color-ctp-overlay1)">
+            +{extraTags}
+          </span>
         )
       }
+      <span
+        class="text-ctp-blue ml-auto -translate-x-2 font-mono text-sm opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+        aria-hidden="true">read →</span
+      >
     </div>
-
-    <style>
-      .cut-text {
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-    </style>
   </div>
 </a>

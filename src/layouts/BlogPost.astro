@@ -1,62 +1,204 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import FormattedDate from "../components/FormattedDate.astro";
+import type { MarkdownHeading } from "astro";
 import { Image } from "astro:assets";
+import BaseLayout from "./BaseLayout.astro";
+import {
+  BASE,
+  collectionMeta,
+  formatDate,
+  postUrl,
+  type Post,
+} from "../scripts/posts";
 
-type Props = CollectionEntry<"posts">["data"];
+type Props = {
+  post: Post;
+  headings: MarkdownHeading[];
+  minutes: number;
+  newer?: Post;
+  older?: Post;
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { post, headings, minutes, newer, older } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags = [], sourceCode } =
+  post.data;
+const meta = collectionMeta[post.collection];
+// Skip very long "headings" (e.g. text pulled in from embedded tweets)
+const toc = headings.filter(
+  (h) => h.depth >= 2 && h.depth <= 3 && h.text.length <= 60
+);
 ---
 
-<html lang="en" class="dark transition-colors duration-300">
-  <head>
-    <BaseHead title={title} description={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
+<BaseLayout
+  title={title}
+  description={description}
+  image={typeof heroImage === "object" ? heroImage : undefined}
+  type="article"
+>
+  <article class="mx-auto max-w-6xl" style={`--chip-color:${meta.color}`}>
+    <a
+      href={`${BASE}/posts/${post.collection}/`}
+      class="group text-ctp-subtext0 hover:text-ctp-blue mb-8 inline-flex items-center gap-2 font-mono text-sm transition-colors"
+    >
+      <span class="transition-transform group-hover:-translate-x-1" aria-hidden="true">←</span>
+      cd ../{post.collection}
+    </a>
 
-  <body
-    class="bg-ctp-base dark:bg-ctp-surface0 text-ctp-text min-h-screen flex flex-col font-sans antialiased"
-  >
-    <Header />
+    <header class="mx-auto mb-10 max-w-3xl text-center">
+      <div class="mb-5 flex flex-wrap items-center justify-center gap-2">
+        <span class="chip">
+          <span aria-hidden="true">{meta.icon}</span>
+          {meta.label}
+        </span>
+        <span class="text-ctp-subtext0 font-mono text-xs">
+          <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+          · {minutes} min read
+          {updatedDate && <> · updated {formatDate(updatedDate)}</>}
+        </span>
+      </div>
+      <h1 class="text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
+        {title}
+      </h1>
+      <p class="text-ctp-subtext0 mt-5 text-lg md:text-xl">{description}</p>
+      {
+        tags.length > 0 && (
+          <ul class="mt-6 flex flex-wrap justify-center gap-2">
+            {tags.map((tag) => (
+              <li class="chip" style="--chip-color: var(--color-ctp-subtext0)">
+                #{tag}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        sourceCode && (
+          <a
+            href={sourceCode}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-ghost mt-6 text-sm"
+          >
+            View source ↗
+          </a>
+        )
+      }
+    </header>
 
-    <main class="grow px-4 sm:px-6 lg:px-8 py-10">
-      <article class="mx-auto w-full max-w-3xl">
-        {
-          heroImage && (
-            <Image
-              width={1020}
-              height={510}
+    {
+      heroImage && (
+        <div class="relative mb-14">
+          <div
+            class="absolute inset-4 -z-10 rounded-3xl opacity-50 blur-3xl"
+            style={`background:${meta.color}`}
+            aria-hidden="true"
+          />
+          {typeof heroImage === "string" ? (
+            <img
               src={heroImage}
               alt={`Cover image for "${title}"`}
-              class="w-full object-cover mb-6 rounded-lg"
+              class="aspect-video w-full rounded-3xl border border-ctp-surface0 object-cover shadow-2xl"
             />
-          )
-        }
+          ) : (
+            <Image
+              src={heroImage}
+              alt={`Cover image for "${title}"`}
+              width={1200}
+              loading="eager"
+              class="aspect-video w-full rounded-3xl border border-ctp-surface0 object-cover shadow-2xl"
+            />
+          )}
+        </div>
+      )
+    }
 
-        <header class="mb-10">
-          <p class="text-sm text-ctp-subtext0">
-            <FormattedDate date={pubDate} />
-            {
-              updatedDate && (
-                <span class="block mt-1">
-                  Last updated on <FormattedDate date={updatedDate} />
-                </span>
-              )
-            }
-          </p>
-          <h1 class="text-4xl font-bold mt-2 text-ctp-blue">{title}</h1>
-          <hr class="mt-4 border-t border-ctp-overlay2" />
-        </header>
+    <div class="grid gap-12 lg:grid-cols-[1fr_15rem]">
+      <div class="ctp-prose mx-auto w-full max-w-3xl min-w-0">
+        <slot />
+      </div>
 
-        <section class="ctp-prose max-w-none text-justify">
-          <slot />
-        </section>
-      </article>
-    </main>
+      {
+        toc.length > 1 && (
+          <aside class="hidden lg:block" aria-label="Table of contents">
+            <nav class="sticky top-28">
+              <p class="eyebrow mb-4">On this page</p>
+              <ul class="toc border-ctp-surface0 space-y-1 border-l text-sm">
+                {toc.map((h) => (
+                  <li>
+                    <a
+                      href={`#${h.slug}`}
+                      data-toc={h.slug}
+                      class:list={[
+                        "text-ctp-subtext0 hover:text-ctp-text -ml-px block border-l-2 border-transparent py-1 transition-colors",
+                        h.depth === 3 ? "pl-7" : "pl-4",
+                      ]}
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+        )
+      }
+    </div>
 
-    <Footer />
-  </body>
-</html>
+    <nav
+      class="mx-auto mt-20 grid max-w-3xl gap-4 sm:grid-cols-2"
+      aria-label="More posts"
+    >
+      {
+        older ? (
+          <a href={postUrl(older)} class="spotlight panel group p-5">
+            <span class="text-ctp-subtext0 font-mono text-xs">← previous</span>
+            <span class="group-hover:text-ctp-blue mt-1 block font-semibold transition-colors">
+              {older.data.title}
+            </span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        newer && (
+          <a href={postUrl(newer)} class="spotlight panel group p-5 text-right">
+            <span class="text-ctp-subtext0 font-mono text-xs">next →</span>
+            <span class="group-hover:text-ctp-blue mt-1 block font-semibold transition-colors">
+              {newer.data.title}
+            </span>
+          </a>
+        )
+      }
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .toc a.active {
+    color: var(--color-ctp-blue);
+    border-color: var(--color-ctp-blue);
+  }
+</style>
+
+<script>
+  // Highlight the TOC entry for the section currently in view.
+  let observer: IntersectionObserver | undefined;
+  document.addEventListener("DOMContentLoaded", () => {
+    observer?.disconnect();
+    const links = document.querySelectorAll<HTMLAnchorElement>("[data-toc]");
+    if (!links.length) return;
+    const setActive = (id: string) =>
+      links.forEach((l) => l.classList.toggle("active", l.dataset.toc === id));
+    observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((e) => e.isIntersecting);
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    );
+    links.forEach((l) => {
+      const target = document.getElementById(l.dataset.toc!);
+      if (target) observer!.observe(target);
+    });
+  });
+</script>

@@ -157,7 +157,7 @@ export const skills: SkillList[] = [
       {
         title: "LangGraph",
         imageSrc:
-          "https://images.seeklogo.com/logo-png/61/2/langchain-icon-logo-png_seeklogo-611655.png",
+          "/portfolio/icons/langgraph.svg",
       },
       {
         title: "Ollama",
@@ -187,6 +187,16 @@ export const skills: SkillList[] = [
         title: "Github Copilot",
         imageSrc:
           "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/github-copilot-icon.png",
+      },
+      {
+        title: "Gemini",
+        imageSrc:
+          "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg",
+      },
+      {
+        title: "Google ADK",
+        imageSrc:
+          "https://google.github.io/adk-docs/assets/agent-development-kit.png",
       },
     ],
   },
@@ -256,7 +266,7 @@ export const skills: SkillList[] = [
       {
         title: "SQLite",
         imageSrc:
-          "https://images.icon-icons.com/2699/PNG/512/sqlite_logo_icon_169724.png",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
       },
       {
         title: "Supabase",
@@ -332,6 +342,16 @@ export const skills: SkillList[] = [
         title: "Vercel",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+      },
+      {
+        title: "Google Cloud",
+        imageSrc:
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+      },
+      {
+        title: "Microsoft Teams (Azure)",
+        imageSrc:
+          "https://upload.wikimedia.org/wikipedia/commons/5/50/Microsoft_Teams.png",
       },
     ],
   },
@@ -411,6 +431,16 @@ export const skills: SkillList[] = [
         title: "Postman",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+      },
+      {
+        title: "Antigravity IDE",
+        imageSrc:
+          "https://unpkg.com/@lobehub/icons-static-svg@latest/icons/antigravity-color.svg",
+      },
+      {
+        title: "Orca (Agentic IDE)",
+        // Served from public/icons
+        imageSrc: "/portfolio/icons/orca.png",
       },
     ],
   },

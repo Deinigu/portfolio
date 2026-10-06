@@ -2,24 +2,18 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCardList from "../../components/BlogCardList.astro";
 import { collectionsKeys } from "../../content.config";
-import type { DataCollectionKey } from "astro:content";
-
-// Get the collection from the route param
-const { collection } = Astro.params;
-
-// Validate collection
-const validCollection = typeof collection === "string" && collectionsKeys.includes(collection as DataCollectionKey);
-
-if (!validCollection) {
-  throw new Error(`Invalid collection: ${collection}`);
-}
+import { collectionMeta, type PostCollection } from "../../scripts/posts";
 
 export async function getStaticPaths() {
   return collectionsKeys.map((key) => ({
     params: { collection: key },
   }));
 }
+
+const collection = Astro.params.collection as PostCollection;
+const meta = collectionMeta[collection];
 ---
-<BaseLayout>
+
+<BaseLayout title={meta.label} description={`${meta.blurb}.`}>
   <BlogCardList collection={collection} />
 </BaseLayout>

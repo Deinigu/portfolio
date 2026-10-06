@@ -1,120 +1,93 @@
 ---
-import {
-  getCollection,
-  type InferEntrySchema,
-  type RenderedContent,
-} from "astro:content";
 import Card from "./Card.astro";
-import MotionCard from "./MotionCard";
 import { collectionsKeys } from "../content.config";
+import {
+  getAllPosts,
+  collectionMeta,
+  BASE,
+  type PostCollection,
+} from "../scripts/posts";
 
-const collectionName = Astro.props.collection ? Astro.props.collection : "";
+type Props = { collection?: string; limit?: number };
+const { collection = "", limit } = Astro.props;
 
-const collectionTitle =
-  collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
+const allPosts = await getAllPosts();
+const filtered = collection
+  ? allPosts.filter((p) => p.collection === collection)
+  : allPosts;
+const posts = limit ? filtered.slice(0, limit) : filtered;
 
-const entries = (
-  await Promise.all(
-    collectionsKeys.map((key) =>
-      getCollection(key).then((posts) =>
-        posts.map((post) => ({
-          ...post,
-        }))
-      )
-    )
-  )
-)
-  .flat()
-  .filter(
-    collectionName !== ""
-      ? (entry: { collection: any }) => entry.collection === collectionName
-      : () => true
-  );
+const tabs = [
+  { key: "", label: "All", icon: "✦", count: allPosts.length },
+  ...(collectionsKeys as PostCollection[]).map((key) => ({
+    key,
+    label: collectionMeta[key].label,
+    icon: collectionMeta[key].icon,
+    count: allPosts.filter((p) => p.collection === key).length,
+  })),
+];
 
-const { limit } = Astro.props;
-
-const allPosts = entries.flat();
-
-const sortedPosts = allPosts.sort((a, b) => {
-  const dateA = new Date(a.data.pubDate || 0).getTime();
-  const dateB = new Date(b.data.pubDate || 0).getTime();
-  return dateB - dateA;
-});
-
-const posts = sortedPosts.slice(0, limit);
+const meta = collection ? collectionMeta[collection as PostCollection] : null;
 ---
 
-<section class="px-4 md:px-8 py-10">
-  <header class="text-center mb-6">
-    <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-6">
-      {collectionTitle ? `${collectionTitle}` : "Posts"}
+<section class="py-8">
+  <header class="mx-auto mb-10 max-w-2xl text-center">
+    <p class="eyebrow mb-3">
+      $ ls ./posts{collection && `/${collection}`} — {filtered.length} entries
+    </p>
+    <h1 class="text-5xl font-bold md:text-6xl">
+      {meta ? <span class="gradient-text">{meta.label}</span> : <span class="gradient-text">Posts</span>}
     </h1>
+    <p class="text-ctp-subtext0 mt-4 text-lg">
+      {
+        meta
+          ? `${meta.blurb}.`
+          : "Write-ups about the things I make: software, games and music."
+      }
+    </p>
   </header>
-  <div class="flex flex-wrap justify-center gap-4 mb-8 px-4 sm:px-6 lg:px-8">
-    <a
-      href="/portfolio/posts/"
-      aria-label="View all posts"
-      class={`px-5 py-3 rounded-xl font-semibold shadow-md transition duration-300 ease-in-out transform
-        ${
-          collectionName === ""
-            ? "bg-ctp-blue text-ctp-base scale-105"
-            : "bg-ctp-mantle text-ctp-text hover:bg-ctp-lavender hover:text-ctp-base hover:scale-105"
-        }
-        focus:outline-none focus:ring-4 focus:ring-ctp-blue focus:ring-opacity-60 focus:animate-pulse focus:scale-95`}
-    >
-      All Posts
-    </a>
+
+  <nav
+    aria-label="Filter posts by category"
+    class="glass mx-auto mb-12 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-full p-1.5"
+  >
     {
-      collectionsKeys.map((key) => {
-        const isActive = collectionName === key;
+      tabs.map((tab) => {
+        const isActive = collection === tab.key;
         return (
           <a
-            href={`/portfolio/posts/${key}/`}
-            class={`px-5 py-3 rounded-xl font-semibold shadow-md transition duration-300 ease-in-out transform
-              ${
-                isActive
-                  ? "bg-ctp-blue text-ctp-base scale-105"
-                  : "bg-ctp-mantle text-ctp-text hover:bg-ctp-lavender hover:text-ctp-base hover:scale-105"
-              }
-              focus:outline-none focus:ring-4 focus:ring-ctp-blue focus:ring-opacity-60 focus:animate-pulse focus:scale-95`}
-            aria-label={`Filter posts by ${key.charAt(0).toUpperCase() + key.slice(1)}`}
+            href={`${BASE}/posts/${tab.key ? `${tab.key}/` : ""}`}
+            aria-current={isActive ? "page" : undefined}
+            class:list={[
+              "relative isolate flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors",
+              isActive
+                ? "text-ctp-crust"
+                : "text-ctp-subtext1 hover:text-ctp-text hover:bg-ctp-surface0/60",
+            ]}
           >
-            {key.charAt(0).toUpperCase() + key.slice(1)}
+            {isActive && (
+              <span
+                class="bg-ctp-blue absolute inset-0 -z-10 rounded-full"
+                aria-hidden="true"
+              />
+            )}
+            <span aria-hidden="true">{tab.icon}</span>
+            {tab.label}
+            <span
+              class:list={[
+                "font-mono text-xs",
+                isActive ? "text-ctp-crust/70" : "text-ctp-overlay1",
+              ]}
+            >
+              {tab.count}
+            </span>
           </a>
         );
       })
     }
-  </div>
+  </nav>
 
-  <div
-    class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-  >
-    {
-      posts.map((post) =>
-        // If limit is set, only sho¡w the first `limit` posts
-        limit > 0 && posts.indexOf(post) >= limit ? null : (
-          // Render the Card component for each post
-          <MotionCard client:visible>
-            <Card
-              post={{
-                ...post,
-                data: {
-                  ...post.data,
-                  pubDate: post.data.pubDate?.toISOString().split("T")[0] || "",
-                  heroImage:
-                    typeof post.data.heroImage === "string"
-                      ? post.data.heroImage
-                      : post.data.heroImage?.src || "",
-                  tags: Array.isArray(post.data.tags) ? post.data.tags : [],
-                  collection: post.collection || "",
-                },
-              }}
-              collection={post.collection}
-              putCollectionTag={true}
-            />
-          </MotionCard>
-        )
-      )
-    }
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((post) => <Card post={post} />)}
   </div>
 </section>

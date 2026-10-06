@@ -2,105 +2,296 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import imgPath from "../assets/profile.png";
-import BlogCardList from "../components/BlogCardList.astro";
+import HeroCanvas from "../components/HeroCanvas.astro";
+import Worlds from "../components/Worlds.astro";
+import TechMarquee from "../components/TechMarquee.astro";
 import RecentProjects from "../components/RecentProjects.astro";
 import SocialLinks from "../components/SocialLinks.astro";
+import { careerItems } from "../consts";
+import { BASE } from "../scripts/posts";
+
+const current = careerItems[0];
+
+const roles = [
+  "data scientist.",
+  "game developer.",
+  "composer.",
+  "software engineer.",
+  "AI enthusiast.",
+  "problem solver.",
+  "Linux enjoyer.",
+  "python fan.",
+  "open source enthusiast.",
+  "musician.",
+  "curious mind.",
+  "lifelong learner.",
+  "in-progress polymath.",
+  "really nerd person.",
+];
 ---
 
 <BaseLayout>
-  <main class="min-h-screen bg-gradient-to-br py-12 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="mb-8">
-        <a href="/portfolio/about" title="Read more about me">
-          <Image
-            src={imgPath}
-            alt="Diego's profile picture"
-            class="rounded-full mx-auto mb-6 border-4 border-ctp-overlay1 hover:border-ctp-blue hover:scale-105 transition-transform duration-300"
-            style="max-width: 300px; width: 100%; height: auto;"
-          />
+  <!-- ============ HERO ============ -->
+  <section
+    class="relative -mx-4 -mt-8 flex min-h-[calc(100svh-5rem)] items-center overflow-hidden px-4 py-16 md:-mx-8 md:px-8"
+  >
+    <HeroCanvas />
+
+    <div
+      class="relative mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.25fr_1fr]"
+    >
+      <div class="hero-in text-center lg:text-left">
+        <a
+          href={`${BASE}/about/`}
+          class="glass text-ctp-subtext1 hover:text-ctp-text mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs transition-colors sm:text-sm"
+        >
+          <span class="relative flex h-2 w-2">
+            <span
+              class="bg-ctp-green absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+            ></span>
+            <span class="bg-ctp-green relative inline-flex h-2 w-2 rounded-full"
+            ></span>
+          </span>
+          {current.title} @ {current.company}
         </a>
 
-        <h1 class="text-4xl md:text-6xl font-bold">
-          Hi, I'm <span class="text-ctp-blue">Diego</span>!
+        <h1
+          class="text-5xl leading-[1.05] font-bold sm:text-6xl md:text-7xl xl:text-8xl"
+        >
+          Hi, I'm <span
+            class="gradient-text scramble inline-block"
+            data-text="Diego"
+            >Diego</span
+          ><span class="wave inline-block origin-[70%_70%]" aria-hidden="true"
+            >👋</span
+          >
         </h1>
-        <div class="text-xl md:text-2xl t mt-3">
-          <span>I'm a </span>
+
+        <p
+          class="mt-6 font-mono text-lg sm:text-xl md:text-2xl"
+          aria-label="I'm a data scientist, game developer and composer."
+        >
+          <span class="text-ctp-green" aria-hidden="true">❯</span>
+          <span class="text-ctp-subtext1" aria-hidden="true">I'm a</span>
           <span
             id="typewriter"
-            class="text-ctp-blue font-semibold inline-block text-left"></span>
-          <span class="animate-pulse text-ctp-blue">|</span>
-        </div>
-        <p class="mt-4 text-base md:text-lg text-ctp-subtext0 max-w-xl mx-auto">
-          Want to know more details about me? <br /><a
-            href="/portfolio/about"
-            class="underline text-ctp-blue hover:text-ctp-lavender transition-colors"
-            >Click here! →</a
-          >
+            class="text-ctp-blue"
+            data-roles={JSON.stringify(roles)}
+            aria-hidden="true">{roles[0]}</span
+          ><span class="caret-blink bg-ctp-blue ml-0.5 inline-block h-[1.1em] w-[0.55em] align-text-bottom" aria-hidden="true"
+          ></span>
         </p>
+
+        <p
+          class="text-ctp-subtext0 mx-auto mt-6 max-w-xl text-lg lg:mx-0"
+        >
+          I build AI systems by day, make games for fun (and the odd game
+          jam), and write music for them. This is where I share all of it.
+        </p>
+
+        <div
+          class="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
+        >
+          <a href={`${BASE}/posts/`} class="btn btn-primary">
+            Explore my work <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a
+            href={`${BASE}/pdf/cv.pdf`}
+            class="btn btn-ghost"
+            target="_blank"
+           
+          >
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"></path></svg>
+            Download CV
+          </a>
+        </div>
       </div>
-      <SocialLinks />
+
+      <!-- Avatar with orbiting worlds -->
+      <div class="hero-in relative mx-auto aspect-square w-64 sm:w-80 lg:w-full lg:max-w-md" style="animation-delay:.15s">
+        <div
+          class="from-ctp-blue via-ctp-mauve to-ctp-pink absolute inset-0 rounded-full bg-gradient-to-br opacity-40 blur-2xl"
+          aria-hidden="true"
+        >
+        </div>
+        <div
+          class="from-ctp-blue via-ctp-mauve to-ctp-pink animate-spin-slow absolute inset-0 rounded-full bg-conic"
+          aria-hidden="true"
+        >
+        </div>
+        <a
+          href={`${BASE}/about/`}
+          title="Read more about me"
+          class="absolute inset-[4px] overflow-hidden rounded-full bg-ctp-base"
+        >
+          <Image
+            src={imgPath}
+            alt="Portrait of Diego López Reduello"
+            widths={[320, 480, 720]}
+            sizes="(min-width: 1024px) 28rem, 20rem"
+            loading="eager"
+            class="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
+          />
+        </a>
+        <div class="orbit absolute inset-[-12%]" aria-hidden="true">
+          <span class="orbit-item glass" style="--a:-90deg">⌨️</span>
+          <span class="orbit-item glass" style="--a:30deg">🎮</span>
+          <span class="orbit-item glass" style="--a:150deg">🎵</span>
+        </div>
+      </div>
     </div>
-    <RecentProjects limit={3} />
 
-    <script type="module">
-      const roles = [
-        "developer.",
-        "software engineer.",
-        "computer scientist.",
-        "passionate coder.",
-        "problem solver.",
-        "data scientist.",
-        "AI enthusiast.",
-        "researcher.",
-        "game developer.",
-        "python fan.",
-        "Linux enjoyer.",
-        "open source enthusiast.",
-        "efficient systems seeker.",
-        "personal projects creator.",
-        "tech lover.",
-        "really nerd person.",
-        "curious mind.",
-        "lifelong learner.",
-        "creative thinker.",
-        "ambitious innovator.",
-        "in-progress polymath.",
-        "musician.",
-        "composer.",
-        "posts writer.",
-      ];
-      let roleIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
+    <a
+      href="#worlds"
+      class="text-ctp-subtext0 hover:text-ctp-blue absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs transition-colors md:flex"
+    >
+      scroll
+      <span class="border-ctp-overlay1 flex h-9 w-5 justify-center rounded-full border-2 pt-1.5">
+        <span class="scroll-dot bg-ctp-blue h-2 w-1 rounded-full"></span>
+      </span>
+    </a>
+  </section>
 
-      const el = document.getElementById("typewriter");
+  <div id="worlds">
+    <Worlds />
+  </div>
 
-      function type() {
-        const current = roles[roleIndex];
-        const displayed = current.substring(0, charIndex);
-        el.textContent = displayed;
+  <TechMarquee />
 
-        if (!isDeleting && charIndex < current.length) {
-          charIndex++;
-          setTimeout(type, 100);
-        } else if (isDeleting && charIndex > 0) {
-          charIndex--;
-          setTimeout(type, 50);
-        } else {
-          if (!isDeleting) {
-            isDeleting = true;
-            setTimeout(type, 1000);
-          } else {
-            isDeleting = false;
-            roleIndex = (roleIndex + 1) % roles.length;
-            setTimeout(type, 300);
-          }
-        }
-      }
+  <RecentProjects limit={3} />
 
-      document.addEventListener("DOMContentLoaded", () => {
-        if (el) type();
-      });
-    </script>
-  </main>
+  <section class="reveal py-10 text-center">
+    <p class="eyebrow mb-4">// find me online</p>
+    <SocialLinks />
+  </section>
 </BaseLayout>
+
+<style>
+  .hero-in {
+    animation: hero-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  }
+
+  .wave {
+    animation: wave 2.5s ease-in-out 1s infinite;
+  }
+  @keyframes wave {
+    0%, 60%, 100% { rotate: 0deg; }
+    10%, 30% { rotate: 14deg; }
+    20% { rotate: -8deg; }
+    40% { rotate: -4deg; }
+    50% { rotate: 10deg; }
+  }
+
+  .caret-blink {
+    animation: caret 1s steps(2, start) infinite;
+  }
+  @keyframes caret {
+    to { visibility: hidden; }
+  }
+
+  .orbit {
+    animation: spin 24s linear infinite;
+  }
+  .orbit-item {
+    position: absolute;
+    /* Place each item on the orbit's circle using CSS trig */
+    left: calc(50% + 50% * cos(var(--a)));
+    top: calc(50% + 50% * sin(var(--a)));
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin: -1.625rem;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    box-shadow: 0 10px 30px -10px var(--color-ctp-mauve);
+    /* Counter-rotate so the emoji stay upright while the ring spins */
+    animation: counter-spin 24s linear infinite;
+  }
+  @keyframes counter-spin {
+    from { rotate: 0deg; }
+    to { rotate: -360deg; }
+  }
+
+  .scroll-dot {
+    animation: scroll-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-dot {
+    0% { transform: translateY(0); opacity: 1; }
+    80%, 100% { transform: translateY(12px); opacity: 0; }
+  }
+</style>
+
+<script>
+  let timers: number[] = [];
+  const clear = () => {
+    timers.forEach(clearTimeout);
+    timers = [];
+  };
+  const later = (fn: () => void, ms: number) =>
+    timers.push(window.setTimeout(fn, ms));
+
+  // Typewriter cycling through roles
+  function typewriter() {
+    const el = document.getElementById("typewriter");
+    if (!el) return;
+    const roles: string[] = JSON.parse(el.dataset.roles || "[]");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let r = 0;
+    let i = roles[0].length;
+    let deleting = true;
+    const tick = () => {
+      const word = roles[r];
+      el.textContent = word.slice(0, i);
+      if (!deleting && i < word.length) {
+        i++;
+        later(tick, 70 + Math.random() * 60);
+      } else if (deleting && i > 0) {
+        i--;
+        later(tick, 35);
+      } else if (!deleting) {
+        deleting = true;
+        later(tick, 1600);
+      } else {
+        deleting = false;
+        r = (r + 1) % roles.length;
+        later(tick, 250);
+      }
+    };
+    later(tick, 2200);
+  }
+
+  // Hacker-style text scramble that resolves into the real text
+  const GLYPHS = "!<>-_\\/[]{}—=+*^?#01";
+  function scramble(el: HTMLElement) {
+    const text = el.dataset.text || "";
+    let frame = 0;
+    const total = text.length * 6;
+    const step = () => {
+      el.textContent = [...text]
+        .map((ch, i) =>
+          frame / 6 > i ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]
+        )
+        .join("");
+      if (frame++ < total) requestAnimationFrame(step);
+      else el.textContent = text;
+    };
+    step();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    clear();
+    typewriter();
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll<HTMLElement>(".scramble").forEach((el) => {
+      later(() => scramble(el), 300);
+      el.addEventListener("pointerenter", () => scramble(el));
+    });
+  });
+</script>

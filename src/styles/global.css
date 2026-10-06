@@ -1,8 +1,32 @@
 @import "tailwindcss";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Atkinson";
+  src: url("/portfolio/fonts/atkinson-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson";
+  src: url("/portfolio/fonts/atkinson-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
+  --font-sans: "Atkinson", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", "Atkinson", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
   --color-ctp-rosewater: hsl(11, 59%, 67%);
   --color-ctp-flamingo: hsl(0, 60%, 67%);
   --color-ctp-pink: hsl(316, 73%, 69%);
@@ -29,7 +53,33 @@
   --color-ctp-base: hsl(220, 23%, 95%);
   --color-ctp-mantle: hsl(220, 22%, 92%);
   --color-ctp-crust: hsl(220, 21%, 89%);
+
+  --animate-gradient-pan: gradient-pan 8s linear infinite;
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 12s linear infinite;
+
+  @keyframes gradient-pan {
+    to {
+      background-position: 200% center;
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 }
+
 .dark {
   --color-ctp-rosewater: hsl(10, 58%, 90%);
   --color-ctp-flamingo: hsl(0, 58%, 86%);
@@ -57,9 +107,8 @@
   --color-ctp-base: hsl(232, 23%, 18%);
   --color-ctp-mantle: hsl(233, 23%, 15%);
   --color-ctp-crust: hsl(236, 23%, 12%);
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  color-scheme: dark;
+
   .astro-code,
   .astro-code span {
     color: var(--shiki-dark) !important;
@@ -70,26 +119,366 @@
   }
 }
 
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-ctp-surface2) transparent;
+}
+
 body {
-  font-family: "Atkinson", sans-serif;
+  font-family: var(--font-sans);
   margin: 0;
   padding: 0;
-  font-size: 18px; /* reduced from 20px */
-  line-height: 1.6; /* reduced from 1.7 */
+  font-size: 18px;
+  line-height: 1.6;
   text-align: left;
-  word-wrap: break-word;
   overflow-wrap: break-word;
-  caret-color: transparent;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
+  background-color: var(--color-ctp-base);
+  -webkit-font-smoothing: antialiased;
 }
+.dark body {
+  background-color: var(--color-ctp-crust);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-ctp-mauve) 35%, transparent);
+  color: var(--color-ctp-text);
+}
+
+@layer base {
+:focus-visible {
+  outline: 2px solid var(--color-ctp-blue);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+}
+
+/* ---------- Ambient background: grid + aurora glows ---------- */
+.bg-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--color-ctp-overlay0) 14%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-ctp-overlay0) 14%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 80%);
+}
+
+/* Soft colour glows. Plain gradients, painted once: no blur filter, no animation. */
+.ambient-glow {
+  --glow: 22%;
+  background:
+    radial-gradient(40rem 32rem at 0% 0%, color-mix(in oklab, var(--color-ctp-blue) var(--glow), transparent), transparent 70%),
+    radial-gradient(36rem 30rem at 100% 40%, color-mix(in oklab, var(--color-ctp-mauve) var(--glow), transparent), transparent 70%),
+    radial-gradient(32rem 26rem at 40% 100%, color-mix(in oklab, var(--color-ctp-pink) calc(var(--glow) * 0.8), transparent), transparent 70%);
+}
+.dark .ambient-glow {
+  --glow: 12%;
+}
+
+/* ---------- Reusable effects ---------- */
+.gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-ctp-blue),
+    var(--color-ctp-mauve),
+    var(--color-ctp-pink),
+    var(--color-ctp-sky),
+    var(--color-ctp-blue)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+/* Only pan the gradient while the element (or its card) is hovered */
+.gradient-text:hover,
+.group:hover .gradient-text {
+  animation: var(--animate-gradient-pan);
+}
+
+@layer components {
+/* Translucent surface. Deliberately no backdrop-filter: blurring what's behind
+   every chip, button and badge is one of the most expensive things a page can do. */
+.glass {
+  background: color-mix(in oklab, var(--color-ctp-base) 90%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-ctp-overlay0) 25%, transparent);
+}
+.dark .glass {
+  background: color-mix(in oklab, var(--color-ctp-mantle) 90%, transparent);
+}
+/* Real frosted glass only where it's worth it: the sticky nav and the palette */
+.glass-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+header nav.glass {
+  background: color-mix(in oklab, var(--color-ctp-base) 80%, transparent);
+}
+.dark header nav.glass {
+  background: color-mix(in oklab, var(--color-ctp-mantle) 80%, transparent);
+}
+
+/* Surface card used across the site */
+.panel {
+  background: color-mix(in oklab, var(--color-ctp-mantle) 80%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-ctp-overlay0) 25%, transparent);
+  border-radius: 1.25rem;
+}
+.dark .panel {
+  background: color-mix(in oklab, var(--color-ctp-base) 70%, transparent);
+}
+
+/* Cursor-following glow. --mx/--my are set by the global pointer script. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    320px circle at var(--mx, -999px) var(--my, -999px),
+    var(--spot-color, var(--color-ctp-blue)),
+    transparent 45%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--mx, -999px) var(--my, -999px),
+    color-mix(in oklab, var(--spot-color, var(--color-ctp-blue)) 10%, transparent),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.spotlight:hover::before,
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklab, var(--chip-color, var(--color-ctp-blue)) 40%, transparent);
+  background: color-mix(in oklab, var(--chip-color, var(--color-ctp-blue)) 12%, transparent);
+  color: var(--chip-color, var(--color-ctp-blue));
+  white-space: nowrap;
+}
+
+/* Buttons: they stay put under the cursor (easy to hit). Hover sends a light
+   sweep across the surface and nudges the arrow; press gives a small squish. */
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  transition:
+    scale 0.12s ease-out,
+    box-shadow 0.3s,
+    border-color 0.2s,
+    background-color 0.2s;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgb(255 255 255 / 0.35) 50%,
+    transparent 70%
+  );
+  translate: -110% 0;
+  transition: translate 0s;
+  pointer-events: none;
+}
+.btn:hover::after {
+  translate: 110% 0;
+  transition: translate 0.6s ease-out;
+}
+.btn:active {
+  scale: 0.97;
+}
+.btn .arrow {
+  display: inline-block;
+  transition: translate 0.25s cubic-bezier(0.3, 1.6, 0.6, 1);
+}
+.btn:hover .arrow {
+  translate: 4px 0;
+}
+.btn-primary {
+  color: var(--color-ctp-crust);
+  background: linear-gradient(120deg, var(--color-ctp-blue), var(--color-ctp-mauve));
+  box-shadow: 0 8px 24px -10px color-mix(in oklab, var(--color-ctp-blue) 70%, transparent);
+}
+.btn-primary:hover {
+  box-shadow: 0 10px 30px -8px color-mix(in oklab, var(--color-ctp-mauve) 80%, transparent);
+}
+.btn-ghost {
+  color: var(--color-ctp-text);
+  border: 1px solid color-mix(in oklab, var(--color-ctp-overlay0) 45%, transparent);
+  background: color-mix(in oklab, var(--color-ctp-mantle) 70%, transparent);
+}
+.btn-ghost::after {
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    color-mix(in oklab, var(--color-ctp-blue) 25%, transparent) 50%,
+    transparent 70%
+  );
+}
+.btn-ghost:hover {
+  border-color: var(--color-ctp-blue);
+}
+
+kbd.key {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--color-ctp-surface1);
+  border-bottom-width: 2px;
+  background: var(--color-ctp-mantle);
+  color: var(--color-ctp-subtext0);
+}
+
+/* Section header label, e.g. "// 01 — tech stack" */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ctp-blue);
+}
+
+}
+/* ---------- Scroll-driven reveal (progressive enhancement) ---------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+@keyframes reveal-up {
+  /* opacity + transform only: both run on the compositor, unlike filter: blur() */
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Theme toggle circular reveal (View Transitions API) ---------- */
+html.theme-transition::view-transition-old(root),
+html.theme-transition::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ---------- Retro mode (Konami code easter egg) ---------- */
+html.retro body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.12) 0 1px,
+    transparent 1px 3px
+  );
+  animation: crt-flicker 0.15s infinite;
+}
+html.retro body {
+  filter: contrast(1.1) saturate(1.3);
+}
+html.retro img {
+  image-rendering: pixelated;
+}
+html.retro h1,
+html.retro h2,
+html.retro h3 {
+  font-family: var(--font-mono);
+  text-shadow:
+    2px 0 color-mix(in oklab, var(--color-ctp-red) 60%, transparent),
+    -2px 0 color-mix(in oklab, var(--color-ctp-sky) 60%, transparent);
+}
+@keyframes crt-flicker {
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* ---------- Code blocks ---------- */
 .astro-code {
-  padding: 2rem;
-  border-radius: 2rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
   overflow-x: auto;
   border: 1px solid var(--color-ctp-surface1);
-  box-shadow: 0 2px 4px var(--color-ctp-crust);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
 }
 
 .astro-code,
@@ -103,53 +492,52 @@ body {
 
 @layer components {
   .ctp-prose {
-    @apply prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-0;
+    @apply prose dark:prose-invert max-w-none;
 
-    /* === Textos base === */
-    @apply prose-p:leading-relaxed prose-p:my-4 prose-p:text-ctp-text;
+    @apply prose-p:leading-relaxed prose-p:my-4 prose-p:text-ctp-subtext1;
+    @apply prose-li:text-ctp-subtext1;
     @apply prose-strong:font-semibold prose-strong:text-ctp-text;
     @apply prose-em:italic prose-em:text-ctp-subtext0;
 
-    /* === Títulos === */
-    @apply prose-h1:text-4xl prose-h1:font-extrabold prose-h1:mt-0 prose-h1:mb-4;
-    @apply prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4;
-    @apply prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-2;
+    @apply prose-headings:text-ctp-text prose-headings:scroll-mt-28;
+    @apply prose-h1:text-4xl prose-h1:font-bold prose-h1:mt-0 prose-h1:mb-4;
+    @apply prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-4;
+    @apply prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-8 prose-h3:mb-2;
     @apply prose-h4:text-xl prose-h4:font-medium prose-h4:mt-4 prose-h4:mb-2;
 
-    /* === Enlaces === */
     @apply prose-a:text-ctp-blue prose-a:no-underline prose-a:font-semibold;
     @apply prose-a:transition-colors prose-a:duration-200;
     @apply prose-a:hover:underline prose-a:hover:text-ctp-lavender;
 
-    /* === Listas === */
-    @apply prose-ul:pl-6 prose-ul:list-disc prose-li:my-1;
+    @apply prose-ul:pl-6 prose-ul:list-disc prose-li:my-1 prose-li:marker:text-ctp-blue;
     @apply prose-ol:pl-6 prose-ol:list-decimal prose-li:my-1;
 
-    /* === Citas === */
-    @apply prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:border-l-4 prose-blockquote:border-ctp-blue prose-blockquote:text-ctp-subtext1;
+    @apply prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:border-l-4 prose-blockquote:border-ctp-mauve prose-blockquote:text-ctp-subtext1;
 
-    /* === Separadores === */
-    @apply prose-hr:my-8 prose-hr:border-t prose-hr:border-ctp-surface1;
+    @apply prose-hr:my-10 prose-hr:border-t prose-hr:border-ctp-surface1;
 
-    /* === Teclas y comandos === */
-    @apply prose-kbd:rounded prose-kbd:border prose-kbd:border-ctp-blue prose-kbd:bg-ctp-base prose-kbd:px-1 prose-kbd:py-0.5 prose-kbd:text-xs prose-kbd:shadow-2xl prose-kbd:shadow-ctp-overlay2;
+    @apply prose-code:text-ctp-pink prose-code:font-mono prose-code:before:content-none prose-code:after:content-none;
 
-    /* === Imágenes === */
-    @apply prose-img:rounded-lg prose-img:shadow-md;
+    @apply prose-kbd:rounded prose-kbd:border prose-kbd:border-ctp-blue prose-kbd:bg-ctp-base prose-kbd:px-1 prose-kbd:py-0.5 prose-kbd:text-xs;
 
-    /* === Dividers === */
-    @apply prose-hr:my-8 prose-hr:border-t prose-hr:border-ctp-surface1;
+    @apply prose-img:rounded-xl prose-img:shadow-lg prose-img:border prose-img:border-ctp-surface0;
 
-    /* === Tablas === */
     @apply prose-table:table prose-table:min-w-fit prose-table:max-w-max prose-table:my-8 prose-table:mx-auto prose-table:border-collapse prose-table:border prose-table:border-ctp-surface2 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-hidden;
-
-    /* === Table Headers === */
     @apply prose-th:font-semibold prose-th:bg-ctp-surface1 prose-th:text-left prose-th:px-4 prose-th:py-2 prose-th:text-ctp-text;
-
-    /* === Table Cells === */
     @apply prose-td:bg-ctp-surface0 prose-td:px-4 prose-td:py-2 prose-td:text-ctp-subtext1;
-
-    /* === Table Rows === */
     @apply prose-tr:border-b prose-tr:border-ctp-surface2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
