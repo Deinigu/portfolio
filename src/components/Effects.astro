@@ -1,0 +1,183 @@
+---
+// Site-wide interactive niceties. Bundled module scripts run once per page
+// load, before DOMContentLoaded, so per-page DOM setup hooks into that event.
+---
+
+<button
+  id="back-to-top"
+  aria-label="Back to top"
+  class="glass text-ctp-text hover:text-ctp-blue fixed right-5 bottom-5 z-40 grid h-12 w-12 translate-y-20 place-items-center rounded-full opacity-0 shadow-lg transition-all duration-300 hover:-translate-y-1"
+>
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg
+  >
+</button>
+
+<div
+  id="toast"
+  role="status"
+  aria-live="polite"
+  class="glass text-ctp-text pointer-events-none fixed bottom-6 left-1/2 z-[70] -translate-x-1/2 translate-y-24 rounded-full px-5 py-3 font-mono text-sm opacity-0 shadow-xl transition-all duration-500"
+>
+</div>
+
+<script>
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function toast(message: string) {
+    const el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = message;
+    el.classList.remove("translate-y-24", "opacity-0");
+    clearTimeout((el as any)._t);
+    (el as any)._t = setTimeout(
+      () => el.classList.add("translate-y-24", "opacity-0"),
+      2800
+    );
+  }
+  (window as any).__toast = toast;
+
+  // ---- Scroll progress + back-to-top ----
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const progress = max > 0 ? scrollY / max : 0;
+      const bar = document.getElementById("scroll-progress");
+      if (bar) bar.style.transform = `scaleX(${progress})`;
+      const btn = document.getElementById("back-to-top");
+      const show = scrollY > 600;
+      btn?.classList.toggle("opacity-0", !show);
+      btn?.classList.toggle("translate-y-20", !show);
+      btn?.classList.toggle("pointer-events-none", !show);
+      ticking = false;
+    });
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  document.addEventListener("DOMContentLoaded", onScroll);
+  document.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("#back-to-top"))
+      scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+
+  // ---- Pointer effects: spotlight glow + 3D tilt ----
+  // Pointer events fire far more often than frames are drawn, so only remember
+  // the latest event and apply it once per animation frame.
+  const finePointer = matchMedia("(pointer: fine)").matches;
+  let pending: PointerEvent | null = null;
+  const applyPointer = () => {
+    const e = pending!;
+    pending = null;
+    const target = e.target as Element;
+    const card = target.closest?.(".spotlight") as HTMLElement | null;
+    if (card) {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      card.style.setProperty("--my", `${e.clientY - r.top}px`);
+    }
+    if (reduceMotion) return;
+    const tilt = target.closest?.("[data-tilt]") as HTMLElement | null;
+    if (tilt) {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tilt.style.transform = `perspective(900px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`;
+    }
+  };
+  if (finePointer) {
+    document.addEventListener(
+      "pointermove",
+      (e) => {
+        if (!pending) requestAnimationFrame(applyPointer);
+        pending = e;
+      },
+      { passive: true }
+    );
+  }
+
+  if (!reduceMotion && finePointer) {
+    document.addEventListener(
+      "pointerout",
+      (e) => {
+        const el = (e.target as Element).closest?.(
+          "[data-tilt]"
+        ) as HTMLElement | null;
+        if (el && !el.contains(e.relatedTarget as Node))
+          el.style.transform = "";
+      },
+      { passive: true }
+    );
+  }
+
+  // ---- Copy buttons on code blocks ----
+  const addCopyButtons = () => {
+    document.querySelectorAll<HTMLElement>("pre.astro-code").forEach((pre) => {
+      if (pre.parentElement?.classList.contains("code-wrap")) return;
+      const wrap = document.createElement("div");
+      wrap.className = "code-wrap relative group";
+      pre.replaceWith(wrap);
+      wrap.appendChild(pre);
+      const lang = pre.dataset.language;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className =
+        "absolute top-3 right-3 rounded-lg px-2.5 py-1 font-mono text-xs glass text-ctp-subtext0 hover:text-ctp-blue opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity";
+      btn.textContent = lang && lang !== "plaintext" ? `${lang} · copy` : "copy";
+      btn.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "copied ✓";
+        setTimeout(
+          () =>
+            (btn.textContent =
+              lang && lang !== "plaintext" ? `${lang} · copy` : "copy"),
+          1500
+        );
+      });
+      wrap.appendChild(btn);
+    });
+  };
+  document.addEventListener("DOMContentLoaded", addCopyButtons);
+
+  // ---- Konami code → retro CRT mode ----
+  const konami = [
+    "ArrowUp",
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "a",
+  ];
+  let pos = 0;
+  addEventListener("keydown", (e) => {
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    pos = key === konami[pos] ? pos + 1 : key === konami[0] ? 1 : 0;
+    if (pos === konami.length) {
+      pos = 0;
+      const on = document.documentElement.classList.toggle("retro");
+      try {
+        sessionStorage.setItem("retro", on ? "1" : "0");
+      } catch {}
+      toast(on ? "🕹️ RETRO MODE UNLOCKED — +30 lives" : "👾 Back to the future");
+    }
+  });
+
+  // A little hello for the curious
+  console.log(
+    "%c👋 Hey, fellow dev!%c\nPress Ctrl+K to navigate, and try the Konami code ↑↑↓↓←→←→BA",
+    "font-size:16px;font-weight:bold;color:#8aadf4",
+    "color:#a5adcb"
+  );
+</script>

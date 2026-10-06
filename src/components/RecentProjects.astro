@@ -1,77 +1,30 @@
 ---
-import {
-  getCollection,
-  type CollectionKey,
-  type InferEntrySchema,
-  type RenderedContent,
-} from "astro:content";
 import Card from "./Card.astro";
-import MotionCard from "./MotionCard";
-import { collectionsKeys } from "../content.config";
+import { getAllPosts, BASE } from "../scripts/posts";
 
-// List of all collections to include
+type Props = { limit?: number };
+const { limit = 3 } = Astro.props;
 
-const entries = await Promise.all(
-  collectionsKeys.map((collection) =>
-    getCollection(collection).then((posts) =>
-      posts.map((post) => ({
-        ...post,
-        collection,
-      }))
-    )
-  )
-);
-
-const { limit } = Astro.props;
-
-const allPosts = entries.flat();
-
-const sortedPosts = allPosts.sort((a, b) => {
-  const dateA = new Date(a.data.pubDate || 0).getTime();
-  const dateB = new Date(b.data.pubDate || 0).getTime();
-  return dateB - dateA;
-});
-
-const selectedPosts = sortedPosts.slice(0, limit);
+const posts = (await getAllPosts()).slice(0, limit);
 ---
 
-<section class="px-4 md:px-8 py-10">
-  <h2 class="text-3xl md:text-4xl font-bold mb-6 text-left text-ctp-text">
-    Recent Posts
-  </h2>
-  <div
-    class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-  >
-    {
-      selectedPosts.map((post) => (
-        <MotionCard client:visible>
-          <Card
-            post={{
-              ...post,
-              data: {
-                ...post.data,
-                pubDate: post.data.pubDate?.toISOString().split("T")[0] || "",
-                heroImage:
-                  typeof post.data.heroImage === "string"
-                    ? post.data.heroImage
-                    : post.data.heroImage?.src || "",
-                tags: Array.isArray(post.data.tags) ? post.data.tags : [],
-                collection: post.collection || "",
-              },
-            }}
-            collection={post.collection}
-            putCollectionTag={true}
-          />
-        </MotionCard>
-      ))
-    }
-  </div>
-  <div class="mt-8 text-center">
+<section aria-labelledby="recent-title" class="py-16">
+  <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="eyebrow mb-3">// 02 — latest logs</p>
+      <h2 id="recent-title" class="text-4xl font-bold md:text-5xl">
+        Recent posts
+      </h2>
+    </div>
     <a
-      href="/portfolio/posts"
-      class="mt-4 inline-block bg-gradient-to-r from-ctp-blue to-ctp-sky hover:from-ctp-sky hover:to-ctp-lavender hover:cursor-pointer hover:scale-110 focus:scale-100 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
+      href={`${BASE}/posts/`}
+      class="group text-ctp-blue inline-flex items-center gap-2 font-mono text-sm"
     >
-      View All Posts
+      view all
+      <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
     </a>
+  </div>
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {posts.map((post) => <Card post={post} />)}
   </div>
 </section>

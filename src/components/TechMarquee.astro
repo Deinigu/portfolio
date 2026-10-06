@@ -1,0 +1,44 @@
+---
+import { skills } from "../consts";
+
+const all = skills.flatMap((s) => s.skills);
+const half = Math.ceil(all.length / 2);
+const rows = [all.slice(0, half), all.slice(half)];
+---
+
+<section aria-label="Technologies I use" class="relative -mx-4 py-10 md:-mx-8">
+  <div class="space-y-4 [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
+    {
+      rows.map((row, r) => (
+        <div class="marquee group flex overflow-hidden">
+          {/* Two copies so the loop is seamless */}
+          <ul
+            class:list={[
+              "animate-marquee flex w-max shrink-0 gap-3 pr-3 group-hover:[animation-play-state:paused]",
+              r === 1 && "[animation-direction:reverse]",
+            ]}
+            style={`--marquee-duration:${row.length * 3.5}s`}
+          >
+            {[...row, ...row].map((skill, i) => (
+              <li
+                class="panel flex items-center gap-2.5 rounded-full !px-4 py-2 whitespace-nowrap"
+                aria-hidden={i >= row.length ? "true" : undefined}
+              >
+                <img
+                  src={skill.imageSrc}
+                  alt=""
+                  width="20"
+                  height="20"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-5 w-5 object-contain"
+                />
+                <span class="text-ctp-subtext1 text-sm font-medium">{skill.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

@@ -4,113 +4,121 @@ import imgPath from "../assets/about.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Skills from "../components/Skills.astro";
 import CareerTree from "../components/CareerTree.astro";
-import CertificationList from "../components/CertificationList";
+import CertificationList from "../components/CertificationList.astro";
+import { careerItems, certifications, skills } from "../consts";
+import { getAllPosts, BASE } from "../scripts/posts";
+
+const posts = await getAllPosts();
+const stats = [
+  // Professional experience started in 2023 (Avanade internship)
+  { value: new Date().getFullYear() - 2023, suffix: "", label: "years of experience" },
+  { value: skills.reduce((n, s) => n + s.skills.length, 0), suffix: "", label: "technologies" },
+  { value: posts.length, suffix: "", label: "posts shipped" },
+  { value: certifications.length, suffix: "", label: "certifications" },
+];
 ---
 
-<BaseLayout>
-  <main class="min-h-screen bg-gradient-to-br py-12 px-4">
-    <div class="max-w-2xl mx-auto">
-      <header class="text-center mb-8 md:mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-ctp-text mb-4">
-          About Me 👋🏻
-        </h1>
-      </header>
-    </div>
-
-    <div
-      class="flex flex-col lg:flex-row items-center gap-6 md:gap-8 mb-8 md:mb-12"
-    >
+<BaseLayout
+  title="About"
+  description="Data scientist, game developer and composer from Málaga — skills, certifications and career."
+>
+  <section class="grid items-center gap-12 py-8 lg:grid-cols-[1fr_1.1fr] lg:py-16">
+    <div class="relative mx-auto w-full max-w-md">
       <div
-        class="flex flex-col w-full lg:max-w-2xl items-center text-ctp-text order-2 lg:order-1"
+        class="from-ctp-blue via-ctp-mauve to-ctp-pink absolute -inset-3 -z-10 rotate-3 rounded-[2rem] bg-gradient-to-br opacity-40 blur-2xl"
+        aria-hidden="true"
       >
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center">
-          Diego López Reduello
-        </h2>
-
-        <div
-          class="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-3xl mx-auto mb-4 md:mb-6"
-        >
-          <div
-            class="bg-ctp-surface0 rounded-full h-2 md:h-3 overflow-hidden shadow-inner"
-          >
-            <div
-              class="bg-gradient-to-r from-ctp-blue to-ctp-mauve h-full rounded-full animate-pulse"
-            >
-              <style>
-                @keyframes loadBar {
-                  0% {
-                    width: 0%;
-                  }
-                  100% {
-                    width: 100%;
-                  }
-                }
-                .animate-loadBar {
-                  animation: loadBar 2s ease-out forwards;
-                }
-              </style>
-            </div>
-          </div>
-        </div>
-        <div
-          class="text-sm sm:text-base lg:text-lg mb-4 text-justify px-4 md:px-0"
-        >
-          <p class="mb-2">
-            Hi! I’m Diego — a curious <span
-              class="font-semibold text-ctp-blue transition hover:text-ctp-mauve hover:rotate-45 hover:scale-105 cursor-progress"
-            >
-              data scientist
-            </span>
-            with a passion for building elegant, efficient systems that solve real
-            problems.
-          </p>
-          <p>
-            My journey began at 13, programming LEGO robots and discovering how
-            code could shape the world around me. Since then, I’ve explored web
-            development, machine learning, game engines, and more. I'm driven by
-            learning and always looking for <span class="italic"
-              >creative ways</span
-            > to turn complex ideas into impactful, real-world experiences.
-          </p>
-        </div>
-
-        <a
-          href="/portfolio/contact"
-          class="mt-4 inline-block bg-ctp-blue hover:bg-ctp-lavender hover:text-ctp-base hover:scale-110 focus:scale-100 text-ctp-crust font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
-        >
-          Get in Touch
-        </a>
-        <a
-          href="/portfolio/pdf/cv.pdf"
-          download
-          class="mt-4 inline-block bg-ctp-mauve hover:bg-ctp-lavender hover:scale-110 text-ctp-crust focus:scale-100 font-semibold py-2 px-4 rounded-full transition ease-in-out transform"
-        >
-          Download My CV
-        </a>
       </div>
-
-      <div class="w-full sm:w-auto flex justify-center order-1 lg:order-2">
-        <div
-          class="relative group hover:shadow-2xl transition-shadow duration-300 ease-in-out"
-        >
-          <Image
-            src={imgPath}
-            alt="Profile picture of Diego López Reduello"
-            loading="lazy"
-            decoding="async"
-            class="w-64 sm:w-80 md:w-96 lg:max-w-2xl rounded-lg shadow-xl border-2 md:border-4 border-ctp-overlay1 transition-transform duration-300 hover:scale-105 group-hover:shadow-2xl"
-          />
-        </div>
+      <div data-tilt class="glass overflow-hidden rounded-[2rem] p-2 transition-transform duration-200 ease-out">
+        <Image
+          src={imgPath}
+          alt="Diego López Reduello"
+          widths={[400, 640]}
+          sizes="(min-width: 1024px) 28rem, 90vw"
+          loading="eager"
+          class="w-full rounded-[1.6rem] object-cover"
+        />
+      </div>
+      <div class="glass absolute -right-4 -bottom-5 rounded-2xl px-4 py-3 font-mono text-xs shadow-xl">
+        <span class="text-ctp-subtext0">location</span>
+        <span class="text-ctp-text block font-semibold">📍 Málaga, Spain</span>
       </div>
     </div>
-    <Skills />
-    <CertificationList client:visible />
 
-    <CareerTree />
-    <style>
-      .bg-gradient-to-r {
-        animation: loadBar 2s ease-out forwards;
-      }
-    </style>
-  </main>
+    <div class="text-center lg:text-left">
+      <p class="eyebrow mb-3">// 01 — about me</p>
+      <h1 class="text-5xl font-bold md:text-6xl">
+        Diego <span class="gradient-text">López Reduello</span>
+      </h1>
+      <div class="text-ctp-subtext1 mt-6 space-y-4 text-lg leading-relaxed">
+        <p>
+          Hi! I'm Diego — a curious <strong class="text-ctp-blue">data scientist</strong>
+          with a passion for building elegant, efficient systems that solve real problems.
+          Currently, I'm a {careerItems[0].title} at {careerItems[0].company}.
+        </p>
+        <p>
+          My journey began at 13, programming LEGO robots and discovering how code
+          could shape the world around me. Since then, I've explored web
+          development, machine learning, game engines — and composed music for
+          the games I make. I'm driven by learning and always looking for
+          <em class="text-ctp-mauve">creative ways</em> to turn complex ideas into
+          impactful, real-world experiences.
+        </p>
+      </div>
+
+      <dl class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {
+          stats.map((s) => (
+            <div class="panel flex flex-col p-4 text-center">
+              <dt class="text-ctp-subtext0 order-2 font-mono text-[0.7rem] uppercase tracking-wider">
+                {s.label}
+              </dt>
+              <dd class="gradient-text font-display text-3xl font-bold" data-count={s.value} data-suffix={s.suffix}>
+                {s.value}{s.suffix}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+        <a href={`${BASE}/contact/`} class="btn btn-primary">
+          Get in touch <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a href={`${BASE}/pdf/cv.pdf`} download class="btn btn-ghost">
+          Download my CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Skills />
+  <CertificationList />
+  <CareerTree />
 </BaseLayout>
+
+<script>
+  // Count stats up from zero the first time they scroll into view.
+  document.addEventListener("DOMContentLoaded", () => {
+    const els = document.querySelectorAll<HTMLElement>("[data-count]");
+    if (!els.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        const el = entry.target as HTMLElement;
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix ?? "";
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / 1400, 1);
+          const eased = 1 - Math.pow(1 - t, 4);
+          el.textContent = `${Math.round(target * eased)}${suffix}`;
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    });
+    els.forEach((el) => io.observe(el));
+  });
+</script>

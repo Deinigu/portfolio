@@ -1,55 +1,104 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import Logo from "./Logo.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const links = [
+  { href: `${base}/`, label: "Home" },
+  { href: `${base}/about/`, label: "About" },
+  { href: `${base}/posts/`, label: "Posts" },
+  { href: `${base}/contact/`, label: "Contact" },
+];
 ---
 
-<header class="bg-ctp-surface2 sticky top-0 z-50 shadow-md">
+<header class="sticky top-0 z-50 px-3 pt-3 sm:px-6">
   <nav
-    class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
+    class="glass glass-blur mx-auto flex max-w-5xl items-center justify-between gap-2 rounded-full py-1.5 pr-2 pl-1.5 shadow-lg shadow-black/5"
+    aria-label="Main"
   >
-    <!-- Left: Logo -->
-    <div class="flex flex-1 items-center">
-      <Logo href="/portfolio/" />
-    </div>
-    <!-- Center: Hamburger (mobile only) -->
-    <div class="flex flex-1 justify-center lg:hidden">
+    <Logo href={`${base}/`} />
+
+    <!-- Desktop links -->
+    <ul class="hidden items-center gap-1 md:flex">
+      {
+        links.map((l) => (
+          <li>
+            <HeaderLink href={l.href}>{l.label}</HeaderLink>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-1.5">
       <button
-        id="menu-toggle"
-        aria-label="Toggle navigation menu"
-        aria-expanded="false"
-        class="hover:bg-ctp-overlay2 focus:bg-ctp-surface1 hover:text-ctp-base flex items-center justify-center rounded-3xl p-3 transition-all duration-100 active:scale-95"
+        type="button"
+        data-open-palette
+        aria-label="Open command palette"
+        class="text-ctp-subtext0 hover:text-ctp-text hover:bg-ctp-surface0/60 hidden items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors sm:flex"
       >
-        <span class="hamburger-icon flex flex-col">
-          <span
-            class="mb-1 block h-0.5 w-6 bg-current transition-transform duration-100"
-          ></span>
-          <span
-            class="block h-0.5 w-6 bg-current transition-transform duration-100"
-          ></span>
-          <span
-            class="mt-1 block h-0.5 w-6 bg-current transition-transform duration-100"
-          ></span>
-        </span>
+        <svg
+          viewBox="0 0 24 24"
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          ><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"
+          ></path></svg
+        >
+        <span>Search</span>
+        <kbd class="key">Ctrl K</kbd>
       </button>
-    </div>
-    <!-- Center: Navigation links (desktop only) -->
-    <div
-      class="items-center justify-center transition-all hidden flex-1 space-x-1 lg:flex xl:space-x-2"
-    >
-      <HeaderLink href="/portfolio/">Home</HeaderLink>
-      <HeaderLink href="/portfolio/about/">About</HeaderLink>
-      <HeaderLink href="/portfolio/posts">Posts</HeaderLink>
-      <HeaderLink href="/portfolio/contact/">Contact</HeaderLink>
-    </div>
-    <!-- Right: Theme toggle -->
-    <div class="flex flex-1 justify-end items-center">
+
       <button
         id="theme-toggle"
-        aria-label="Toggle theme"
-        class="rounded-full w-10 h-10 bg-ctp-surface1 text-ctp-text hover:bg-ctp-overlay2 focus:bg-ctpsurface1 hover:text-ctp-base transition-all duration-100 hover:scale-110 hover:cursor-pointer active:scale-95"
+        type="button"
+        aria-label="Toggle dark mode"
+        class="theme-toggle text-ctp-text hover:bg-ctp-surface0/60 grid h-10 w-10 place-items-center rounded-full transition-colors"
       >
-        <span class="icon-moon" aria-hidden="true">🌙</span>
-        <span class="icon-sun hidden" aria-hidden="true">☀️</span>
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <mask id="moon-mask">
+            <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
+            <circle class="moon-cut" cx="24" cy="10" r="6" fill="black"
+            ></circle>
+          </mask>
+          <circle
+            class="sun-core"
+            cx="12"
+            cy="12"
+            r="5"
+            fill="currentColor"
+            mask="url(#moon-mask)"></circle>
+          <g class="sun-rays">
+            <path
+              d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+            ></path>
+          </g>
+        </svg>
+      </button>
+
+      <!-- Mobile menu toggle -->
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="hover:bg-ctp-surface0/60 grid h-10 w-10 place-items-center rounded-full md:hidden"
+      >
+        <span class="hamburger relative block h-3.5 w-5" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
       </button>
     </div>
   </nav>
@@ -57,95 +106,178 @@ import Logo from "./Logo.astro";
   <!-- Mobile menu -->
   <div
     id="mobile-menu"
-    class="max-h-0 items-center justify-center overflow-hidden transition-all duration-300 ease-in-out lg:hidden"
-    aria-hidden="true"
+    class="glass glass-blur mx-auto mt-2 grid max-w-5xl overflow-hidden rounded-3xl transition-all duration-300 md:hidden"
+    data-open="false"
   >
-    <div
-      class="bg-ctp-surface2 flex flex-col space-y-2 pb-2 align-middle shadow-md"
-    >
-      <HeaderLink href="/portfolio/" class="block py-2 text-center"
-        >Home</HeaderLink
-      >
-      <HeaderLink href="/portfolio/about/" class="block py-2 text-center"
-        >About</HeaderLink
-      >
-      <HeaderLink href="/portfolio/posts" class="block py-2 text-center"
-        >Posts</HeaderLink
-      >
-
-      <HeaderLink href="/portfolio/contact/" class="block py-2 text-center"
-        >Contact</HeaderLink
-      >
-    </div>
+    <ul class="flex min-h-0 flex-col gap-1 p-2">
+      {
+        links.map((l, i) => (
+          <li style={`--i:${i}`}>
+            <HeaderLink href={l.href} class="w-full justify-center">
+              {l.label}
+            </HeaderLink>
+          </li>
+        ))
+      }
+      <li style={`--i:${links.length}`}>
+        <button
+          type="button"
+          data-open-palette
+          class="text-ctp-subtext0 w-full rounded-full px-4 py-2.5 text-center text-sm"
+        >
+          Search posts…
+        </button>
+      </li>
+    </ul>
   </div>
 </header>
 
 <style>
-  .mobile-menu-open {
-    max-height: 30rem;
+  #mobile-menu {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    border-width: 0;
+  }
+  #mobile-menu[data-open="true"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    border-width: 1px;
+  }
+  #mobile-menu li {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.3s,
+      transform 0.3s;
+    transition-delay: calc(var(--i) * 40ms);
+  }
+  #mobile-menu[data-open="true"] li {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hamburger span {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      transform 0.3s,
+      opacity 0.2s,
+      top 0.3s;
+  }
+  .hamburger span:nth-child(1) {
+    top: 0;
+  }
+  .hamburger span:nth-child(2) {
+    top: 6px;
+  }
+  .hamburger span:nth-child(3) {
+    top: 12px;
+  }
+  [aria-expanded="true"] .hamburger span:nth-child(1) {
+    top: 6px;
+    transform: rotate(45deg);
+  }
+  [aria-expanded="true"] .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  [aria-expanded="true"] .hamburger span:nth-child(3) {
+    top: 6px;
+    transform: rotate(-45deg);
+  }
+
+  /* Sun ↔ moon morph */
+  .theme-toggle svg {
+    transition: transform 0.5s cubic-bezier(0.5, 1.5, 0.5, 1);
+  }
+  .sun-core {
+    transition: r 0.4s;
+  }
+  .moon-cut {
+    transition: cx 0.4s;
+  }
+  .sun-rays {
+    transition:
+      opacity 0.3s,
+      transform 0.5s;
+    transform-origin: center;
+  }
+  :global(.dark) .theme-toggle svg {
+    transform: rotate(-40deg);
+  }
+  :global(.dark) .sun-core {
+    r: 9;
+  }
+  :global(.dark) .moon-cut {
+    cx: 17;
+  }
+  :global(.dark) .sun-rays {
+    opacity: 0;
+    transform: rotate(-60deg) scale(0.6);
   }
 </style>
 
-<script is:inline>
-  // Theme toggle functionality
-  const toggleTheme = document.getElementById("theme-toggle");
-  const moon = toggleTheme.querySelector(".icon-moon");
-  const sun = toggleTheme.querySelector(".icon-sun");
-
-  const updateThemeIcon = (isDark) => {
-    moon.style.display = isDark ? "none" : "inline";
-    sun.style.display = isDark ? "inline" : "none";
+<script>
+  const setTheme = (dark: boolean) => {
+    document.documentElement.classList.toggle("dark", dark);
+    try {
+      localStorage.setItem("theme", dark ? "dark" : "light");
+    } catch {}
   };
 
-  const isDark = document.documentElement.classList.contains("dark");
-  updateThemeIcon(isDark);
+  // Circular reveal from the toggle using the View Transitions API.
+  const toggleTheme = (btn: HTMLElement) => {
+    const dark = !document.documentElement.classList.contains("dark");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduce) return setTheme(dark);
 
-  toggleTheme.addEventListener("click", () => {
-    const dark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", dark ? "dark" : "light");
-    updateThemeIcon(dark);
-  });
-
-  // Mobile menu functionality
-  const menuToggle = document.getElementById("menu-toggle");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const hamburgerIcon = menuToggle.querySelector(".hamburger-icon");
-
-  let isMenuOpen = false;
-
-  const toggleMobileMenu = () => {
-    isMenuOpen = !isMenuOpen;
-
-    // Update ARIA attributes
-    menuToggle.setAttribute("aria-expanded", isMenuOpen.toString());
-    mobileMenu.setAttribute("aria-hidden", (!isMenuOpen).toString());
-
-    // Toggle menu visibility
-    if (isMenuOpen) {
-      mobileMenu.classList.add("mobile-menu-open");
-      hamburgerIcon.classList.add("hamburger-open");
-    } else {
-      mobileMenu.classList.remove("mobile-menu-open");
-      hamburgerIcon.classList.remove("hamburger-open");
-    }
-  };
-
-  menuToggle.addEventListener("click", toggleMobileMenu);
-
-  // Close mobile menu when clicking on a link (for single-page apps)
-  const mobileLinks = mobileMenu.querySelectorAll("a");
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      if (isMenuOpen) {
-        toggleMobileMenu();
-      }
+    const r = btn.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.documentElement.classList.add("theme-transition");
+    const vt = document.startViewTransition(() => setTheme(dark));
+    vt.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${radius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 600,
+          easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      );
     });
-  });
+    vt.finished.finally(() =>
+      document.documentElement.classList.remove("theme-transition")
+    );
+  };
 
-  // Close mobile menu when window is resized to desktop size
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 1024 && isMenuOpen) {
-      toggleMobileMenu();
-    }
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeBtn = document.getElementById("theme-toggle");
+    themeBtn?.addEventListener("click", () => toggleTheme(themeBtn));
+
+    const menuBtn = document.getElementById("menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+    if (!menuBtn || !menu) return;
+    const setOpen = (open: boolean) => {
+      menuBtn.setAttribute("aria-expanded", String(open));
+      menu.dataset.open = String(open);
+      menu.inert = !open;
+    };
+    setOpen(false);
+    menuBtn.addEventListener("click", () =>
+      setOpen(menu.dataset.open !== "true")
+    );
+    menu.addEventListener("click", (e) => {
+      if ((e.target as Element).closest("a, button")) setOpen(false);
+    });
   });
 </script>

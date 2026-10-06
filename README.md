@@ -17,7 +17,8 @@ This is the repository for my portfolio built with Astro.js, React, and Tailwind
 - **UI:** React components
 - **Styling:** TailwindCSS, Tailwind Typography
 - **Markdown:** MDX with Shiki syntax highlighting
-- **Animations:** Framer Motion, Keen Slider
+- **Animations:** Astro View Transitions, CSS scroll-driven animations, Canvas 2D
+- **Fonts:** Space Grotesk, JetBrains Mono, Atkinson Hyperlegible
 - **Build Tools:** Vite
 - **Other:** Astro RSS, Astro Sitemap, Astro Embed
 
