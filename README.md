@@ -37,7 +37,7 @@ My personal portfolio and blog, where I write about my projects, games and music
 - **Animations:** CSS scroll-driven animations, View Transitions API (theme toggle), Canvas 2D
 - **Fonts:** Space Grotesk, JetBrains Mono, Atkinson Hyperlegible
 - **Build Tools:** Vite
-- **Other:** Astro RSS, Astro Sitemap, Astro Embed, Formspree (contact form)
+- **Other:** Astro RSS, Astro Sitemap, Astro Embed, obfuscated alias email + LinkedIn (contact page)
 
 ## Getting Started
 

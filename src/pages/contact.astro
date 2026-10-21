@@ -1,13 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { socialLinks } from "../consts";
+import { CONTACT_EMAIL_ENCODED, LINKEDIN, socialLinks } from "../consts";
 
-const channels = socialLinks.filter((s) => s.href.startsWith("http"));
+const linkedin = LINKEDIN;
+const channels = socialLinks.filter(
+  (s) => s.href.startsWith("http") && s !== linkedin,
+);
 ---
 
 <BaseLayout
   title="Contact"
-  description="Got a project, a question or just want to say hi? Send me a message."
+  description="Got a project, a question or just want to say hi? Get in touch."
 >
   <section class="mx-auto grid max-w-6xl gap-12 py-8 lg:grid-cols-[1fr_1.2fr] lg:py-16">
     <div class="text-center lg:text-left">
@@ -17,7 +20,7 @@ const channels = socialLinks.filter((s) => s.href.startsWith("http"));
       </h1>
       <p class="text-ctp-subtext0 mt-5 text-lg">
         Whether you have a question, want to discuss a project, or just want to
-        say hello — my inbox is open. I'll get back to you as soon as possible.
+        say hello — reach out and I'll get back to you as soon as possible.
       </p>
 
       <ul class="mt-10 grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
@@ -46,126 +49,105 @@ const channels = socialLinks.filter((s) => s.href.startsWith("http"));
       </ul>
     </div>
 
-    <div class="relative">
+    <div class="relative min-w-0">
       <div
         class="from-ctp-blue/30 via-ctp-mauve/20 absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br to-transparent blur-2xl"
         aria-hidden="true"
       >
       </div>
-      <form
-        action="https://formspree.io/f/mrbknyvw"
-        method="POST"
-        data-astro-reload
-        class="glass space-y-5 rounded-3xl p-6 shadow-2xl sm:p-10"
-      >
-        <div class="text-ctp-subtext0 -mt-1 mb-2 flex items-center gap-1.5 font-mono text-xs">
+      <div class="glass space-y-8 rounded-3xl p-6 shadow-2xl sm:p-10">
+        <div class="text-ctp-subtext0 -mt-1 flex items-center gap-1.5 font-mono text-xs">
           <span class="bg-ctp-red h-2.5 w-2.5 rounded-full"></span>
           <span class="bg-ctp-yellow h-2.5 w-2.5 rounded-full"></span>
           <span class="bg-ctp-green h-2.5 w-2.5 rounded-full"></span>
-          <span class="ml-2">new_message.md</span>
+          <span class="ml-2">contact.md</span>
         </div>
 
-        <!-- Honeypot: invisible trap for bots -->
-        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" />
+        <div>
+          <p class="eyebrow mb-2">// preferred</p>
+          <h2 class="text-2xl font-bold">Message me on LinkedIn</h2>
+          <p class="text-ctp-subtext0 mt-2">
+            The fastest way to reach me, whether it's about a role, a project or
+            anything else.
+          </p>
+          <a
+            href={linkedin.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary mt-5 w-full !py-4"
+          >
+            <span class="h-5 w-5 [&>svg]:h-full [&>svg]:w-full" set:html={linkedin.icon} />
+            Open LinkedIn
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
 
-        <div class="field">
-          <input type="text" id="name" name="name" required placeholder=" " autocomplete="name" />
-          <label for="name">Name</label>
-        </div>
-        <div class="field">
-          <input type="email" id="email" name="email" required placeholder=" " autocomplete="email" />
-          <label for="email">Email</label>
-        </div>
-        <div class="field">
-          <textarea id="message" name="message" required rows="6" placeholder=" "></textarea>
-          <label for="message">Message</label>
+        <div class="text-ctp-overlay1 flex items-center gap-4 font-mono text-xs" aria-hidden="true">
+          <span class="bg-ctp-surface1 h-px flex-1"></span>
+          or by email
+          <span class="bg-ctp-surface1 h-px flex-1"></span>
         </div>
 
-        <div class="flex justify-center overflow-hidden py-2">
-          <div id="recaptcha" data-sitekey="6LfxFfwrAAAAAJ-2kYG4AZTotzQTu6Tq18NsFOfQ"></div>
+        <div id="email-box" data-email={CONTACT_EMAIL_ENCODED}>
+          <button id="email-reveal" type="button" class="btn btn-ghost w-full !py-4">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+            Show email address
+          </button>
+          <div id="email-revealed" class="hidden flex-col gap-2 sm:flex-row sm:items-center">
+            <a
+              id="email-link"
+              class="panel text-ctp-blue min-w-0 flex-1 truncate p-4 text-center font-mono hover:underline"
+            ></a>
+            <button
+              id="email-copy"
+              type="button"
+              class="btn btn-ghost shrink-0 !py-4"
+            >
+              Copy
+            </button>
+          </div>
+          <noscript>
+            <p class="text-ctp-subtext0 mt-3 text-center text-sm">
+              Enable JavaScript to see the email address, or reach me on LinkedIn.
+            </p>
+          </noscript>
         </div>
-
-        <button type="submit" class="btn btn-primary w-full !py-4">
-          Send message
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z"></path><path d="M22 2 11 13"></path></svg>
-        </button>
-      </form>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
-<style>
-  .field {
-    position: relative;
-  }
-  .field input,
-  .field textarea {
-    width: 100%;
-    padding: 1.5rem 1rem 0.6rem;
-    border-radius: 0.9rem;
-    border: 1px solid color-mix(in oklab, var(--color-ctp-overlay0) 35%, transparent);
-    background: color-mix(in oklab, var(--color-ctp-crust) 50%, transparent);
-    color: var(--color-ctp-text);
-    caret-color: var(--color-ctp-blue);
-    outline: none;
-    resize: vertical;
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
-  }
-  .field input:focus,
-  .field textarea:focus {
-    border-color: var(--color-ctp-blue);
-    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-ctp-blue) 20%, transparent);
-  }
-  .field label {
-    position: absolute;
-    left: 1rem;
-    top: 1.05rem;
-    color: var(--color-ctp-subtext0);
-    pointer-events: none;
-    transform-origin: left top;
-    transition:
-      transform 0.2s,
-      color 0.2s;
-  }
-  .field :is(input, textarea):focus + label,
-  .field :is(input, textarea):not(:placeholder-shown) + label {
-    transform: translateY(-0.65rem) scale(0.75);
-    color: var(--color-ctp-blue);
-    font-family: var(--font-mono);
-  }
-</style>
-
 <script>
-  // Render reCAPTCHA explicitly so it works with client-side navigation and
-  // matches the current theme.
-  declare global {
-    interface Window {
-      grecaptcha?: { render: (el: HTMLElement, opts: object) => void };
-      __onRecaptcha?: () => void;
-    }
-  }
-
-  const renderCaptcha = () => {
-    const el = document.getElementById("recaptcha");
-    if (!el || el.childElementCount || !window.grecaptcha?.render) return;
-    window.grecaptcha.render(el, {
-      sitekey: el.dataset.sitekey,
-      theme: document.documentElement.classList.contains("dark") ? "dark" : "light",
-    });
-  };
-
   document.addEventListener("DOMContentLoaded", () => {
-    if (!document.getElementById("recaptcha")) return;
-    if (window.grecaptcha?.render) return renderCaptcha();
-    window.__onRecaptcha = renderCaptcha;
-    if (!document.querySelector("script[data-recaptcha]")) {
-      const s = document.createElement("script");
-      s.src = "https://www.google.com/recaptcha/api.js?onload=__onRecaptcha&render=explicit";
-      s.async = true;
-      s.dataset.recaptcha = "";
-      document.head.appendChild(s);
-    }
+    const box = document.getElementById("email-box");
+    const reveal = document.getElementById("email-reveal");
+    const revealed = document.getElementById("email-revealed");
+    const link = document.getElementById("email-link") as HTMLAnchorElement | null;
+    const copy = document.getElementById("email-copy");
+    if (!box || !reveal || !revealed || !link || !copy) return;
+
+    // Decoded only on click, so the address is never in the page until asked for.
+    let address = "";
+
+    reveal.addEventListener("click", () => {
+      address = atob((box.dataset.email ?? "").split("").reverse().join(""));
+      link.href = `mailto:${address}`;
+      link.textContent = address;
+      reveal.classList.add("hidden");
+      revealed.classList.replace("hidden", "flex");
+      // The focused button just disappeared; move focus to the address so
+      // keyboard users keep their place and screen readers read it out.
+      link.focus();
+    });
+
+    copy.addEventListener("click", async () => {
+      const toast = (window as any).__toast;
+      try {
+        await navigator.clipboard.writeText(address);
+        toast?.("📋 Email copied");
+      } catch {
+        toast?.("Couldn't copy — select the address instead");
+      }
+    });
   });
 </script>
