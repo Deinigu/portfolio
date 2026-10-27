@@ -82,65 +82,26 @@ npm run preview
 
 ### Posts
 
-Posts live in `src/content/posts/`, split into three collections: `projects/`, `games/` and `music/`. Use `.mdx` when the post needs a component (such as a YouTube video) and `.md` otherwise. Images go in `src/assets/images/<collection>/<post>/`.
+Posts live in `src/content/posts/`, split into three collections: `projects/`, `games/` and `music/`. Add a `.md` or `.mdx` file with this frontmatter:
 
-Every post follows the same structure. `src/content/posts/projects/cuphead-rl.mdx` is the reference example.
-
-````mdx
+```yaml
 ---
 title: "My New Project"
-description: "One sentence, under 160 characters, shown under the title, on cards and in search."
+description: "A short summary shown on cards and in search."
 pubDate: "2025-01-31"
 heroImage: "../../../assets/images/projects/my-project/cover.png"
 collection: "projects"
 tags: ["Python", "AI"]
-sourceCode: "https://github.com/Deinigu/my-project" # optional, adds a "View source" button
+sourceCode: "https://github.com/Deinigu/my-project" # optional, "View source" button
+links: # optional, more buttons next to "View source"
+  - label: "Watch the video"
+    href: "https://youtu.be/VIDEO_ID"
+  - label: "About the soundtrack"
+    href: "/portfolio/posts/music/my-soundtrack/"
 ---
+```
 
-import { YouTube } from "astro-embed";
-
-What it is, in one or two sentences, and what the video (or image) below shows.
-
-<YouTube id="VIDEO_ID" title="Video title" class="!max-w-full" />
-
-## Why
-
-Two or three sentences on the motivation. Leave the section out if there isn't one beyond the course or jam.
-
-## How it works
-
-- **Part.** One or two sentences about it.
-- **Another part.** One or two sentences about it.
-
-## The interesting part, named after its topic
-
-Two or three sentences on the problem, decision or detail worth telling.
-
-## Results
-
-| | Result |
-| --- | --- |
-| What was measured | The number |
-
-## Code and details
-
-One sentence on what the links lead to.
-
-<div class="not-prose my-8 flex flex-wrap gap-3">
-  <a href="https://github.com/Deinigu/my-project" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Code on GitHub ↗</a>
-  <a href="https://youtu.be/VIDEO_ID" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Watch the video ↗</a>
-</div>
-
-*Credits or a disclaimer, if any.*
-````
-
-Guidelines:
-
-- **Length.** About 250 to 400 words of text. The media and the links carry the details; don't repeat the README.
-- **Tone.** First person, direct and plain, for recruiters and developers. No emojis or hype words.
-- **Sections.** Keep the order. "Why", the interesting part and "Results" are optional; only include numbers you can back up. Games use "How it plays" and "Play it", music uses "How I made it" and "Listen".
-- **Media.** Use the `YouTube` component from `astro-embed` for videos (it loads on click from `youtube-nocookie.com`). For tweets with video, paste X's embed code with its `widgets.js` script once per post, so the clip plays inline.
-- **Buttons.** The first is `btn-primary`, the rest `btn-ghost`. External links end in `↗` and open in a new tab; links to other posts end in `→`.
+`sourceCode` and `links` appear as buttons under the post's title. External links open in a new tab and end in ↗; links to other posts end in →. For YouTube videos, use the `YouTube` component from `astro-embed` in an `.mdx` post (`<YouTube id="VIDEO_ID" class="!max-w-full" />`), which loads the video from `youtube-nocookie.com` only when clicked.
 
 New posts automatically appear on the home page, in the posts list, in the command palette and in the RSS feed.
 

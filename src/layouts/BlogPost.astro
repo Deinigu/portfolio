@@ -19,8 +19,20 @@ type Props = {
 };
 
 const { post, headings, minutes, newer, older } = Astro.props;
-const { title, description, pubDate, updatedDate, heroImage, tags = [], sourceCode } =
-  post.data;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  tags = [],
+  sourceCode,
+  links = [],
+} = post.data;
+const buttons = [
+  ...(sourceCode ? [{ label: "View source", href: sourceCode }] : []),
+  ...links,
+].map((l) => ({ ...l, external: /^https?:\/\//.test(l.href) }));
 const meta = collectionMeta[post.collection];
 // Skip very long "headings" (e.g. text pulled in from embedded tweets)
 const toc = headings.filter(
@@ -71,15 +83,19 @@ const toc = headings.filter(
         )
       }
       {
-        sourceCode && (
-          <a
-            href={sourceCode}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-ghost mt-6 text-sm"
-          >
-            View source ↗
-          </a>
+        buttons.length > 0 && (
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            {buttons.map((b) => (
+              <a
+                href={b.href}
+                target={b.external ? "_blank" : undefined}
+                rel={b.external ? "noopener noreferrer" : undefined}
+                class="btn btn-ghost text-sm"
+              >
+                {b.label} {b.external ? "↗" : "→"}
+              </a>
+            ))}
+          </div>
         )
       }
     </header>

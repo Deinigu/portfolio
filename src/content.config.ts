@@ -12,6 +12,10 @@ const baseSchema = ({ image }: any) =>
     tags: z.array(z.string()).optional(),
     collection: z.string().optional(),
     sourceCode: z.string().optional(),
+    // Extra buttons shown under the title, next to "View source"
+    links: z
+      .array(z.object({ label: z.string(), href: z.string() }))
+      .optional(),
   });
 
 const posts = defineCollection({
