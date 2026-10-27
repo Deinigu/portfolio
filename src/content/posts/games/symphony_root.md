@@ -5,6 +5,11 @@ pubDate: "2023-02-09"
 heroImage: "../../../assets/images/games/root/root_portada.png"
 collection: "games"
 tags: ["Unity", "C#", "Game Design"]
+links:
+  - label: "Play on itch.io"
+    href: "https://deinigu.itch.io/symphony-root"
+  - label: "Global Game Jam page"
+    href: "https://v3.globalgamejam.org/2023/games/symphony-root-8"
 ---
 
 ## 🍎 Description
@@ -12,8 +17,6 @@ tags: ["Unity", "C#", "Game Design"]
 ![Gameplay screenshot of Symphony Root](../../../assets/images/games/root/scr1.png)
 
 **Symphony Root** is a rhythm-based game where you play as the root of an apple tree, navigating underground to find water while dodging rocks and other obstacles—all in sync with the music. Created for the [Global Game Jam 2023](https://v3.globalgamejam.org/2023/games/symphony-root-8), the game explores the theme of "Roots" in a playful and musical way.
-
-### [🎮 Download and play Symphony Root on itch.io](https://deinigu.itch.io/symphony-root)
 
 ## 🦾 Credits
 

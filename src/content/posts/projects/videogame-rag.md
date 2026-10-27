@@ -5,9 +5,8 @@ pubDate: "2025-02-02"
 heroImage: "../../../assets/images/projects/videogame-rag/portada.png"
 collection: "projects"
 tags: ["RAG", "Azure AI", "OpenAI", "LLMs", "Streamlit", "Python"]
+sourceCode: "https://github.com/Deinigu/videogame-assist-rag/"
 ---
-
-[🔗 GitHub Repository](https://github.com/Deinigu/videogame-assist-rag/)
 
 A Retrieval-Augmented Generation (RAG) system built with Azure OpenAI and Azure Cognitive Search, featuring both console and web interfaces for document-based question answering about video game manuals and guides.
 

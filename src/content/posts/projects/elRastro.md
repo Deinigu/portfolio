@@ -5,6 +5,11 @@ pubDate: "2023-12-31"
 heroImage: "../../../assets/images/projects/elrastro/portada.png"
 collection: "projects"
 tags: ["Python", "Django", "Angular", "MongoDB", "AWS", "Web Development"]
+links:
+  - label: "Frontend repository"
+    href: "https://github.com/Deinigu/elRastro-fe"
+  - label: "Backend repository"
+    href: "https://github.com/Deinigu/elRastro-be"
 ---
 
 ## 🔍 Project Overview
@@ -12,9 +17,6 @@ tags: ["Python", "Django", "Angular", "MongoDB", "AWS", "Web Development"]
 This application was developed as the final project made for the "Web Engineering" class.
 
 _elRastro_ is a comprehensive application designed to facilitate the buying and selling of products, incorporating a bidding system. It is built on a microservices architecture, deployed in the cloud, and features functionalities such as user management, payments, and product visualization on a map.
-
-- [🔗 Frontend GitHub Repository](https://github.com/Deinigu/elRastro-fe)
-- [🔗 Backend GitHub Repository](https://github.com/Deinigu/elRastro-be)
 
 ---
 

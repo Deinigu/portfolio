@@ -92,9 +92,16 @@ pubDate: "2025-01-31"
 heroImage: "../../../assets/images/projects/my-project/cover.png"
 collection: "projects"
 tags: ["Python", "AI"]
-sourceCode: "https://github.com/Deinigu/my-project" # optional
+sourceCode: "https://github.com/Deinigu/my-project" # optional, "View source" button
+links: # optional, more buttons next to "View source"
+  - label: "Watch the video"
+    href: "https://youtu.be/VIDEO_ID"
+  - label: "About the soundtrack"
+    href: "/portfolio/posts/music/my-soundtrack/"
 ---
 ```
+
+`sourceCode` and `links` appear as buttons under the post's title. External links open in a new tab and end in ↗; links to other posts end in →. For YouTube videos, use the `YouTube` component from `astro-embed` in an `.mdx` post (`<YouTube id="VIDEO_ID" class="!max-w-full" />`), which loads the video from `youtube-nocookie.com` only when clicked.
 
 New posts automatically appear on the home page, in the posts list, in the command palette and in the RSS feed.
 

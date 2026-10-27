@@ -5,6 +5,9 @@ pubDate: "2023-08-01"
 heroImage: "https://img.itch.zone/aW1nLzE3MzIwNDEwLnBuZw==/315x250%23c/6QUUj8.png"
 collection: "games"
 tags: ["Godot", "Game Design", "Browser"]
+links:
+  - label: "Play on itch.io"
+    href: "https://deinigu.itch.io/pepitos-mayhem"
 ---
 
 ## 🎮 Description

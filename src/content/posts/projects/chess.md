@@ -5,9 +5,11 @@ pubDate: "2024-07-16"
 heroImage: "../../../assets/images/projects/chess/chess.png"
 collection: "projects"
 tags: ["YOLOv8", "OpenCV", "Computer Vision", "AI", "Deep Learning"]
+sourceCode: "https://github.com/Deinigu/TFG-Diego"
+links:
+  - label: "Read the paper"
+    href: "https://www.linkedin.com/posts/dlreduello_tfg-activity-7222631442877472768-mZHz"
 ---
-
-[🔗 GitHub Repository](https://github.com/Deinigu/TFG-Diego)
 
 This project was done as my Final Degree Project for the University of Málaga.
 The purpose of this project is to develop a neural network system that detects and classifies chess pieces on a real board, outputting their positions in FEN format. It uses a custom-labeled dataset and applies deep learning and computer vision techniques to ensure accurate performance under varying lighting conditions. The system aims to help digitize physical chess games for enthusiasts.

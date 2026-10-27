@@ -5,11 +5,10 @@ pubDate: "2023-08-23"
 heroImage: "../../../assets/images/projects/sortee.png"
 collection: "projects"
 tags: ["Python", "PyGame", "Algorithms", "Data Science"]
+sourceCode: "https://github.com/Deinigu/Sortee"
 ---
 
 ## 🔍 Project Overview
-
-- [🔗 GitHub Repository](https://github.com/Deinigu/Sortee)
 
 **Sortee** is an interactive visualization tool built with Python and PyGame, designed to help users understand how different sorting algorithms work. The application visually demonstrates the step-by-step process of three popular sorting algorithms:
 
