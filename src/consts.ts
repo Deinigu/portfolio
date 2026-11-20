@@ -353,6 +353,11 @@ export const skills: SkillList[] = [
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
       },
       {
+        title: "GitHub Pages",
+        imageSrc:
+          "https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/githubpages.svg",
+      },
+      {
         title: "Google Cloud",
         imageSrc:
           "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
@@ -528,7 +533,7 @@ export const careerItems: CareerItem[] = [
   {
     title: "Curricular Intern",
     company: "Avanade Spain",
-    period: "2023",
+    period: "2024",
     description:
       "This was my practice period at university, where I worked on various projects related to web development and data analysis.",
     skills: [

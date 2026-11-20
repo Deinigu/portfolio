@@ -10,8 +10,8 @@ import { getAllPosts, BASE } from "../scripts/posts";
 
 const posts = await getAllPosts();
 const stats = [
-  // Professional experience started in 2023 (Avanade internship)
-  { value: new Date().getFullYear() - 2023, suffix: "", label: "years of experience" },
+  // Professional experience started in 2024 (Avanade internship)
+  { value: new Date().getFullYear() - 2024, suffix: "", label: "years of experience" },
   { value: skills.reduce((n, s) => n + s.skills.length, 0), suffix: "", label: "technologies" },
   { value: posts.length, suffix: "", label: "posts shipped" },
   { value: certifications.length, suffix: "", label: "certifications" },
